@@ -5,8 +5,6 @@ import User from "./User";
 import Gender from "./enums/Gender";
 
 export default class Customer extends User {
-  private customersList = new Array<Customer>();
-
   name!: string;
   birthDate!: Date;
   gender!: Gender;
@@ -15,46 +13,6 @@ export default class Customer extends User {
   addresses: Address[] = [];
   phones: Phone[] = [];
   ranking!: number;
-  
-  save(customer: Customer): string {
-    this.customersList.push(customer);
-    return "Customer created successfully";
-  }
-
-  validate(): boolean {
-    const today = new Date();
-    if (this.birthDate >= today) {
-      return false;
-    }
-
-    if (this.cards.length === 0) {
-      return false;
-    }
-
-    if (this.addresses.length === 0) {
-      return false;
-    }
-
-    for (const address of this.addresses) {
-      if (!address.validate()) {
-        return false;
-      }
-    }
-
-    for (const card of this.cards) {
-      if (!card.validate()) {
-        return false;
-      }
-    }
-
-    for (const phone of this.phones) {
-      if (!phone.validate()) {
-        return false;
-      }
-    }
-    
-    return true;
-  } 
 
   setName(name: string): void {
     this.name = name;

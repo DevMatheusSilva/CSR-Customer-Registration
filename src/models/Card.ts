@@ -8,8 +8,14 @@ export default class Card extends Entitie {
   isPreferential!: boolean;
   banner!: Banner;
 
-  validate(): boolean {
-    return true;
+  validateCardNumber(cardNumber: string): boolean {
+    const cardNumberRegex: RegExp = /^(?:\d[ -]*?){13,16}$/;
+    return cardNumberRegex.test(cardNumber);
+  }
+
+  validateCardCvv(cvv: string): boolean {
+    const cardCvvRegex: RegExp = /^\d{3,4}$/;
+    return cardCvvRegex.test(cvv);
   }
 
   setNumber(number: string): void {

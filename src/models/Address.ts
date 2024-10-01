@@ -9,14 +9,19 @@ export default class Address extends Entitie {
   publicPlace!: string;
   publicPlaceType!: string;
   neighborhood!: string;
-  observation!: string;
+  observation?: string;
   city!: string;
   state!: string;
   country!: Country;
   type!: AddressType;
 
-  validate(): boolean {
-    return true;
+  validateCep(cep: string): boolean {
+    const cpfRegex: RegExp = /\d{5}-\d{3}/
+    return cpfRegex.test(cep);
+  }
+
+  validateType(type: AddressType): boolean {
+    return Object.values(AddressType).includes(type);
   }
 
   setCep(cep: string): void {

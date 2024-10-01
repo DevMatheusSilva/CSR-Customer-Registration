@@ -10,22 +10,16 @@ import PhoneType from "../models/enums/PhoneType";
 import Customer from "../models/Customer";
 
 export default class CustomerController {
+  private customersList = new Array<Customer>();
+
   constructor(app: express.Application) {
     this.initializeRoutes(app);
   };
 
   private initializeRoutes(app: express.Application): void {
-    app.get("/", (_, res) => {
-      this.renderHomePage(_, res);
-    });
-  
-    app.get("/customers", (_, res) => {
-      this.renderCustomersForm(_, res);
-    });
-
-    app.post("/customers", (req, res) => {
-      this.createCustomer(req, res);
-    });
+    app.get("/", (_, res) => {this.renderHomePage(_, res);});
+    app.get("/customers", (_, res) => {this.renderCustomersForm(_, res);});
+    app.post("/customers", (req, res) => {this.defineCustomer(req, res);});
   }
 
   private renderHomePage(_: express.Request, res: express.Response): void {
@@ -36,175 +30,149 @@ export default class CustomerController {
     res.status(200).render("customers");
   }
 
-  private createCustomer(req: express.Request, res: express.Response): void {
-    const address: Address = this.createAddress(req);
-    const card: Card = this.createCard(req);
-    const phone: Phone = this.createPhone(req);
-    const gender: Gender = req.body.gender;
-    const name: string = req.body.name;
-    const birthDate: Date = req.body.birthDate;
-    const cpf: string = req.body.cpf;
-    const email: string = req.body.email;
+  private defineCustomer(req: express.Request, res: express.Response): void {
     const passwordFirst: string = req.body.passwordFirst;
     const passwordSecond: string = req.body.passwordSecond;
-    if (passwordFirst !== passwordSecond) {
-      res.status(400).send("Passwords do not match");
+
+    if(passwordFirst !== passwordSecond) {
+      res.status(400).json({ message: "Passwords do not match" });
       return;
     }
+    const customer: Customer = new Customer();
+
+    customer.setPassword(passwordFirst);
+
+    try {
+      customer.setOneAddress(this.defineAddress(req));
+    } catch (error) {
+      const err = error as Error;
+      res.status(400).json({ message: err.message });
+      return;
+    }
+
+    try {
+      customer.setOneCard(this.defineCard(req));
+    } catch (error) {
+      const err = error as Error;
+      res.status(400).json({ message: err.message });
+      return;
+    }
+
+    try {
+      customer.setOnePhone(this.definePhone(req));
+    } catch (error) {
+      const err = error as Error;
+      res.status(400).json({ message: err.message });
+      return;
+    }
+
+    customer.setGender(req.body.gender as Gender);
+    customer.setName(req.body.name);
+    customer.setBirthDate(req.body.birthDate);
+
+    if (this.customersList.some((c) => c.cpf === req.body.cpf)) {
+      res.status(400).json({ message: "CPF already registered" });
+      return;
+    }
+    customer.setCpf(req.body.cpf);
     
-    const customer: Customer = this.defineCustomer(
-      address, 
-      card, 
-      phone, 
-      gender, 
-      name, 
-      birthDate, 
-      cpf, 
-      email, 
-      passwordFirst
-    );
-
-    if (!customer.validate()) {
-      res.status(400).send("Invalid customer data");
+    if (this.customersList.some((c) => c.email === req.body.cpf)) {
+      res.status(400).json({ message: "Email already registered" });
       return;
     }
+    customer.setEmail(req.body.email);
 
-    res.status(201).json(customer);
+    this.saveCustomer(customer);
+    res.status(201).json(this.customersList);
   } 
 
-  private defineCustomer(
-    address: Address, 
-    card: Card, 
-    phone: Phone, 
-    gender: Gender, 
-    name: string, 
-    birthDate: Date, 
-    cpf: string, 
-    email: string, 
-    password: string
-  ): Customer {
-    const customer: Customer = new Customer();
-    customer.setOneAddress(address);
-    customer.setOneCard(card);
-    customer.setOnePhone(phone);
-    customer.setGender(gender);
-    customer.setName(name);
-    customer.setBirthDate(birthDate);
-    customer.setCpf(cpf);
-    customer.setEmail(email);
-    customer.setPassword(password);
-    return customer;
-  }
-
-  private createAddress(req: express.Request): Address {
-    const cep: string = req.body.cep;
-    const number: string = req.body.number;
-    const complement: string = req.body.complement;
-    const publicPlace: string = req.body.publicPlace;
-    const publicPlaceType: string = req.body.publicPlaceType;
-    const neighborhood: string = req.body.neighborhood;
-    const observation: string = req.body.observation;
-    const city: string = req.body.city;
-    const state: string = req.body.state;
-    const country: Country = this.createCountry(req);
-    const type: AddressType = req.body.addressType;
-    return this.defineAddress(
-      cep, 
-      number, 
-      complement, 
-      publicPlace, 
-      publicPlaceType, 
-      neighborhood, 
-      observation, 
-      city, 
-      state, 
-      country, 
-      type
-    );
-  }
-  
-  private defineAddress(
-    cep: string, 
-    number: string, 
-    complement: string, 
-    publicPlace: string, 
-    publicPlaceType: string, 
-    neighborhood: string, 
-    observation: string, 
-    city: string, state: string, 
-    country: Country, 
-    type: AddressType
-  ): Address {
+  private defineAddress(req: express.Request): Address {
     const address: Address = new Address();
-    address.setCep(cep);
-    address.setNumber(number);
-    address.setComplement(complement);
-    address.setPublicPlace(publicPlace);
-    address.setPublicPlaceType(publicPlaceType);
-    address.setNeighborhood(neighborhood);
-    address.setObservation(observation);
-    address.setCity(city);
-    address.setState(state);
-    address.setCountry(country);
-    address.setType(type);
+
+    if (!address.validateCep(req.body.cep)) {
+      throw new Error(`Invalid CEP: ${req.body.cep}`);
+    }
+    address.setCep(req.body.cep);
+    
+    address.setNumber(req.body.number);
+    address.setComplement(req.body.complement);
+    address.setPublicPlace(req.body.publicPlace);
+    address.setPublicPlaceType(req.body.publicPlaceType);
+    address.setNeighborhood(req.body.neighborhood);
+    address.setObservation(req.body.observation);
+    address.setCity(req.body.city);
+    address.setState(req.body.state);
+    address.setCountry(this.defineCountry(req));
+    
+    if (!address.validateType(req.body.addressType as AddressType)) {
+      throw new Error(`Invalid address type: ${req.body.addressType}`);
+    }
+    address.setType(req.body.addressType as AddressType);
+    
     return address;
   }
 
-  private createCountry(req: express.Request): Country {
-    const name: string = req.body.countryName;
-    const abbreviation: string = req.body.countryAbbreviation;
-    return this.defineCountry(name, abbreviation);
-  }
-
-  private defineCountry(name: string, abbreviation: string): Country {
+  private defineCountry(req: express.Request): Country {
     const country: Country = new Country();
-    country.setName(name);
-    country.setAbbreviation(abbreviation);
+    country.setName(req.body.countryName);
+
+    if(!country.validateAbbr(req.body.countryAbbreviation)) {
+      throw new Error(`Invalid country abbreviation: ${req.body.countryAbbreviation}`);
+    }
+    country.setAbbreviation(req.body.countryAbbreviation);
+
     return country;
   }
 
-  private createCard(req: express.Request): Card {
-    const number: string = req.body.cardNumber;
-    const printedName: string = req.body.printedName;
-    const cvv: string = req.body.verificationNumber;
-    const isPreferential: boolean = req.body.isPreferential === "true";
-    const banner: Banner = this.createBanner(req);
-    return this.defineCard(number, printedName, cvv, isPreferential, banner);
-  }
-
-  private defineCard(number: string, printedName: string, cvv: string, isPreferential: boolean, banner: Banner): Card {
+  private defineCard(req: express.Request): Card {
     const card: Card = new Card();
-    card.setNumber(number);
-    card.setPrintedName(printedName);
-    card.setCvv(cvv);
-    card.setIsPreferential(isPreferential);
-    card.setBanner(banner);
+
+    if(!card.validateCardNumber(req.body.cardNumber)) {
+      throw new Error(`Invalid card number: ${req.body.cardNumber}`);
+    }
+    card.setNumber(req.body.cardNumber);
+
+    card.setPrintedName(req.body.printedName);
+
+    if(!card.validateCardCvv(req.body.verificationNumber)) {
+      throw new Error(`Invalid CVV: ${req.body.verificationNumber}`);
+    }
+    card.setCvv(req.body.verificationNumber);
+
+    card.setIsPreferential(req.body.isPreferential === "true");
+    card.setBanner(this.defineBanner(req));
+
     return card;
   }
 
-  private createBanner(req: express.Request): Banner {
-    const desc = req.body.banner;
-    return this.defineBanner(desc);
-  }
-
-  private defineBanner(desc: string) {
+  private defineBanner(req: express.Request): Banner {
     const banner: Banner = new Banner();
-    banner.setDescription(desc);
+    banner.setDescription(req.body.banner);
     return banner;
   }
 
-  private createPhone(req: express.Request): Phone {
-    const ddd: string = req.body.ddd;
-    const number: string = req.body.phoneNumber;
-    const type: PhoneType = req.body.phoneType;
-    return this.definePhone(ddd, number, type);
+  private definePhone(req: express.Request): Phone {
+    const phone: Phone = new Phone();
+
+    if(!phone.validateDdd(req.body.ddd)) {
+      throw new Error(`Invalid phone number: ${req.body.ddd}`);
+    }
+    phone.setDdd(req.body.ddd);
+
+    if(!phone.validateNumber(req.body.phoneNumber)) {
+      throw new Error(`Invalid phone number: ${req.body.phoneNumber}`);
+    }
+    phone.setNumber(req.body.phoneNumber);
+
+    if(!phone.validateType(req.body.phoneType as PhoneType)) {
+      throw new Error(`Invalid phone type: ${req.body.phoneType}`);
+    }
+    phone.setType(req.body.phoneType as PhoneType);
+
+    return phone;
   }
 
-  private definePhone(ddd: string, number: string, type: PhoneType): Phone {
-    const phone: Phone = new Phone();
-    phone.setDdd(ddd);
-    phone.setNumber(number);
-    phone.setType(type);
-    return phone;
+  private saveCustomer(customer: Customer): void{
+    this.customersList.push(customer);
   }
 }
