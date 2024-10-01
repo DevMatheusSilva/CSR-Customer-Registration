@@ -1,5 +1,5 @@
 import express from "express";
-import CustomerController from "./controllers/customer.controller";
+import routes from "./controllers/router";
 import expressStaticSetUp from "./controllers/middlewares/expressStaticSetup";
 import configureExpressForm from "./controllers/middlewares/expressFormSetup";
 import viewConfig from "./controllers/middlewares/expressViewsSetup";
@@ -11,7 +11,6 @@ app.use(expressStaticSetUp);
 
 viewConfig(app);
 configureExpressForm(app);
-
-new CustomerController(app);
+routes(app);
 
 export default app;

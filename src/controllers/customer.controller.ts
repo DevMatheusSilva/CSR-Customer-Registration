@@ -12,25 +12,15 @@ import Customer from "../models/Customer";
 export default class CustomerController {
   private customersList = new Array<Customer>();
 
-  constructor(app: express.Application) {
-    this.initializeRoutes(app);
-  };
-
-  private initializeRoutes(app: express.Application): void {
-    app.get("/", (_, res) => {this.renderHomePage(_, res);});
-    app.get("/customers", (_, res) => {this.renderCustomersForm(_, res);});
-    app.post("/customers", (req, res) => {this.defineCustomer(req, res);});
-  }
-
-  private renderHomePage(_: express.Request, res: express.Response): void {
+  renderHomePage(_: express.Request, res: express.Response): void {
     res.status(200).render("home");
   }
 
-  private renderCustomersForm(_: express.Request, res: express.Response): void {
+  renderCustomersForm(_: express.Request, res: express.Response): void {
     res.status(200).render("customers");
   }
 
-  private defineCustomer(req: express.Request, res: express.Response): void {
+  defineCustomer(req: express.Request, res: express.Response): void {
     const passwordFirst: string = req.body.passwordFirst;
     const passwordSecond: string = req.body.passwordSecond;
 
@@ -38,6 +28,7 @@ export default class CustomerController {
       res.status(400).json({ message: "Passwords do not match" });
       return;
     }
+
     const customer: Customer = new Customer();
 
     customer.setPassword(passwordFirst);
@@ -76,14 +67,14 @@ export default class CustomerController {
     }
     customer.setCpf(req.body.cpf);
     
-    if (this.customersList.some((c) => c.email === req.body.cpf)) {
+    if (this.customersList.some((c) => c.email === req.body.email)) {
       res.status(400).json({ message: "Email already registered" });
       return;
     }
     customer.setEmail(req.body.email);
 
     this.saveCustomer(customer);
-    res.status(201).json(this.customersList);
+    res.status(201).json(customer);
   } 
 
   private defineAddress(req: express.Request): Address {

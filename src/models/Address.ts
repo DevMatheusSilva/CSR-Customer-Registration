@@ -16,8 +16,8 @@ export default class Address extends Entitie {
   type!: AddressType;
 
   validateCep(cep: string): boolean {
-    const cpfRegex: RegExp = /\d{5}-\d{3}/
-    return cpfRegex.test(cep);
+    const cepRegex: RegExp = /\d{5}-\d{3}/
+    return cepRegex.test(cep);
   }
 
   validateType(type: AddressType): boolean {
