@@ -8,17 +8,12 @@ export default class Card extends Entitie {
   isPreferential!: boolean;
   banner!: Banner;
 
-  validateCardNumber(cardNumber: string): boolean {
-    const cardNumberRegex: RegExp = /^(?:\d[ -]*?){13,16}$/;
-    return cardNumberRegex.test(cardNumber);
-  }
-
-  validateCardCvv(cvv: string): boolean {
-    const cardCvvRegex: RegExp = /^\d{3,4}$/;
-    return cardCvvRegex.test(cvv);
-  }
-
   setNumber(number: string): void {
+    const cardNumberRegex: RegExp = /^(?:\d[ -]*?){13,16}$/;
+    if (!cardNumberRegex.test(number)) {
+      throw new Error(`Invalid card number: ${number}`);
+    }
+    
     this.number = number;
   }
 
@@ -27,6 +22,11 @@ export default class Card extends Entitie {
   }
 
   setCvv(cvv: string): void {
+    const cardCvvRegex: RegExp = /^\d{3,4}$/;
+    if (!cardCvvRegex.test(cvv)) {
+      throw new Error(`Invalid CVV: ${cvv}`);
+    }
+
     this.cvv = cvv;
   }
 

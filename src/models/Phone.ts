@@ -6,29 +6,28 @@ export default class Phone extends Entitie {
   number!: string;
   type!: PhoneType;
 
-  validateDdd(ddd: string): boolean {
-    const dddRegex: RegExp = /^\d{2}$/;
-    return dddRegex.test(ddd);
-  }
-
-  validateNumber(number: string): boolean {
-    const numberRegex: RegExp = /^\d{8,9}$/;
-    return numberRegex.test(number);
-  }
-
-  validateType(type: PhoneType): boolean {
-    return Object.values(PhoneType).includes(type);
-  }
-
   setDdd(ddd: string): void {
+    const dddRegex: RegExp = /^\d{2}$/;
+    if (!dddRegex.test(ddd)) {
+      throw new Error(`Invalid DDD: ${ddd}`);
+    }
     this.ddd = ddd;
   }
 
   setNumber(number: string): void {
+    const numberRegex: RegExp = /^\d{8,9}$/;
+    if (!numberRegex.test(number)){
+      throw new Error(`Invalid phone number: ${number}`);
+    }
+
     this.number = number;
   }
 
   setType(type: PhoneType): void {
+    if (Object.values(PhoneType).includes(type)){
+      throw new Error(`Invalid phone type: ${type}`);
+    }
+    
     this.type = type;
   }
 }

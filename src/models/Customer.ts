@@ -19,14 +19,24 @@ export default class Customer extends User {
   }
 
   setBirthDate(birthDate: Date): void {
+    if (birthDate > new Date()) {
+      throw new Error(`Invalid birth date: ${birthDate}`);
+    }
     this.birthDate = birthDate;
   }
 
   setGender(gender: Gender): void {
+    if (!Object.values(Gender).includes(gender)) {
+      throw new Error(`Invalid gender: ${gender}`);
+    }
     this.gender = gender;
   }
 
   setCpf(cpf: string): void {
+    const cpfRegex: RegExp = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/
+    if (!cpfRegex.test(cpf)) {
+      throw new Error(`Invalid CPF: ${cpf}`);
+    }
     this.cpf = cpf;
   }
 

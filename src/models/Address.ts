@@ -15,20 +15,20 @@ export default class Address extends Entitie {
   country!: Country;
   type!: AddressType;
 
-  validateCep(cep: string): boolean {
-    const cepRegex: RegExp = /\d{5}-\d{3}/
-    return cepRegex.test(cep);
-  }
-
-  validateType(type: AddressType): boolean {
-    return Object.values(AddressType).includes(type);
-  }
-
   setCep(cep: string): void {
+    const cepRegex: RegExp = /\d{5}-\d{3}/
+    if (!cepRegex.test(cep)) {
+      throw new Error(`Invalid CEP: ${cep}`);
+    }
+
     this.cep = cep;
   }
 
   setNumber(number: string): void {
+    const numberRegex: RegExp = /^\d+([a-zA-Z]?|\d*\-\d*)$/
+    if (!numberRegex.test(number)) {
+      throw new Error(`Invalid number: ${number}`);
+    }
     this.number = number;
   }
 
@@ -65,6 +65,9 @@ export default class Address extends Entitie {
   }
 
   setType(type: AddressType): void {
+    if (!Object.values(AddressType).includes(type)) {
+      throw new Error(`Invalid address type: ${type}`);
+    }
     this.type = type;
   }
 }

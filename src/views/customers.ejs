@@ -268,20 +268,14 @@
             <option value="false">Não</option>
           </select>
         </div>
-
+        
         <div class="input-group-line">
           <label for="banner">Digite a Bandeira do Cartão</label>
-          <select
-            class="input-group-element"
-            type="text"
-            name="banner"
-            id="banner"
-          >
-            <option value="Mastercard">Mastercard</option>
-            <option value="Visa">Visa</option>
-            <option value="Cielo">Cielo</option>
-            <option value="Hipercard">Hipercard</option>
-        </select>
+          <select class="input-group-element" type="text" name="banner" id="banner">
+            <% banners.forEach(element => { %>
+            <option value="<%= element.code %>"><%= element.name %></option>
+            <% }) %> 
+          </select>
         </div>
       </div>
 
