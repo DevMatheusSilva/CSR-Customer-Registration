@@ -10,8 +10,6 @@ import PhoneType from "../models/enums/PhoneType";
 import Customer from "../models/Customer";
 
 export default class CustomerController {
-  private customersList = new Array<Customer>();
-
   constructor(app: express.Application) {
     this.initializeRoutes(app);
   };
@@ -65,10 +63,11 @@ export default class CustomerController {
       passwordFirst
     );
 
-    this.customersList.push(customer);
-    console.log(this.customersList.length);
+    if (!customer.validate()) {
+      res.status(400).send("Invalid customer data");
+    }
     
-    res.status(201).json(customer);
+    res.status(201).json(customer.save(customer));
   } 
 
   private defineCustomer(

@@ -5,6 +5,8 @@ import User from "./User";
 import Gender from "./enums/Gender";
 
 export default class Customer extends User {
+  private customersList = new Array<Customer>();
+
   name!: string;
   birthDate!: Date;
   gender!: Gender;
@@ -14,6 +16,20 @@ export default class Customer extends User {
   phones: Phone[] = [];
   ranking!: number;
   
+  save(customer: Customer): string {
+    this.customersList.push(customer);
+    return "Customer created successfully";
+  }
+
+  validate(): boolean {
+    const cpfRegex = /^\d{11}$/;
+    if (!cpfRegex.test(this.cpf)) {
+      return false;
+    }
+
+    return true;
+  }
+
   setName(name: string): void {
     this.name = name;
   }
