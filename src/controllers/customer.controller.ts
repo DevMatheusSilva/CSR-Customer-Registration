@@ -69,7 +69,7 @@ export default class CustomerController {
       return;
     }
 
-    res.status(201).json(customer.save(customer));
+    res.status(201).json(customer);
   } 
 
   private defineCustomer(
