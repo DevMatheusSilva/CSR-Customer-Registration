@@ -3,44 +3,17 @@ import Entitie from "./Entitie";
 import AddressType from "./enums/AddressType";
 
 export default class Address extends Entitie {
-  cep: string;
-  number: string;
-  complement: string;
-  publicPlace: string;
-  publicPlaceType: string;
-  neighborhood: string;
-  observation: string;
-  city: string;
-  state: string;
-  country: Country;
-  type: AddressType;
-
-  constructor( 
-    cep: string, 
-    number: string, 
-    complement: string, 
-    publicPlace: string, 
-    publicPlaceType: string, 
-    neighborhood: string, 
-    observation: string, 
-    city: string, 
-    state: string, 
-    country: Country, 
-    type: AddressType 
-  ) {
-    super();
-    this.cep = cep;
-    this.number = number;
-    this.complement = complement;
-    this.publicPlace = publicPlace;
-    this.publicPlaceType = publicPlaceType;
-    this.neighborhood = neighborhood;
-    this.observation = observation;
-    this.city = city;
-    this.state = state;
-    this.country = country;
-    this.type = type;
-  }
+  cep!: string;
+  number!: string;
+  complement!: string;
+  publicPlace!: string;
+  publicPlaceType!: string;
+  neighborhood!: string;
+  observation!: string;
+  city!: string;
+  state!: string;
+  country!: Country;
+  type!: AddressType;
 
   setCep(cep: string): void {
     this.cep = cep;

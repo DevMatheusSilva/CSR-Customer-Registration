@@ -2,41 +2,18 @@ import Address from "./Address";
 import Phone from "./Phone";
 import Card from "./Card";
 import User from "./User";
-import Genre from "./enums/Gender";
+import Gender from "./enums/Gender";
 
 export default class Customer extends User {
-  name: string;
-  birthDate: Date;
-  genre: Genre;
-  cpf: string;
-  cards: Card[];
-  addresses: Address[];
-  phones: Phone[];
-  ranking: number;
-
-  constructor(
-    email: string, 
-    password: string, 
-    name: string, 
-    birthDate: Date, 
-    genre: Genre, 
-    cpf: string, 
-    cards: Card[], 
-    addresses: Address[],
-    phones: Phone[],
-    ranking: number
-  ) {
-    super(email, password);
-    this.name = name;
-    this.birthDate = birthDate;
-    this.genre = genre;
-    this.cpf = cpf;
-    this.cards = cards;
-    this.addresses = addresses;
-    this.phones = phones;
-    this.ranking = ranking;
-  }
-
+  name!: string;
+  birthDate!: Date;
+  gender!: Gender;
+  cpf!: string;
+  cards: Card[] = [];
+  addresses: Address[] = [];
+  phones: Phone[] = [];
+  ranking!: number;
+  
   setName(name: string): void {
     this.name = name;
   }
@@ -45,8 +22,8 @@ export default class Customer extends User {
     this.birthDate = birthDate;
   }
 
-  setGenre(genre: Genre): void {
-    this.genre = genre;
+  setGender(gender: Gender): void {
+    this.gender = gender;
   }
 
   setCpf(cpf: string): void {
@@ -57,8 +34,8 @@ export default class Customer extends User {
     this.cards.push(card);
   }
 
-  setAddresses(addresses: Address[]): void {
-    this.addresses = addresses;
+  setOneAddress(address: Address): void {
+    this.addresses.push(address);
   }
 
   setOnePhone(phone: Phone): void {

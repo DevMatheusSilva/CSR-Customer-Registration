@@ -10,6 +10,8 @@ import PhoneType from "../models/enums/PhoneType";
 import Customer from "../models/Customer";
 
 export default class CustomerController {
+  private customersList = new Array<Customer>();
+
   constructor(app: express.Application) {
     this.initializeRoutes(app);
   };
@@ -50,9 +52,48 @@ export default class CustomerController {
     if (passwordFirst !== passwordSecond) {
       res.status(400).send("Passwords do not match");
     }
-    const customer = new Customer(email, passwordFirst, name, birthDate, gender, cpf, [card], [address], [phone], 0);
+    
+    const customer: Customer = this.defineCustomer(
+      address, 
+      card, 
+      phone, 
+      gender, 
+      name, 
+      birthDate, 
+      cpf, 
+      email, 
+      passwordFirst
+    );
+
+    this.customersList.push(customer);
+    console.log(this.customersList.length);
+    
     res.status(201).json(customer);
   } 
+
+  private defineCustomer(
+    address: Address, 
+    card: Card, 
+    phone: Phone, 
+    gender: Gender, 
+    name: string, 
+    birthDate: Date, 
+    cpf: string, 
+    email: string, 
+    password: string
+  ): Customer {
+    const customer: Customer = new Customer();
+    customer.setOneAddress(address);
+    customer.setOneCard(card);
+    customer.setOnePhone(phone);
+    customer.setGender(gender);
+    customer.setName(name);
+    customer.setBirthDate(birthDate);
+    customer.setCpf(cpf);
+    customer.setEmail(email);
+    customer.setPassword(password);
+    return customer;
+  }
 
   private createAddress(req: express.Request): Address {
     const cep: string = req.body.cep;
@@ -66,7 +107,7 @@ export default class CustomerController {
     const state: string = req.body.state;
     const country: Country = this.createCountry(req);
     const type: AddressType = req.body.addressType;
-    return new Address(
+    return this.defineAddress(
       cep, 
       number, 
       complement, 
@@ -81,10 +122,44 @@ export default class CustomerController {
     );
   }
   
+  private defineAddress(
+    cep: string, 
+    number: string, 
+    complement: string, 
+    publicPlace: string, 
+    publicPlaceType: string, 
+    neighborhood: string, 
+    observation: string, 
+    city: string, state: string, 
+    country: Country, 
+    type: AddressType
+  ): Address {
+    const address: Address = new Address();
+    address.setCep(cep);
+    address.setNumber(number);
+    address.setComplement(complement);
+    address.setPublicPlace(publicPlace);
+    address.setPublicPlaceType(publicPlaceType);
+    address.setNeighborhood(neighborhood);
+    address.setObservation(observation);
+    address.setCity(city);
+    address.setState(state);
+    address.setCountry(country);
+    address.setType(type);
+    return address;
+  }
+
   private createCountry(req: express.Request): Country {
-    const name = req.body.countryName;
-    const abbreviation = req.body.countryAbbreviation;
-    return new Country(name, abbreviation);
+    const name: string = req.body.countryName;
+    const abbreviation: string = req.body.countryAbbreviation;
+    return this.defineCountry(name, abbreviation);
+  }
+
+  private defineCountry(name: string, abbreviation: string): Country {
+    const country: Country = new Country();
+    country.setName(name);
+    country.setAbbreviation(abbreviation);
+    return country;
   }
 
   private createCard(req: express.Request): Card {
@@ -93,18 +168,42 @@ export default class CustomerController {
     const cvv: string = req.body.verificationNumber;
     const isPreferential: boolean = req.body.isPreferential === "true";
     const banner: Banner = this.createBanner(req);
-    return new Card(number, printedName, cvv, isPreferential, banner);
+    return this.defineCard(number, printedName, cvv, isPreferential, banner);
+  }
+
+  private defineCard(number: string, printedName: string, cvv: string, isPreferential: boolean, banner: Banner): Card {
+    const card: Card = new Card();
+    card.setNumber(number);
+    card.setPrintedName(printedName);
+    card.setCvv(cvv);
+    card.setIsPreferential(isPreferential);
+    card.setBanner(banner);
+    return card;
   }
 
   private createBanner(req: express.Request): Banner {
     const desc = req.body.banner;
-    return new Banner(desc);
+    return this.defineBanner(desc);
+  }
+
+  private defineBanner(desc: string) {
+    const banner: Banner = new Banner();
+    banner.setDescription(desc);
+    return banner;
   }
 
   private createPhone(req: express.Request): Phone {
     const ddd: string = req.body.ddd;
     const number: string = req.body.phoneNumber;
     const type: PhoneType = req.body.phoneType;
-    return new Phone(number, ddd, type);
+    return this.definePhone(ddd, number, type);
+  }
+
+  private definePhone(ddd: string, number: string, type: PhoneType): Phone {
+    const phone: Phone = new Phone();
+    phone.setDdd(ddd);
+    phone.setNumber(number);
+    phone.setType(type);
+    return phone;
   }
 }
