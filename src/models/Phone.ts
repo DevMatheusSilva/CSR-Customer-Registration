@@ -6,6 +6,10 @@ export default class Phone extends Entitie {
   number!: string;
   type!: PhoneType;
 
+  validate(): boolean {
+    return true;
+  }
+
   setDdd(ddd: string): void {
     this.ddd = ddd;
   }

@@ -15,6 +15,10 @@ export default class Address extends Entitie {
   country!: Country;
   type!: AddressType;
 
+  validate(): boolean {
+    return true;
+  }
+
   setCep(cep: string): void {
     this.cep = cep;
   }

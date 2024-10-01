@@ -49,6 +49,7 @@ export default class CustomerController {
     const passwordSecond: string = req.body.passwordSecond;
     if (passwordFirst !== passwordSecond) {
       res.status(400).send("Passwords do not match");
+      return;
     }
     
     const customer: Customer = this.defineCustomer(
@@ -65,8 +66,9 @@ export default class CustomerController {
 
     if (!customer.validate()) {
       res.status(400).send("Invalid customer data");
+      return;
     }
-    
+
     res.status(201).json(customer.save(customer));
   } 
 

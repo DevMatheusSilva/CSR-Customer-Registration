@@ -8,6 +8,10 @@ export default class Card extends Entitie {
   isPreferential!: boolean;
   banner!: Banner;
 
+  validate(): boolean {
+    return true;
+  }
+
   setNumber(number: string): void {
     this.number = number;
   }
