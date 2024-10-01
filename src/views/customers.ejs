@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/index.css" />
+    <title>CSR - Customers</title>
+  </head>
+  <body>
+    <form class="board" method="post" action="/customers">
+      <div class="data-group">
+        <h2 class="title">Dados do Cliente</h2>
+
+        <div class="input-group-line">
+          <label for="gender">Selecione seu Gênero</label>
+          <select class="input-group-element" name="gender" id="gender">
+            <option value="MALE">Masculino</option>
+            <option value="FEMALE">Feminino</option>
+            <option value="OTHER">Outro</option>
+          </select>
+        </div>
+
+        <div class="input-group-line">
+          <label for="name">Digite seu Nome</label>
+          <input
+            class="input-group-element"
+            type="text"
+            name="name"
+            id="name"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="birthDate">Digite sua Data de Nascimento</label>
+          <input
+            class="input-group-element"
+            type="date"
+            name="birthDate"
+            id="birthDate"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="cpf">Digite seu CPF</label>
+          <input class="input-group-element" type="text" name="cpf" id="cpf" />
+        </div>
+
+        <div class="input-group-line">
+          <label for="phoneNumber">Digite seu Telefone</label>
+          <input
+            class="input-group-element" 
+            type="text"
+            name="ddd"
+            id="ddd"
+          >
+          <input
+            class="input-group-element"
+            type="tel"
+            name="phoneNumber"
+            id="phoneNumber"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="phoneType">Selecione o tipo de telefone</label>
+          <select class="input-group-element" name="phoneType" id="phoneType">
+            <option value="MOBILE">Móvel</option>
+            <option value="FIXED">Fixo</option>
+          </select>
+        </div>
+
+        <div class="input-group-line">
+          <label for="email">Digite seu Email</label>
+          <input
+            class="input-group-element"
+            type="email"
+            name="email"
+            id="email"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="passwordFirst">Digite sua Senha</label>
+          <input
+            class="input-group-element"
+            type="password"
+            name="passwordFirst"
+            id="passwordFirst"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="passwordSecond">Digite sua Senha Novamente</label>
+          <input
+            class="input-group-element"
+            type="password"
+            name="passwordSecond"
+            id="passwordSecond"
+          />
+        </div>
+      </div>
+
+      <div class="data-group">
+        <h2 class="title">Dados de Endereço</h2>
+
+        <div class="input-group-line">
+          <label for="cep">Digite seu CEP</label>
+          <input class="input-group-element" type="text" name="cep" id="cep" />
+        </div>
+
+        <div class="input-group-line">
+          <label for="number">Digite seu Número</label>
+          <input
+            class="input-group-element"
+            type="text"
+            name="number"
+            id="number"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="complement">Digite seu Complemento</label>
+          <input
+            class="input-group-element"
+            type="text"
+            name="complement"
+            id="complement"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="publicPlace">Digite seu Logradouro</label>
+          <input
+            class="input-group-element"
+            type="text"
+            name="publicPlace"
+            id="publicPlace"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="publicPlaceType">Digite o Tipo de Logradouro</label>
+          <input
+            class="input-group-element"
+            type="text"
+            name="publicPlaceType"
+            id="publicPlaceType"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="neighborhood">Digite seu Bairro</label>
+          <input
+            class="input-group-element"
+            type="text"
+            name="neighborhood"
+            id="neighborhood"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="city">Digite sua Cidade</label>
+          <input
+            class="input-group-element"
+            type="text"
+            name="city"
+            id="city"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="state">Digite seu Estado</label>
+          <input
+            class="input-group-element"
+            type="text"
+            name="state"
+            id="state"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="countryName">Digite o Nome do País</label>
+          <input
+            class="input-group-element"
+            type="text"
+            name="countryName"
+            id="countryName"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="countryAbbreviation">Digite a Sigla do País</label>
+          <input
+            class="input-group-element"
+            type="text"
+            name="countryAbbreviation"
+            id="countryAbbreviation"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="addressType">Selecione o tipo de endereço</label>
+          <select
+            class="input-group-element"
+            name="addressType"
+            id="addressType"
+          >
+            <option value="DELIVERY">Entrega</option>
+            <option value="BILLING">Cobrança</option>
+            <option value="DELIVERY_AND_BILLING">Entrega e Cobrança</option>
+          </select>
+        </div>
+
+        <div class="input-group-line">
+          <label for="observations">Digite suas Observações</label>
+          <input
+            class="input-group-element"
+            type="text"
+            name="observations"
+            id="observations"
+          />
+        </div>
+      </div>
+
+      <div class="data-group">
+        <h2 class="title">Dados de Cartão</h2>
+
+        <div class="input-group-line">
+          <label for="cardNumber">Digite o Número do Cartão</label>
+          <input
+            class="input-group-element"
+            type="text"
+            name="cardNumber"
+            id="cardNumber"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="printedName">Digite o Nome Impresso no Cartão</label>
+          <input
+            class="input-group-element"
+            type="text"
+            name="printedName"
+            id="printedName"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="verificationNumber"
+            >Digite o Número de Verificação (CVV)</label
+          >
+          <input
+            class="input-group-element"
+            type="text"
+            name="verificationNumber"
+            id="verificationNumber"
+          />
+        </div>
+
+        <div class="input-group-line">
+          <label for="isPreferential">Este Cartão é Preferencial?</label>
+          <select
+            class="input-group-element"
+            name="isPreferential"
+            id="isPreferential"
+          >
+            <option value="true">Sim</option>
+            <option value="false">Não</option>
+          </select>
+        </div>
+
+        <div class="input-group-line">
+          <label for="banner">Digite a Bandeira do Cartão</label>
+          <select
+            class="input-group-element"
+            type="text"
+            name="banner"
+            id="banner"
+          >
+            <option value="Mastercard">Mastercard</option>
+            <option value="Visa">Visa</option>
+            <option value="Cielo">Cielo</option>
+            <option value="Hipercard">Hipercard</option>
+        </select>
+        </div>
+      </div>
+
+      <button class="start-registration-btn" type="submit">Enviar</button>
+    </form>
+  </body>
+</html>

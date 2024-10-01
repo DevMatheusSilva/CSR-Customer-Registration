@@ -1,0 +1,32 @@
+.back-arrow {
+  position: absolute;
+  align-self: flex-start;
+  justify-self: flex-start;
+}
+
+.data-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #303636;
+  min-width: 800px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(9, 9, 9, 0.208);
+}
+
+.input-group-line {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px;
+}
+
+.input-group-element {
+  flex: 1;
+  margin-left: auto;
+  color: #FEFEFE;
+  background-color: #4a5454;
+  border: 2px solid #2B3030;
+  border-radius: 10px;
+}
