@@ -10,7 +10,7 @@ export default class Country extends Entitie {
 
   setAbbreviation(abbreviation: string): void {
     const abbrRegex: RegExp = /^[A-Z]{2}$/;
-    if(abbrRegex.test(abbreviation)) {
+    if(!abbrRegex.test(abbreviation)) {
       throw new Error(`Invalid abbreviation: ${abbreviation}`);
     }
 

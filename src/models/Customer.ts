@@ -15,14 +15,19 @@ export default class Customer extends User {
   ranking!: number;
 
   setName(name: string): void {
+    if (!name) {
+      throw new Error(`Name cannot be null`);
+    }
     this.name = name;
   }
 
-  setBirthDate(birthDate: Date): void {
-    if (birthDate > new Date()) {
+  setBirthDate(birthDate: string): void {
+    const birthDateFormatted: Date = new Date(birthDate);
+    if (isNaN(birthDateFormatted.getTime()) || birthDateFormatted > new Date()) {
       throw new Error(`Invalid birth date: ${birthDate}`);
     }
-    this.birthDate = birthDate;
+
+    this.birthDate = birthDateFormatted;
   }
 
   setGender(gender: Gender): void {

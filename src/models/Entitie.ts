@@ -4,11 +4,8 @@ export default abstract class Entitie {
   id!: string;
   isActive!: boolean;
 
-  setId(id: string): void {
-    this.id = id;
-  }
-
-  setIsActive(isActive: boolean): void {
-    this.isActive = isActive;
+  constructor() {
+    this.id = uuidv4();
+    this.isActive = true;
   }
 }

@@ -19,62 +19,54 @@ export default class CustomerController {
   }
 
   renderCustomersForm(_: express.Request, res: express.Response): void {
-    const pathToBanner = path.resolve(__dirname, "../models/data/cardBanners.json");
+    const pathToBanner = path.resolve(__dirname, "../../src/models/data/cardBanners.json");
     const banners = JSON.parse(fs.readFileSync(pathToBanner, "utf-8"));
     res.status(200).render("customers", { banners });
   } 
 
-  defineCustomer(req: express.Request, res: express.Response): void {
+  public createCustomer(req: express.Request, res: express.Response): void {
+    try {
+      this.defineCustomer(req, res);
+    } catch (error) {
+      const err = error as Error;
+      res.status(400).json({ message: err.message });
+    }
+  }
+
+  private defineCustomer(req: express.Request, res: express.Response): void {
     const passwordFirst: string = req.body.passwordFirst;
     const passwordSecond: string = req.body.passwordSecond;
+    const address: Address = this.defineAddress(req);
+    const card: Card = this.defineCard(req);
+    const phone: Phone = this.definePhone(req);
+    const gender: Gender = req.body.gender;
+    const name: string = req.body.name;
+    const birthDate: string = req.body.birthDate;
+    const cpf: string = req.body.cpf;
+    const email: string = req.body.email;
 
     const customer: Customer = new Customer();
-    
-    
-    try {
-      customer.setOneAddress(this.defineAddress(req));
-    } catch (error) {
-      const err = error as Error;
-      res.status(400).json({ message: err.message });
-      return;
+
+    if (passwordFirst !== passwordSecond) {
+      throw new Error("The passwords do not match.");
     }
-    
-    try {
-      customer.setOneCard(this.defineCard(req));
-    } catch (error) {
-      const err = error as Error;
-      res.status(400).json({ message: err.message });
-      return;
+    if (this.customersList.some(((c) => c.email === email)) || this.customersList.some(((c) => c.cpf === cpf))) {
+      throw new Error("This client aready exists");
     }
 
-    try {
-      customer.setOnePhone(this.definePhone(req));
-    } catch (error) {
-      const err = error as Error;
-      res.status(400).json({ message: err.message });
-      return;
-    }
-    
-    customer.setPassword(passwordFirst, passwordSecond);
-    customer.setGender(req.body.gender as Gender);
-    customer.setName(req.body.name);
-    customer.setBirthDate(req.body.birthDate);
+    customer.setPassword(passwordFirst);
+    customer.setOneAddress(address);
+    customer.setOneCard(card);
+    customer.setOnePhone(phone);
+    customer.setGender(gender);
+    customer.setName(name);
+    customer.setBirthDate(birthDate);
+    customer.setCpf(cpf);
+    customer.setEmail(email);
 
-    if (this.customersList.some((c) => c.cpf === req.body.cpf)) {
-      res.status(400).json({ message: "CPF already registered" });
-      return;
-    }
-    customer.setCpf(req.body.cpf);
-    
-    if (this.customersList.some((c) => c.email === req.body.email)) {
-      res.status(400).json({ message: "Email already registered" });
-      return;
-    }
-    customer.setEmail(req.body.email);
-
-    this.saveCustomer(customer);
+    this.save(customer);
     res.status(201).json(customer);
-  } 
+  }
 
   private defineAddress(req: express.Request): Address {
     const address: Address = new Address();
@@ -117,7 +109,9 @@ export default class CustomerController {
 
   private defineBanner(req: express.Request): Banner {
     const banner: Banner = new Banner();
+
     banner.setDescription(req.body.banner);
+
     return banner;
   }
 
@@ -131,7 +125,7 @@ export default class CustomerController {
     return phone;
   }
 
-  private saveCustomer(customer: Customer): void{
+  private save(customer: Customer): void{
     this.customersList.push(customer);
   }
 }

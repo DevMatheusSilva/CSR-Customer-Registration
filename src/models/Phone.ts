@@ -24,7 +24,7 @@ export default class Phone extends Entitie {
   }
 
   setType(type: PhoneType): void {
-    if (Object.values(PhoneType).includes(type)){
+    if (!Object.values(PhoneType).includes(type)){
       throw new Error(`Invalid phone type: ${type}`);
     }
     

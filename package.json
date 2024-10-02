@@ -1,7 +1,7 @@
 {
   "name": "csr-customer-registration",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "tsx watch src/server.ts",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles",

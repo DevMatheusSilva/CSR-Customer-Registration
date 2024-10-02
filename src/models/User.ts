@@ -5,17 +5,29 @@ export default class User extends Entitie {
   password!: string;
 
   setEmail(email: string): void {
+    if (!email || !email.includes("@")) {
+      throw new Error(`Invalid email: ${email}`);
+    }
     this.email = email;
   }
 
-  setPassword(passwordFirst: string, passwordSecond: string): void {
-    const passwordRegex: RegExp = /^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#$%^&*])(?=.{8,})/
-    if (passwordFirst !== passwordSecond) {
-      throw new Error("Passwords do not match");
+  setPassword(password: string): void {
+    const passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,20}$/;
+
+    if (!password) {
+      throw new Error('Password cannot be null');
     }
-    if (!passwordRegex.test(passwordFirst)) {
-      throw new Error("Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character");
+
+    if (password.length < 8) {
+      throw new Error('Password must have at least 8 characters');
     }
-    this.password = passwordFirst;
-  }
+
+    console.log(password);
+    console.log(passwordRegex.test(password));
+    if (!passwordRegex.test(password)) {
+      throw new Error('Invalid regex for password');
+    }
+
+    this.password = password;
+  }  
 }
