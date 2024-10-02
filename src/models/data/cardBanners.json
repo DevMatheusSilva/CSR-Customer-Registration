@@ -1,52 +1,12 @@
 [
-  {
-    "id": 1,
-    "name": "Visa",
-    "code": "VISA"
-  },
-  {
-    "id": 2,
-    "name": "MasterCard",
-    "code": "MC"
-  },
-  {
-    "id": 3,
-    "name": "American Express",
-    "code": "AMEX"
-  },
-  {
-    "id": 4,
-    "name": "Diners Club",
-    "code": "DC"
-  },
-  {
-    "id": 5,
-    "name": "Elo",
-    "code": "ELO"
-  },
-  {
-    "id": 6,
-    "name": "Hipercard",
-    "code": "HPC"
-  },
-  {
-    "id": 7,
-    "name": "Discover",
-    "code": "DISC"
-  },
-  {
-    "id": 8,
-    "name": "JCB",
-    "code": "JCB"
-  },
-  {
-    "id": 9,
-    "name": "Aura",
-    "code": "AURA"
-  },
-  {
-    "id": 10,
-    "name": "UnionPay",
-    "code": "UPI"
-  }
+  {"id": 1,"name": "Visa","code": "VISA"},
+  {"id": 2,"name": "MasterCard","code": "MC"},
+  {"id": 3,"name": "American Express","code": "AMEX"},
+  {"id": 4,"name": "Diners Club","code": "DC"},
+  {"id": 5,"name": "Elo","code": "ELO"},
+  {"id": 6,"name": "Hipercard","code": "HPC"},
+  {"id": 7,"name": "Discover","code": "DISC"},
+  {"id": 8,"name": "JCB","code": "JCB"},
+  {"id": 9,"name": "Aura","code": "AURA"},
+  {"id": 10,"name": "UnionPay","code": "UPI"}
 ]

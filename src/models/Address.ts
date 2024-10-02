@@ -9,7 +9,7 @@ export default class Address extends Entitie {
   publicPlace!: string;
   publicPlaceType!: string;
   neighborhood!: string;
-  observation?: string;
+  observation!: string;
   city!: string;
   state!: string;
   country!: Country;
