@@ -127,7 +127,7 @@
       </div>
 
       <div class="data-group">
-        <h2 class="title">Dados do Endereço 1</h2>
+        <h2 class="title">Dados do Endereço</h2>
 
         <div class="input-group-line">
           <label for="cep">Digite seu CEP</label>
@@ -215,14 +215,18 @@
 
         <div class="input-group-line">
           <label for="state">Digite seu Estado</label>
-          <input
+          <select 
             class="input-group-element"
             type="text"
             name="state"
             placeholder="Ex. SP, RJ"
             id="state"
             required
-          />
+          >
+            <% states.forEach(element => { %>
+              <option value="<%= element.abbr %>"><%= element.name %> - <%= element.abbr %></option>
+            <% }) %> 
+        </select>
         </div>
 
         <div class="input-group-line">
@@ -326,11 +330,11 @@
         <div class="input-group-line">
           <label for="banner">Digite a Bandeira do Cartão</label>
           <select 
-          class="input-group-element" 
-          type="text" 
-          name="banner" 
-          id="banner"
-          required
+            class="input-group-element" 
+            type="text" 
+            name="banner" 
+            id="banner"
+            required
           >
             <% banners.forEach(element => { %>
             <option value="<%= element.code %>"><%= element.name %></option>

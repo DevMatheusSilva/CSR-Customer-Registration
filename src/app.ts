@@ -1,5 +1,5 @@
 import express from "express";
-import routes from "./controllers/router";
+import routes from "./controllers/routes/router";
 import expressStaticSetUp from "./controllers/middlewares/expressStaticSetup";
 import configureExpressForm from "./controllers/middlewares/expressFormSetup";
 import viewConfig from "./controllers/middlewares/expressViewsSetup";

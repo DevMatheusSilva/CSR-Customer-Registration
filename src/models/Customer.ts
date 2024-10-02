@@ -15,30 +15,6 @@ export default class Customer extends User {
   phones: Phone[] = [];
   ranking!: number;
 
-  private validatePreferentialCard(): boolean {
-    let preferential = 0;
-
-    for (const card of this.cards) {
-      if (card.isPreferential) {
-        preferential++;
-      }
-    }
-
-    if (preferential != 1) {
-      return false;
-    }
-
-    return true;
-  }
-
-  validate(): boolean {
-    if (!this.validatePreferentialCard()) {
-      return false;
-    }
-
-    return true;
-  }
-
   setName(name: string): void {
     if (!name) {
       throw new Error(`Name cannot be null`);

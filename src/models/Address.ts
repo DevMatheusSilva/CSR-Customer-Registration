@@ -16,7 +16,7 @@ export default class Address extends Entitie {
   type!: AddressType;
 
   setCep(cep: string): void {
-    const cepRegex: RegExp = /\d{5}-\d{3}/
+    const cepRegex: RegExp = /\d{5}-\d{3}/;
     if (!cepRegex.test(cep)) {
       throw new Error(`Invalid CEP: ${cep}`);
     }
@@ -57,6 +57,9 @@ export default class Address extends Entitie {
   }
 
   setState(state: string): void {
+    if (!state) {
+      throw new Error("State cannot be empty.");
+    }
     this.state = state;
   }
 

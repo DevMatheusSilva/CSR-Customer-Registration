@@ -1,5 +1,5 @@
 import express from "express";
-import CustomerController from "./customer.controller";
+import CustomerController from "../customer.controller";
 
 const customerController = new CustomerController();
 

@@ -20,17 +20,18 @@ export default class CustomerController {
   public renderCustomersForm(_: express.Request, res: express.Response): void {
     const pathToBanner = path.resolve(__dirname, "../../src/models/data/cardBanners.json");
     const banners = JSON.parse(fs.readFileSync(pathToBanner, "utf-8"));
-    res.status(200).render("customers", { banners });
+
+    const pathToStates = path.resolve(__dirname, "../../src/models/data/states.json");
+    const states = JSON.parse(fs.readFileSync(pathToStates, "utf-8"));
+
+    res.status(200).render("customers", { banners, states });
   }
 
   public createCustomer(req: express.Request, res: express.Response): void {
     try {
       const customer = this.defineCustomer(req);
-      if (!customer.validate()) {
-        throw new Error("This customer is invalid");
-      }
       this.customersList.push(customer);
-      res.status(201).json(this.customersList);
+      res.status(201).json(customer);
     } catch (error) {
       const err = error as Error;
       res.status(400).json({ message: err.message });
@@ -83,7 +84,7 @@ export default class CustomerController {
     card.setIsPreferential(req.body.isPreferential === "true");
     card.setBanner(banner);
 
-    const phone: Phone = new Phone();
+    const phone: Phone = new Phone();  
     phone.setDdd(req.body.ddd);
     phone.setNumber(req.body.phoneNumber);
     phone.setType(req.body.phoneType as PhoneType);
