@@ -1,14 +1,14 @@
-import * as fs from "fs";
-import * as path from "path";
-import express from "express";
-import Country from "../models/Country";
-import Address from "../models/Address";
-import AddressType from "../models/enums/AddressType";
-import Card from "../models/Card";
-import Banner from "../models/Banner";
-import Phone from "../models/Phone";
-import PhoneType from "../models/enums/PhoneType";
-import Customer from "../models/Customer";
+import * as fs from "fs";           
+import * as path from "path";           
+import express from "express";           
+import Country from "../models/Country";           
+import Address from "../models/Address";           
+import AddressType from "../models/enums/AddressType";           
+import Card from "../models/Card";           
+import Banner from "../models/Banner";           
+import Phone from "../models/Phone";           
+import PhoneType from "../models/enums/PhoneType";           
+import Customer from "../models/Customer";           
 
 export default class CustomerController {
   private customersList = new Array<Customer>();
@@ -31,7 +31,10 @@ export default class CustomerController {
     try {
       const customer = this.defineCustomer(req);
       this.customersList.push(customer);
-      res.status(201).json(customer);
+      res.status(201).json({ 
+        message: `Customer ${customer.name} created successfully`, 
+        customer: customer
+      });
     } catch (error) {
       const err = error as Error;
       res.status(400).json({ message: err.message });
@@ -68,6 +71,7 @@ export default class CustomerController {
     address.setPublicPlace(req.body.publicPlace);
     address.setPublicPlaceType(req.body.publicPlaceType);
     address.setNeighborhood(req.body.neighborhood);
+    address.setPhrase(req.body.phrase);
     address.setObservation(req.body.observation);
     address.setCity(req.body.city);
     address.setState(req.body.state);

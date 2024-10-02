@@ -9,6 +9,7 @@ export default class Address extends Entitie {
   publicPlace!: string;
   publicPlaceType!: string;
   neighborhood!: string;
+  phrase!: string;
   observation!: string;
   city!: string;
   state!: string;
@@ -46,6 +47,10 @@ export default class Address extends Entitie {
 
   setNeighborhood(neighborhood: string): void {
     this.neighborhood = neighborhood;
+  }
+
+  setPhrase(phrase: string): void {
+    this.phrase = phrase;
   }
 
   setObservation(observation: string): void {
