@@ -15,7 +15,7 @@ export default class Phone extends Entitie {
   }
 
   setNumber(number: string): void {
-    const numberRegex: RegExp = /^\d{8,9}$/;
+    const numberRegex: RegExp = /^\d{4}-\d{4}$|^\d{5}-\d{4}$/;
     if (!numberRegex.test(number)){
       throw new Error(`Invalid phone number: ${number}`);
     }

@@ -3,6 +3,7 @@ import Phone from "./Phone";
 import Card from "./Card";
 import User from "./User";
 import Gender from "./enums/Gender";
+import AddressType from "./enums/AddressType";
 
 export default class Customer extends User {
   name!: string;
@@ -14,6 +15,30 @@ export default class Customer extends User {
   phones: Phone[] = [];
   ranking!: number;
 
+  private validatePreferentialCard(): boolean {
+    let preferential = 0;
+
+    for (const card of this.cards) {
+      if (card.isPreferential) {
+        preferential++;
+      }
+    }
+
+    if (preferential != 1) {
+      return false;
+    }
+
+    return true;
+  }
+
+  validate(): boolean {
+    if (!this.validatePreferentialCard()) {
+      return false;
+    }
+
+    return true;
+  }
+
   setName(name: string): void {
     if (!name) {
       throw new Error(`Name cannot be null`);
@@ -23,7 +48,7 @@ export default class Customer extends User {
 
   setBirthDate(birthDate: string): void {
     const birthDateFormatted: Date = new Date(birthDate);
-    if (isNaN(birthDateFormatted.getTime()) || birthDateFormatted > new Date()) {
+    if (isNaN(birthDateFormatted.getTime()) || birthDateFormatted >= new Date()) {
       throw new Error(`Invalid birth date: ${birthDate}`);
     }
 

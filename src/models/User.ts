@@ -22,8 +22,6 @@ export default class User extends Entitie {
       throw new Error('Password must have at least 8 characters');
     }
 
-    console.log(password);
-    console.log(passwordRegex.test(password));
     if (!passwordRegex.test(password)) {
       throw new Error('Invalid regex for password');
     }

@@ -13,7 +13,12 @@
 
         <div class="input-group-line">
           <label for="gender">Selecione seu Gênero</label>
-          <select class="input-group-element" name="gender" id="gender">
+          <select 
+          class="input-group-element" 
+          name="gender" 
+          id="gender"
+          required
+          >
             <option value="MALE">Masculino</option>
             <option value="FEMALE">Feminino</option>
             <option value="OTHER">Outro</option>
@@ -27,6 +32,8 @@
             type="text"
             name="name"
             id="name"
+            placeholder="Ex. João da Silva"
+            required
           />
         </div>
 
@@ -37,12 +44,20 @@
             type="date"
             name="birthDate"
             id="birthDate"
+            required
           />
         </div>
 
         <div class="input-group-line">
           <label for="cpf">Digite seu CPF</label>
-          <input class="input-group-element" type="text" name="cpf" id="cpf" />
+          <input 
+            class="input-group-element" 
+            type="text" 
+            name="cpf" 
+            id="cpf"
+            placeholder="Ex. 123.456.789-00" 
+            required
+          />
         </div>
 
         <div class="input-group-line">
@@ -51,19 +66,26 @@
             class="input-group-element" 
             type="text"
             name="ddd"
+            placeholder="DDD"
             id="ddd"
+            required
           >
           <input
             class="input-group-element"
             type="tel"
             name="phoneNumber"
+            placeholder="ex. 12345-6789"
             id="phoneNumber"
+            required
           />
         </div>
 
         <div class="input-group-line">
           <label for="phoneType">Selecione o tipo de telefone</label>
-          <select class="input-group-element" name="phoneType" id="phoneType">
+          <select 
+          class="input-group-element" 
+          name="phoneType" 
+          id="phoneType">
             <option value="MOBILE">Móvel</option>
             <option value="FIXED">Fixo</option>
           </select>
@@ -75,7 +97,9 @@
             class="input-group-element"
             type="email"
             name="email"
+            placeholder="Ex. joao@dasilva.com"
             id="email"
+            required
           />
         </div>
 
@@ -86,6 +110,7 @@
             type="password"
             name="passwordFirst"
             id="passwordFirst"
+            required
           />
         </div>
 
@@ -96,16 +121,24 @@
             type="password"
             name="passwordSecond"
             id="passwordSecond"
+            required
           />
         </div>
       </div>
 
       <div class="data-group">
-        <h2 class="title">Dados de Endereço</h2>
+        <h2 class="title">Dados do Endereço 1</h2>
 
         <div class="input-group-line">
           <label for="cep">Digite seu CEP</label>
-          <input class="input-group-element" type="text" name="cep" id="cep" />
+          <input 
+            class="input-group-element" 
+            type="text" 
+            name="cep"
+            placeholder="Ex. 12345-678" 
+            id="cep" 
+          required
+          />
         </div>
 
         <div class="input-group-line">
@@ -114,7 +147,9 @@
             class="input-group-element"
             type="text"
             name="number"
+            placeholder="Ex. 123A ou 123"
             id="number"
+            required
           />
         </div>
 
@@ -124,7 +159,9 @@
             class="input-group-element"
             type="text"
             name="complement"
+            placeholder="Ex. Casa, Apartamento, Bloco"
             id="complement"
+            required
           />
         </div>
 
@@ -134,7 +171,9 @@
             class="input-group-element"
             type="text"
             name="publicPlace"
+            placeholder="Ex. Rua XXX"
             id="publicPlace"
+            required
           />
         </div>
 
@@ -144,7 +183,9 @@
             class="input-group-element"
             type="text"
             name="publicPlaceType"
+            placeholder="Ex. Rua, Avenida, Estrada"
             id="publicPlaceType"
+            required
           />
         </div>
 
@@ -154,7 +195,9 @@
             class="input-group-element"
             type="text"
             name="neighborhood"
+            placeholder="Ex. Centro, Jardim"
             id="neighborhood"
+            required
           />
         </div>
 
@@ -164,7 +207,9 @@
             class="input-group-element"
             type="text"
             name="city"
+            placeholder="Ex. São Paulo, Rio de Janeiro"
             id="city"
+            required
           />
         </div>
 
@@ -174,7 +219,9 @@
             class="input-group-element"
             type="text"
             name="state"
+            placeholder="Ex. SP, RJ"
             id="state"
+            required
           />
         </div>
 
@@ -184,7 +231,9 @@
             class="input-group-element"
             type="text"
             name="countryName"
+            placeholder="Ex. Brasil, Argentina"
             id="countryName"
+            required
           />
         </div>
 
@@ -194,6 +243,7 @@
             class="input-group-element"
             type="text"
             name="countryAbbreviation"
+            placeholder="Ex. BR, AR"
             id="countryAbbreviation"
           />
         </div>
@@ -218,7 +268,7 @@
             type="text"
             name="observations"
             id="observations"
-          />
+          >
         </div>
       </div>
 
@@ -231,7 +281,9 @@
             class="input-group-element"
             type="text"
             name="cardNumber"
+            placeholder="Ex. 1234 5678 1234 5678"
             id="cardNumber"
+            required
           />
         </div>
 
@@ -241,19 +293,21 @@
             class="input-group-element"
             type="text"
             name="printedName"
+            placeholder="Ex. JOAO DA SILVA"
             id="printedName"
+            required
           />
         </div>
 
         <div class="input-group-line">
-          <label for="verificationNumber"
-            >Digite o Número de Verificação (CVV)</label
-          >
+          <label for="verificationNumber">Digite o Número de Verificação (CVV)</label>
           <input
             class="input-group-element"
             type="text"
             name="verificationNumber"
+            placeholder="Ex. 123"
             id="verificationNumber"
+            required
           />
         </div>
 
@@ -271,7 +325,13 @@
         
         <div class="input-group-line">
           <label for="banner">Digite a Bandeira do Cartão</label>
-          <select class="input-group-element" type="text" name="banner" id="banner">
+          <select 
+          class="input-group-element" 
+          type="text" 
+          name="banner" 
+          id="banner"
+          required
+          >
             <% banners.forEach(element => { %>
             <option value="<%= element.code %>"><%= element.name %></option>
             <% }) %> 
