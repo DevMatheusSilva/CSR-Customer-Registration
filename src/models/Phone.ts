@@ -7,8 +7,7 @@ export default class Phone extends Entitie {
   type!: PhoneType;
 
   setDdd(ddd: string): void {
-    const dddRegex: RegExp = /^\d{2}$/;
-    if (!dddRegex.test(ddd)) {
+    if (ddd.trim().length !== 2) {
       throw new Error(`Invalid DDD: ${ddd}`);
     }
     this.ddd = ddd;
@@ -19,15 +18,10 @@ export default class Phone extends Entitie {
     if (!numberRegex.test(number)){
       throw new Error(`Invalid phone number: ${number}`);
     }
-
     this.number = number;
   }
 
   setType(type: PhoneType): void {
-    if (!Object.values(PhoneType).includes(type)){
-      throw new Error(`Invalid phone type: ${type}`);
-    }
-    
     this.type = type;
   }
 }

@@ -26,7 +26,7 @@ export default class Address extends Entitie {
   }
 
   setNumber(number: string): void {
-    const numberRegex: RegExp = /^\d+([a-zA-Z]?|\d*\-\d*)$/
+    const numberRegex: RegExp = /^\d{1,4}$/
     if (!numberRegex.test(number)) {
       throw new Error(`Invalid number: ${number}`);
     }
@@ -62,9 +62,6 @@ export default class Address extends Entitie {
   }
 
   setState(state: string): void {
-    if (!state) {
-      throw new Error("State cannot be empty.");
-    }
     this.state = state;
   }
 
@@ -73,9 +70,6 @@ export default class Address extends Entitie {
   }
 
   setType(type: AddressType): void {
-    if (!Object.values(AddressType).includes(type)) {
-      throw new Error(`Invalid address type: ${type}`);
-    }
     this.type = type;
   }
 }

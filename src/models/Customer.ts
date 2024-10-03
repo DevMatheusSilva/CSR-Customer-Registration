@@ -3,7 +3,6 @@ import Phone from "./Phone";
 import Card from "./Card";
 import User from "./User";
 import Gender from "./enums/Gender";
-import AddressType from "./enums/AddressType";
 
 export default class Customer extends User {
   name!: string;
@@ -16,25 +15,15 @@ export default class Customer extends User {
   ranking!: number;
 
   setName(name: string): void {
-    if (!name) {
-      throw new Error(`Name cannot be null`);
-    }
     this.name = name;
   }
 
   setBirthDate(birthDate: string): void {
     const birthDateFormatted: Date = new Date(birthDate);
-    if (isNaN(birthDateFormatted.getTime()) || birthDateFormatted >= new Date()) {
-      throw new Error(`Invalid birth date: ${birthDate}`);
-    }
-
     this.birthDate = birthDateFormatted;
   }
 
   setGender(gender: Gender): void {
-    if (!Object.values(Gender).includes(gender)) {
-      throw new Error(`Invalid gender: ${gender}`);
-    }
     this.gender = gender;
   }
 
