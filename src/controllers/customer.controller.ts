@@ -18,11 +18,8 @@ export default class CustomerController {
   }
 
   public renderCustomersForm(_: express.Request, res: express.Response): void {
-    const pathToBanner = path.resolve(__dirname, "../../src/models/data/cardBanners.json");
-    const banners = JSON.parse(fs.readFileSync(pathToBanner, "utf-8"));
-
-    const pathToStates = path.resolve(__dirname, "../../src/models/data/states.json");
-    const states = JSON.parse(fs.readFileSync(pathToStates, "utf-8"));
+    const banners = this.getObjectFromJsonFile("../../src/models/data/cardBanners.json");
+    const states = this.getObjectFromJsonFile("../../src/models/data/states.json");
 
     res.status(200).render("customers", { banners, states });
   }
@@ -104,5 +101,10 @@ export default class CustomerController {
     if (this.customersList.some(((c) => c.email === email)) || this.customersList.some(((c) => c.cpf === cpf))) {
       throw new Error("This client aready exists");
     }
+  }
+
+  private getObjectFromJsonFile(filePath: string): any {
+    const pathToFile = path.resolve(__dirname, filePath);
+    return JSON.parse(fs.readFileSync(pathToFile, "utf-8"));
   }
 }
