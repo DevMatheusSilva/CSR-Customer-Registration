@@ -1,36 +1,36 @@
 import * as fs from "fs";           
 import * as path from "path";           
 import express from "express";           
-import Country from "../models/Country";           
-import Address from "../models/Address";           
-import AddressType from "../models/enums/AddressType";           
-import Card from "../models/Card";           
-import Banner from "../models/Banner";           
-import Phone from "../models/Phone";           
-import PhoneType from "../models/enums/PhoneType";           
-import Customer from "../models/Customer";           
+import Cliente from "../models/Cliente";
+import Pais from "../models/Pais";           
+import Endereco from "../models/Endereco";           
+import TipoEndereco from "../models/enums/TipoEndereco";           
+import Cartao from "../models/Cartao";           
+import Bandeira from "../models/Bandeira";           
+import Telefone from "../models/Telefone";          
+import TipoTelefone from "../models/enums/TipoTelefone";
 
 export default class CustomerController {
-  private customersList = new Array<Customer>();
+  private clientes = new Array<Cliente>();
 
-  public renderHomePage(_: express.Request, res: express.Response): void {
-    res.status(200).render("home");
+  public renderizarPaginaPrincipal(_: express.Request, res: express.Response): void {
+    res.status(200).render("principal");
   }
 
-  public renderCustomersForm(_: express.Request, res: express.Response): void {
-    const banners = this.getObjectFromJsonFile("../../src/models/data/cardBanners.json");
-    const states = this.getObjectFromJsonFile("../../src/models/data/states.json");
+  public renderizarFormularioClientes(_: express.Request, res: express.Response): void {
+    const bandeiras = this.getObjectFromJsonFile("../../src/models/data/bandeiras.json");
+    const estados = this.getObjectFromJsonFile("../../src/models/data/estados.json");
 
-    res.status(200).render("customers", { banners, states });
+    res.status(200).render("clientes", { bandeiras, estados });
   }
 
-  public createCustomer(req: express.Request, res: express.Response): void {
+  public salvar(req: express.Request, res: express.Response): void {
     try {
-      const customer = this.defineCustomer(req);
-      this.customersList.push(customer);
+      const cliente = this.definirCliente(req);
+      this.clientes.push(cliente);
       res.status(201).json({ 
-        message: `Customer ${customer.name} created successfully`, 
-        customer: customer
+        mensagem: `Cliente ${cliente.nome} criado com sucesso`,
+        cliente
       });
     } catch (error) {
       const err = error as Error;
@@ -38,68 +38,68 @@ export default class CustomerController {
     }
   }
 
-  private defineCustomer(req: express.Request): Customer {
-    const passwordFirst: string = req.body.passwordFirst;
-    const passwordSecond: string = req.body.passwordSecond;
+  private definirCliente(req: express.Request): Cliente {
+    const primeiraSenha: string = req.body.primeiraSenha;
+    const segundaSenha: string = req.body.segundaSenha;
     const email: string = req.body.email;
     const cpf: string = req.body.cpf;
 
-    if (passwordFirst !== passwordSecond) {
-      throw new Error("The passwords do not match.");
+    if (primeiraSenha !== segundaSenha) {
+      throw new Error("As senhas não correspondem");
     }
-    this.validateIfCustomerExists(email, cpf);
+    this.validarExistencia(email, cpf);
 
-    const customer: Customer = new Customer();
-    customer.setGender(req.body.gender);
-    customer.setName(req.body.name);
-    customer.setPassword(passwordFirst);
-    customer.setBirthDate(req.body.birthDate);
-    customer.setCpf(req.body.cpf);
-    customer.setEmail(req.body.email);
+    const cliente: Cliente = new Cliente();
+    cliente.setGenero(req.body.genero);
+    cliente.setNome(req.body.nome);
+    cliente.setSenha(primeiraSenha);
+    cliente.setDataDeNascimento(req.body.dataNascimento);
+    cliente.setCpf(req.body.cpf);
+    cliente.setEmail(req.body.email);
 
-    const country: Country = new Country();
-    country.setName(req.body.countryName);
-    country.setAbbreviation(req.body.countryAbbreviation);
+    const pais: Pais = new Pais();
+    pais.setNome(req.body.nomePais);
+    pais.setSigla(req.body.sigla);
 
-    const address: Address = new Address();
-    address.setCep(req.body.cep);
-    address.setNumber(req.body.number);
-    address.setComplement(req.body.complement);
-    address.setPublicPlace(req.body.publicPlace);
-    address.setPublicPlaceType(req.body.publicPlaceType);
-    address.setNeighborhood(req.body.neighborhood);
-    address.setPhrase(req.body.phrase);
-    address.setObservation(req.body.observation);
-    address.setCity(req.body.city);
-    address.setState(req.body.state);
-    address.setCountry(country);
-    address.setType(req.body.addressType as AddressType);
+    const endereco: Endereco = new Endereco();
+    endereco.setCep(req.body.cep);
+    endereco.setNumero(req.body.numero);
+    endereco.setComplemento(req.body.complemento);
+    endereco.setLogradouro(req.body.logradouro);
+    endereco.setTipoLogradouro(req.body.tipoLogradouro);
+    endereco.setBairro(req.body.bairro);
+    endereco.setFraseCurta(req.body.fraseCurta);
+    endereco.setObservacao(req.body.observacoes);
+    endereco.setCidade(req.body.cidade);
+    endereco.setEstado(req.body.estado);
+    endereco.setPais(pais);
+    endereco.setTipoEndereco(req.body.tipoEndereco as TipoEndereco);
 
-    const banner: Banner = new Banner();
-    banner.setDescription(req.body.banner);
+    const bandeira: Bandeira = new Bandeira();
+    bandeira.setDescricao(req.body.bandeira);
     
-    const card: Card = new Card();
-    card.setNumber(req.body.cardNumber);
-    card.setPrintedName(req.body.printedName);
-    card.setCvv(req.body.verificationNumber);
-    card.setIsPreferential(req.body.isPreferential === "true");
-    card.setBanner(banner);
+    const cartao: Cartao = new Cartao();
+    cartao.setNumero(req.body.numeroCartao);
+    cartao.setNomeImpresso(req.body.nomeImpresso);
+    cartao.setCvv(req.body.cvv);
+    cartao.setEPreferencial(req.body.ePreferencial === "true");
+    cartao.setBandeira(bandeira);
 
-    const phone: Phone = new Phone();  
-    phone.setDdd(req.body.ddd);
-    phone.setNumber(req.body.phoneNumber);
-    phone.setType(req.body.phoneType as PhoneType);
+    const telefone: Telefone = new Telefone();  
+    telefone.setDdd(req.body.ddd);
+    telefone.setNumero(req.body.numeroTelefone);
+    telefone.setTipo(req.body.tipoTelefone as TipoTelefone);
 
-    customer.setOneAddress(address);
-    customer.setOneCard(card);
-    customer.setOnePhone(phone);
+    cliente.setUmEndereco(endereco);
+    cliente.setUmCartao(cartao);
+    cliente.setUmTelefone(telefone);
 
-    return customer;
+    return cliente;
   }
 
-  private validateIfCustomerExists(email: string, cpf: string): void {
-    if (this.customersList.some(((c) => c.email === email)) || this.customersList.some(((c) => c.cpf === cpf))) {
-      throw new Error("This client aready exists");
+  private validarExistencia(email: string, cpf: string): void {
+    if (this.clientes.some(((c) => c.email === email)) || this.clientes.some(((c) => c.cpf === cpf))) {
+      throw new Error("Este cliente já existe");
     }
   }
 

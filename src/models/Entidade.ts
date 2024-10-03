@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export default abstract class Entitie {
+export default abstract class Entidade {
   id!: string;
-  isActive!: boolean;
+  estaAtivo!: boolean;
 
   constructor() {
     this.id = uuidv4();
-    this.isActive = true;
+    this.estaAtivo = true;
   }
 }
