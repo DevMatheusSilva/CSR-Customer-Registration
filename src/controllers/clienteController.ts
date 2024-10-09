@@ -18,8 +18,8 @@ export default class CustomerController {
   }
 
   public renderizarFormularioClientes(_: express.Request, res: express.Response): void {
-    const bandeiras = this.getObjectFromJsonFile("../../src/models/data/bandeiras.json");
-    const estados = this.getObjectFromJsonFile("../../src/models/data/estados.json");
+    const bandeiras = this.jsonParaObjeto("../../src/models/data/bandeiras.json");
+    const estados = this.jsonParaObjeto("../../src/models/data/estados.json");
 
     res.status(200).render("clientes", { bandeiras, estados });
   }
@@ -103,8 +103,8 @@ export default class CustomerController {
     }
   }
 
-  private getObjectFromJsonFile(filePath: string): any {
-    const pathToFile = path.resolve(__dirname, filePath);
-    return JSON.parse(fs.readFileSync(pathToFile, "utf-8"));
+  private jsonParaObjeto(caminho: string): any {
+    const caminhoArquivo = path.resolve(__dirname, caminho);
+    return JSON.parse(fs.readFileSync(caminhoArquivo, "utf-8"));
   }
 }

@@ -1,11 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from "crypto";
 
 export default abstract class Entidade {
   id!: string;
   estaAtivo!: boolean;
 
   constructor() {
-    this.id = uuidv4();
+    this.id = randomUUID();
     this.estaAtivo = true;
   }
 }

@@ -8,14 +8,14 @@ export default class Telefone extends Entidade {
 
   setDdd(ddd: string): void {
     if (ddd.trim().length !== 2) {
-      throw new Error(`Invalid DDD: ${ddd}`);
+      throw new Error(`DDD inválido: ${ddd}`);
     }
     this.ddd = ddd;
   }
 
   setNumero(numero: string): void {
-    const numberRegex: RegExp = /^\d{4}-\d{4}$|^\d{5}-\d{4}$/;
-    if (!numberRegex.test(numero)){
+    const numeroRegex: RegExp = /^\d{4}-\d{4}$|^\d{5}-\d{4}$/;
+    if (!numeroRegex.test(numero)){
       throw new Error(`Número de telefone inválido: ${numero}`);
     }
     this.numero = numero;
