@@ -1,15 +1,15 @@
-import Entitie from "./Entitie";
-import User from "./User";
+import Entidade from "./Entidade";
+import Usuario from "./Usuario";
 
-export default class Log extends Entitie {
-  dateAndHour!: Date;
-  user!: User;
+export default class Log extends Entidade {
+  dataEHora!: Date;
+  usuario!: Usuario;
 
-  setDateAndHour(dateAndHour: Date): void {
-    this.dateAndHour = dateAndHour;
+  setDataEHora(dataEHora: Date): void {
+    this.dataEHora = dataEHora;
   }
 
-  setUser(user: User): void {
-    this.user = user;
+  setUsuario(usuario: Usuario): void {
+    this.usuario = usuario;
   }
 }

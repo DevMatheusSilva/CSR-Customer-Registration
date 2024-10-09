@@ -1,16 +1,16 @@
 import express from "express";
-import routes from "./controllers/routes/router";
-import expressStaticSetUp from "./controllers/middlewares/expressStaticSetup";
-import configureExpressForm from "./controllers/middlewares/expressFormSetup";
-import viewConfig from "./controllers/middlewares/expressViewsSetup";
+import roteador from "./controllers/roteador/roteador";
+import arquivosEstaticos from "./controllers/middlewares/arquivosEstaticos";
+import configuracaoForm from "./controllers/middlewares/configuracaoForm";
+import configuracaoViews from "./controllers/middlewares/configuracaoViews";
 
 const app = express();
 
 app.use(express.json());
-app.use(expressStaticSetUp);
+app.use(arquivosEstaticos);
 
-viewConfig(app);
-configureExpressForm(app);
-routes(app);
+configuracaoViews(app);
+configuracaoForm(app);
+roteador(app);
 
 export default app;
