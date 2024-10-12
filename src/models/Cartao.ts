@@ -5,36 +5,40 @@ export default class Cartao extends Entidade {
   numero!: string;
   nomeImpresso!: string;
   cvv!: string;
-  ePreferencial!: boolean;
+  isPreferencial!: boolean;
   bandeira!: Bandeira;
 
-  setNumero(numero: string): void {
-    const cardNumeroRegex: RegExp = /^(?:\d[ -]*?){13,16}$/;
-    if (!cardNumeroRegex.test(numero)) {
-      throw new Error(`Número de cartão inválido: ${numero}`);
-    }
-    
+  constructor(
+    numero: string, 
+    nomeImpresso: string, 
+    bandeira: Bandeira,
+    cvv: string, 
+    isPrefencial: boolean 
+  ) {
+    super();
     this.numero = numero;
-  }
-
-  setNomeImpresso(nomeImpresso: string): void {
     this.nomeImpresso = nomeImpresso;
-  }
-
-  setCvv(cvv: string): void {
-    const cardCvvRegex: RegExp = /^\d{3,4}$/;
-    if (!cardCvvRegex.test(cvv)) {
-      throw new Error(`Código de verificação inválido: ${cvv}`);
-    }
-
+    this.bandeira = bandeira; 
     this.cvv = cvv;
+    this.isPreferencial = isPrefencial;
   }
 
-  setEPreferencial(ePreferencial: boolean): void {
-    this.ePreferencial = ePreferencial;
+  validarDadosCartao(): void {
+    this.validarNumero();
+    this.validarCvv();
   }
 
-  setBandeira(bandeira: Bandeira): void {
-    this.bandeira = bandeira;
+  private validarNumero(): void {
+    const cardNumeroRegex: RegExp = /^(?:\d[ -]*?){13,16}$/;
+    if (!cardNumeroRegex.test(this.numero)) {
+      throw new Error(`Número de cartão inválido: ${this.numero}`);
+    }
+  }
+
+  private validarCvv(): void {
+    const cardCvvRegex: RegExp = /^\d{3,4}$/;
+    if (!cardCvvRegex.test(this.cvv)) {
+      throw new Error(`Código de verificação inválido: ${this.cvv}`);
+    }
   }
 }

@@ -5,49 +5,56 @@ import Usuario from "./Usuario";
 import Genero from "./enums/Genero";
 
 export default class Cliente extends Usuario {
-  nome!: string;
-  dataDeNascimento!: Date;
   genero!: Genero;
+  nome!: string;
+  dtNascimento!: Date;
   cpf!: string;
+  telefones: Telefone[] = [];
   cartoes: Cartao[] = [];
   enderecos: Endereco[] = [];
-  telefones: Telefone[] = [];
   ranking!: number;
 
-  setNome(nome: string): void {
-    this.nome = nome;
-  }
-
-  setDataDeNascimento(dataDeNascimento: string): void {
-    const dataDeNascimentoFormatado: Date = new Date(dataDeNascimento);
-    this.dataDeNascimento = dataDeNascimentoFormatado;
-  }
-
-  setGenero(genero: Genero): void {
+  constructor (
+    genero: Genero, 
+    nome: string, 
+    dtNascimento: Date, 
+    cpf: string, 
+    telefone: Telefone, 
+    cartao: Cartao, 
+    endereco: Endereco, 
+    email: string, 
+    senha: string
+  ) {
+    super(email, senha);
     this.genero = genero;
-  }
-
-  setCpf(cpf: string): void {
-    const cpfRegex: RegExp = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/
-    if (!cpfRegex.test(cpf)) {
-      throw new Error(`Invalid CPF: ${cpf}`);
-    }
+    this.nome = nome;
+    this.dtNascimento = new Date(dtNascimento);
     this.cpf = cpf;
-  }
-
-  setUmCartao(cartao: Cartao): void {
+    this.telefones.push(telefone);
     this.cartoes.push(cartao);
-  }
-
-  setUmEndereco(endereco: Endereco): void {
     this.enderecos.push(endereco);
   }
 
-  setUmTelefone(telefone: Telefone): void {
-    this.telefones.push(telefone);
+  validarDadosObrigatorios(): void {
+    this.validarCpf();
+
+    for (const telefone of this.telefones) {
+      telefone.validarDadosTelefone();
+    }
+
+    for (const cartao of this.cartoes) {
+      cartao.validarDadosCartao();
+    }
+
+    for (const endereco of this.enderecos) {
+      endereco.validarDadosEndereco();
+    }
   }
 
-  setRanking(ranking: number): void {
-    this.ranking = ranking;
+  private validarCpf(): void {
+    const cpfRegex: RegExp = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/
+    if (!cpfRegex.test(this.cpf)) {
+      throw new Error(`CPF inválido: ${this.cpf}`);
+    }
   }
 }

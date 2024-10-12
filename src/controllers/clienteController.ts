@@ -9,8 +9,9 @@ import Cartao from "../models/Cartao";
 import Bandeira from "../models/Bandeira";           
 import Telefone from "../models/Telefone";          
 import TipoTelefone from "../models/enums/TipoTelefone";
+import Genero from "../models/enums/Genero";
 
-export default class CustomerController {
+export default class ClienteController {
   private clientes = new Array<Cliente>();
 
   public renderizarPaginaPrincipal(_: express.Request, res: express.Response): void {
@@ -27,11 +28,8 @@ export default class CustomerController {
   public salvar(req: express.Request, res: express.Response): void {
     try {
       const cliente = this.definirCliente(req);
+      cliente.validarDadosObrigatorios();
       this.clientes.push(cliente);
-      res.status(201).json({ 
-        mensagem: `Cliente ${cliente.nome} criado com sucesso`,
-        cliente
-      });
     } catch (error) {
       const err = error as Error;
       res.status(400).json({ message: err.message });
@@ -43,56 +41,73 @@ export default class CustomerController {
     const segundaSenha: string = req.body.segundaSenha;
     const email: string = req.body.email;
     const cpf: string = req.body.cpf;
+    const genero = req.body.genero as Genero;
+    const nome = req.body.nome;
+    const dtNascimento = req.body.dataNascimento;
 
     if (primeiraSenha !== segundaSenha) {
       throw new Error("As senhas não correspondem");
     }
     this.validarExistencia(email, cpf);
 
-    const cliente: Cliente = new Cliente();
-    cliente.setGenero(req.body.genero);
-    cliente.setNome(req.body.nome);
-    cliente.setSenha(primeiraSenha);
-    cliente.setDataDeNascimento(req.body.dataNascimento);
-    cliente.setCpf(req.body.cpf);
-    cliente.setEmail(req.body.email);
-
-    const pais: Pais = new Pais();
-    pais.setNome(req.body.nomePais);
-    pais.setSigla(req.body.sigla);
-
-    const endereco: Endereco = new Endereco();
-    endereco.setCep(req.body.cep);
-    endereco.setNumero(req.body.numero);
-    endereco.setComplemento(req.body.complemento);
-    endereco.setLogradouro(req.body.logradouro);
-    endereco.setTipoLogradouro(req.body.tipoLogradouro);
-    endereco.setBairro(req.body.bairro);
-    endereco.setFraseCurta(req.body.fraseCurta);
-    endereco.setObservacao(req.body.observacoes);
-    endereco.setCidade(req.body.cidade);
-    endereco.setEstado(req.body.estado);
-    endereco.setPais(pais);
-    endereco.setTipoEndereco(req.body.tipoEndereco as TipoEndereco);
-
-    const bandeira: Bandeira = new Bandeira();
-    bandeira.setDescricao(req.body.bandeira);
+    const nomePais = req.body.nomePais;
+    const sigla = req.body.sigla;
+    const pais: Pais = new Pais(nomePais, sigla);
     
-    const cartao: Cartao = new Cartao();
-    cartao.setNumero(req.body.numeroCartao);
-    cartao.setNomeImpresso(req.body.nomeImpresso);
-    cartao.setCvv(req.body.cvv);
-    cartao.setEPreferencial(req.body.ePreferencial === "true");
-    cartao.setBandeira(bandeira);
+    const cep = req.body.cep;
+    const numero = req.body.numero;
+    const complemento = req.body.complemento;
+    const logradouro = req.body.logradouro;
+    const tipoLogradouro = req.body.tipoLogradouro;
+    const bairro = req.body.bairro;
+    const fraseCurta = req.body.fraseCurta;
+    const observacao = req.body.observacoes;
+    const cidade = req.body.cidade;
+    const estado = req.body.estado;
+    const tipoEndereco = req.body.tipoEndereco as TipoEndereco;
 
-    const telefone: Telefone = new Telefone();  
-    telefone.setDdd(req.body.ddd);
-    telefone.setNumero(req.body.numeroTelefone);
-    telefone.setTipo(req.body.tipoTelefone as TipoTelefone);
+    const endereco: Endereco = new Endereco(
+      cep, 
+      numero, 
+      complemento, 
+      logradouro, 
+      tipoLogradouro, 
+      bairro, 
+      fraseCurta, 
+      observacao, 
+      cidade, estado, pais, tipoEndereco
+    );
 
-    cliente.setUmEndereco(endereco);
-    cliente.setUmCartao(cartao);
-    cliente.setUmTelefone(telefone);
+    const descricao = req.body.bandeira;
+    const bandeira: Bandeira = new Bandeira(descricao);
+    
+    const numeroCartao = req.body.numeroCartao;
+    const nomeImpresso = req.body.nomeImpresso;
+    const cvv = req.body.cvv;
+    const isPreferencial = req.body.ePreferencial === "true";
+
+    const cartao: Cartao = new Cartao(
+      numeroCartao, 
+      nomeImpresso, 
+      bandeira, 
+      cvv, 
+      isPreferencial
+    );
+    
+    const ddd = req.body.ddd;
+    const numeroTelefone = req.body.numeroTelefone;
+    const tipoTelefone = req.body.tipoTelefone as TipoTelefone;
+    const telefone: Telefone = new Telefone(ddd, numeroTelefone, tipoTelefone);
+    
+    const cliente: Cliente = new Cliente(
+      genero, 
+      nome, 
+      dtNascimento, 
+      cpf, 
+      telefone, 
+      cartao, 
+      endereco, 
+      email, primeiraSenha);
 
     return cliente;
   }

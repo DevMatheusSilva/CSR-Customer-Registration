@@ -5,11 +5,13 @@ export default class Log extends Entidade {
   dataEHora!: Date;
   usuario!: Usuario;
 
-  setDataEHora(dataEHora: Date): void {
+  constructor(dataEHora: Date, usuario: Usuario) {
+    super();
     this.dataEHora = dataEHora;
+    this.usuario = usuario;
   }
 
-  setUsuario(usuario: Usuario): void {
-    this.usuario = usuario;
+  gerarLog(): void {
+    console.log("Log gerado com sucesso !");
   }
 }
