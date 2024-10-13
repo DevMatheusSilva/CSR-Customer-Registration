@@ -4,11 +4,13 @@ import { genSaltSync, hashSync } from "bcrypt";
 export default class Usuario extends Entidade {
   email!: string;
   senha!: string;
+  nome!: string;
 
-  constructor(email: string, senha: string) {
+  constructor(email: string, senha: string, nome: string) {
     super();
     this.email = email;
     this.senha = this.criptografarSenha(senha);
+    this.nome = nome;
   }
 
   private criptografarSenha(senha: string): string {

@@ -11,7 +11,9 @@ export default class Log extends Entidade {
     this.usuario = usuario;
   }
 
-  gerarLog(): void {
-    console.log("Log gerado com sucesso !");
+  gerarLog(): string {
+    const mensagemLog = `O usuário ${this.usuario.nome} foi criado com sucesso em ${this.dataEHora}`;
+    console.log(mensagemLog); // TODO: Implementar lógica para salvar log em arquivo
+    return mensagemLog;
   }
 }

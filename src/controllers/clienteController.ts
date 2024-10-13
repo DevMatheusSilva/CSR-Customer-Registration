@@ -10,6 +10,7 @@ import Bandeira from "../models/Bandeira";
 import Telefone from "../models/Telefone";          
 import TipoTelefone from "../models/enums/TipoTelefone";
 import Genero from "../models/enums/Genero";
+import Log from "../models/Log";
 
 export default class ClienteController {
   private clientes = new Array<Cliente>();
@@ -25,11 +26,16 @@ export default class ClienteController {
     res.status(200).render("clientes", { bandeiras, estados });
   }
 
-  public salvar(req: express.Request, res: express.Response): void {
+  public criarCliente(req: express.Request, res: express.Response): void {
     try {
       const cliente = this.definirCliente(req);
       cliente.validarDadosObrigatorios();
       this.clientes.push(cliente);
+      const log = new Log(new Date(), cliente);
+      res.status(201).json({
+        message: log.gerarLog(),
+        data: cliente 
+      });
     } catch (error) {
       const err = error as Error;
       res.status(400).json({ message: err.message });

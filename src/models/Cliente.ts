@@ -6,7 +6,6 @@ import Genero from "./enums/Genero";
 
 export default class Cliente extends Usuario {
   genero!: Genero;
-  nome!: string;
   dtNascimento!: Date;
   cpf!: string;
   telefones: Telefone[] = [];
@@ -25,7 +24,7 @@ export default class Cliente extends Usuario {
     email: string, 
     senha: string
   ) {
-    super(email, senha);
+    super(email, senha, nome);
     this.genero = genero;
     this.nome = nome;
     this.dtNascimento = new Date(dtNascimento);
