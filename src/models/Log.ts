@@ -1,5 +1,7 @@
 import Entidade from "./Entidade";
 import Usuario from "./Usuario";
+import fs from "fs";
+import path from "path"
 
 export default class Log extends Entidade {
   dataEHora!: Date;
@@ -12,8 +14,10 @@ export default class Log extends Entidade {
   }
 
   gerarLog(): string {
+    const logPath = path.resolve(__dirname, "..", "logs", "log.txt");
     const mensagemLog = `O usuário ${this.usuario.nome} foi criado com sucesso em ${this.dataEHora}`;
-    console.log(mensagemLog); // TODO: Implementar lógica para salvar log em arquivo
+    console.log(mensagemLog);
+    fs.writeFileSync(logPath, mensagemLog);
     return mensagemLog;
   }
 }

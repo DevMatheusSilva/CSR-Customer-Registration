@@ -29,8 +29,7 @@ export default class ClienteController {
   public criarCliente(req: express.Request, res: express.Response): void {
     try {
       const cliente = this.definirCliente(req);
-      cliente.validarDadosObrigatorios();
-      this.clientes.push(cliente);
+      this.salvar(cliente);
       const log = new Log(new Date(), cliente);
       res.status(201).json({
         message: log.gerarLog(),
@@ -71,7 +70,6 @@ export default class ClienteController {
     const cidade = req.body.cidade;
     const estado = req.body.estado;
     const tipoEndereco = req.body.tipoEndereco as TipoEndereco;
-
     const endereco: Endereco = new Endereco(
       cep, 
       numero, 
@@ -91,7 +89,6 @@ export default class ClienteController {
     const nomeImpresso = req.body.nomeImpresso;
     const cvv = req.body.cvv;
     const isPreferencial = req.body.ePreferencial === "true";
-
     const cartao: Cartao = new Cartao(
       numeroCartao, 
       nomeImpresso, 
@@ -104,7 +101,6 @@ export default class ClienteController {
     const numeroTelefone = req.body.numeroTelefone;
     const tipoTelefone = req.body.tipoTelefone as TipoTelefone;
     const telefone: Telefone = new Telefone(ddd, numeroTelefone, tipoTelefone);
-    
     const cliente: Cliente = new Cliente(
       genero, 
       nome, 
@@ -117,6 +113,11 @@ export default class ClienteController {
 
     return cliente;
   }
+
+  private salvar(cliente: Cliente): void {
+    cliente.validarDadosObrigatorios();
+    this.clientes.push(cliente);
+  } 
 
   private validarExistencia(email: string, cpf: string): void {
     if (this.clientes.some(((c) => c.email === email)) || this.clientes.some(((c) => c.cpf === cpf))) {

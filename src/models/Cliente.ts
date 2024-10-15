@@ -13,15 +13,15 @@ export default class Cliente extends Usuario {
   enderecos: Endereco[] = [];
   ranking!: number;
 
-  constructor (
-    genero: Genero, 
-    nome: string, 
-    dtNascimento: Date, 
-    cpf: string, 
-    telefone: Telefone, 
-    cartao: Cartao, 
-    endereco: Endereco, 
-    email: string, 
+  constructor(
+    genero: Genero,
+    nome: string,
+    dtNascimento: Date,
+    cpf: string,
+    telefone: Telefone,
+    cartao: Cartao,
+    endereco: Endereco,
+    email: string,
     senha: string
   ) {
     super(email, senha, nome);
