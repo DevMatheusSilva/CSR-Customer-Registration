@@ -4,16 +4,20 @@ export default class Pais extends Entidade {
   nome!: string;
   sigla!: string; 
 
-  setNome(nome: string): void {
+  constructor(nome: string, sigla: string) {
+    super();
     this.nome = nome;
+    this.sigla = sigla;
   }
 
-  setSigla(sigla: string): void {
-    const siglaRegex: RegExp = /^[A-Z]{2}$/;
-    if(!siglaRegex.test(sigla)) {
-      throw new Error(`Sigla inválida: ${sigla}`);
-    }
+  validarDadosPais(): void {
+    this.validarSigla();
+  }
 
-    this.sigla = sigla;
+  private validarSigla(): void {
+    const siglaRegex: RegExp = /^[A-Z]{2}$/;
+    if(!siglaRegex.test(this.sigla)) {
+      throw new Error(`Sigla inválida: ${this.sigla}`);
+    }
   }
 }

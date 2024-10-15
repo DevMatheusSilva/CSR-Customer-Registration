@@ -22,6 +22,10 @@
   gap: 10px;
 }
 
+.required {
+  color: rgb(255, 102, 102);
+}
+
 .input-group-element {
   flex: 1;
   margin-left: auto;
