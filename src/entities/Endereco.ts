@@ -1,6 +1,6 @@
 import Pais from "./Pais";
 import Entidade from "./Entidade";
-import TipoEndereco from "./enums/TipoEndereco";
+import TipoEndereco from "../enums/TipoEndereco";
 
 export default class Endereco extends Entidade {
   cep!: string;

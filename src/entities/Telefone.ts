@@ -1,5 +1,5 @@
 import Entidade from "./Entidade";
-import TipoDeTelefone from "./enums/TipoTelefone";
+import TipoDeTelefone from "../enums/TipoTelefone";
 
 export default class Telefone extends Entidade {
   ddd!: string;

@@ -1,8 +1,10 @@
+import "reflect-metadata";
+import "dotenv/config";
 import express from "express";
-import roteador from "./controllers/roteador/roteador";
-import arquivosEstaticos from "./controllers/middlewares/arquivosEstaticos";
-import configuracaoForm from "./controllers/middlewares/configuracaoForm";
-import configuracaoViews from "./controllers/middlewares/configuracaoViews";
+import roteador from "./roteador/roteador";
+import arquivosEstaticos from "./middlewares/arquivosEstaticos";
+import configuracaoForm from "./config/configuracaoForm";
+import configuracaoViews from "./config/configuracaoViews";
 
 const app = express();
 

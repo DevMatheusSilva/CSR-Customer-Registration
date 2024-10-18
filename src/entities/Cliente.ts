@@ -2,7 +2,7 @@ import Endereco from "./Endereco";
 import Telefone from "./Telefone";
 import Cartao from "./Cartao";
 import Usuario from "./Usuario";
-import Genero from "./enums/Genero";
+import Genero from "../enums/Genero";
 
 export default class Cliente extends Usuario {
   genero!: Genero;

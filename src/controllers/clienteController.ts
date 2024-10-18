@@ -1,16 +1,16 @@
 import * as fs from "fs";           
 import * as path from "path";           
 import express from "express";           
-import Cliente from "../models/Cliente";
-import Pais from "../models/Pais";           
-import Endereco from "../models/Endereco";           
-import TipoEndereco from "../models/enums/TipoEndereco";           
-import Cartao from "../models/Cartao";           
-import Bandeira from "../models/Bandeira";           
-import Telefone from "../models/Telefone";          
-import TipoTelefone from "../models/enums/TipoTelefone";
-import Genero from "../models/enums/Genero";
-import Log from "../models/Log";
+import Cliente from "../entities/Cliente";
+import Pais from "../entities/Pais";           
+import Endereco from "../entities/Endereco";           
+import Cartao from "../entities/Cartao";           
+import Bandeira from "../entities/Bandeira";           
+import Telefone from "../entities/Telefone";          
+import Genero from "../enums/Genero";
+import TipoEndereco from "../enums/TipoEndereco";           
+import TipoTelefone from "../enums/TipoTelefone";
+import Log from "../entities/Log";
 
 export default class ClienteController {
   private clientes = new Array<Cliente>();
@@ -20,8 +20,8 @@ export default class ClienteController {
   }
 
   public renderizarFormularioClientes(_: express.Request, res: express.Response): void {
-    const bandeiras = this.jsonParaObjeto("../../src/models/data/bandeiras.json");
-    const estados = this.jsonParaObjeto("../../src/models/data/estados.json");
+    const bandeiras = this.jsonParaObjeto("../../src/json/bandeiras.json");
+    const estados = this.jsonParaObjeto("../../src/json/estados.json");
 
     res.status(200).render("clientes", { bandeiras, estados });
   }

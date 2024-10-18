@@ -1,6 +1,14 @@
 import app from "./app";
-const PORTA = 3000;
+import { initializeDatabase } from "./config/database/dataSource";
 
-app.listen(PORTA, () => {
-  console.log(`Servidor rodando em http://localhost:${PORTA}`);
-})
+const PORTA = process.env.PORTA;
+
+async function startServer() {
+  await initializeDatabase();
+
+  app.listen(PORTA, () => {
+    console.log(`Servidor rodando na porta http://localhost:${PORTA}`);
+  });
+}
+
+startServer();
