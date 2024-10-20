@@ -30,7 +30,7 @@ export default class ClienteController {
     try {
       const cliente = this.definirCliente(req);
       this.salvar(cliente);
-      const log = new Log(new Date(), cliente);
+      const log = new Log(cliente);
       res.status(201).json({
         message: log.gerarLog(),
         data: cliente 
@@ -70,48 +70,58 @@ export default class ClienteController {
     const cidade = req.body.cidade;
     const estado = req.body.estado;
     const tipoEndereco = req.body.tipoEndereco as TipoEndereco;
-    const endereco: Endereco = new Endereco(
-      cep, 
-      numero, 
-      complemento, 
-      logradouro, 
-      tipoLogradouro, 
-      bairro, 
-      fraseCurta, 
-      observacao, 
-      cidade, estado, pais, tipoEndereco
-    );
+    const enderecos: Endereco[] = [
+        new Endereco(
+          cep,
+          numero,
+          complemento,
+          logradouro,
+          tipoLogradouro,
+          bairro,
+          fraseCurta,
+          observacao,
+          cidade, estado, pais, tipoEndereco
+      )
+    ];
 
     const descricao = req.body.bandeira;
     const bandeira: Bandeira = new Bandeira(descricao);
-    
+
     const numeroCartao = req.body.numeroCartao;
     const nomeImpresso = req.body.nomeImpresso;
     const cvv = req.body.cvv;
     const isPreferencial = req.body.ePreferencial === "true";
-    const cartao: Cartao = new Cartao(
-      numeroCartao, 
-      nomeImpresso, 
-      bandeira, 
-      cvv, 
-      isPreferencial
-    );
+    const cartoes: Cartao[] = [
+        new Cartao(
+          numeroCartao,
+          nomeImpresso,
+          bandeira,
+          cvv,
+          isPreferencial
+        )
+    ];
     
     const ddd = req.body.ddd;
     const numeroTelefone = req.body.numeroTelefone;
     const tipoTelefone = req.body.tipoTelefone as TipoTelefone;
-    const telefone: Telefone = new Telefone(ddd, numeroTelefone, tipoTelefone);
-    const cliente: Cliente = new Cliente(
-      genero, 
-      nome, 
-      dtNascimento, 
-      cpf, 
-      telefone, 
-      cartao, 
-      endereco, 
-      email, primeiraSenha);
+    const telefones: Telefone[] = [
+        new Telefone(
+            ddd,
+            numeroTelefone,
+            tipoTelefone
+        )
+    ];
 
-    return cliente;
+    return new Cliente(
+        genero,
+        nome,
+        dtNascimento,
+        cpf,
+        telefones,
+        cartoes,
+        enderecos,
+        email, primeiraSenha
+    );
   }
 
   private salvar(cliente: Cliente): void {
