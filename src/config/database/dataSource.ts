@@ -2,13 +2,14 @@ import { DataSource } from "typeorm";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: process.env.EXTERNAL_HOST,
-  port: Number(process.env.POSTGRES_PORT ?? 5432),
-  username: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DB,
+  host: "localhost",
+  port: 5432,
+  username: "postgres",
+  password: "postgres",
+  database: "postgres",
   entities: ['src/entities/*.ts'],
-  migrations: ['src/config/database/migrations/*.ts']
+  migrations: ['src/config/database/migrations/*.ts'],
+  synchronize: true
 });
 
 export async function initializeDatabase() {
@@ -18,7 +19,6 @@ export async function initializeDatabase() {
     console.log("Conexão com o banco de dados estabelecida com sucesso!");
   } catch (error) {
     const mensagemErro = `Erro ao inicializar a base de dados: ${error}`
-    console.error(mensagemErro);
     throw new Error (mensagemErro);
   }
 }
