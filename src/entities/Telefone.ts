@@ -1,10 +1,21 @@
+import { Entity, Column, ManyToOne } from "typeorm";
 import Entidade from "./Entidade";
+import Cliente from "./Cliente";
 import TipoDeTelefone from "../enums/TipoTelefone";
 
+@Entity("tb_telefone")
 export default class Telefone extends Entidade {
+  @Column({ type: "varchar" })
   ddd!: string;
+
+  @Column({ type: "varchar" })
   numero!: string;
+
+  @Column({ type: "enum", enum: TipoDeTelefone })
   tipo!: TipoDeTelefone;
+
+  @ManyToOne(() => Cliente, (cliente: Cliente) => cliente.telefones)
+  cliente!: Cliente;
 
   constructor(ddd: string, numero: string, tipo: TipoDeTelefone) {
     super();

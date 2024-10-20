@@ -1,11 +1,9 @@
-import { randomUUID } from "crypto";
+import { PrimaryGeneratedColumn, Column } from "typeorm";
 
 export default abstract class Entidade {
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
-  estaAtivo!: boolean;
 
-  constructor() {
-    this.id = randomUUID();
-    this.estaAtivo = true;
-  }
+  @Column({ type: "boolean", default: true })
+  estaAtivo!: boolean;
 }

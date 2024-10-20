@@ -1,20 +1,50 @@
-import Pais from "./Pais";
+import { Entity, Column, OneToOne, ManyToOne, JoinColumn } from "typeorm";
 import Entidade from "./Entidade";
+import Pais from "./Pais";
+import Cliente from "./Cliente";
 import TipoEndereco from "../enums/TipoEndereco";
 
+@Entity("tb_endereco")
 export default class Endereco extends Entidade {
+  @Column({ type: "varchar" })
   cep!: string;
+
+  @Column({ type: "varchar" })
   numero!: string;
-  complemento!: string;
+
+  @Column({ type: "varchar" })
+  complemento?: string;
+
+  @Column({ type: "varchar" })
   logradouro!: string;
+
+  @Column({ type: "varchar" })
   tipoLogradouro!: string;
+
+  @Column({ type: "varchar" })
   bairro!: string;
+
+  @Column({ type: "varchar" })
   fraseCurta!: string;
-  observacao!: string;
+
+  @Column({ type: "varchar" })
+  observacao?: string;
+
+  @Column({ type: "varchar" })
   cidade!: string;
+
+  @Column({ type: "varchar" })
   estado!: string;
+
+  @OneToOne(() => Pais)
   pais!: Pais;
+
+  @Column({ type: "enum", enum: TipoEndereco })
   tipo!: TipoEndereco;
+
+  @ManyToOne(() => Cliente, (cliente: Cliente) => cliente.enderecos)
+  @JoinColumn()
+  cliente!: Cliente;
 
   constructor(
     cep: string, 

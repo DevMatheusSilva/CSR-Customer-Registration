@@ -1,16 +1,43 @@
+import { Entity, Column, OneToMany } from "typeorm";
 import Endereco from "./Endereco";
 import Telefone from "./Telefone";
 import Cartao from "./Cartao";
 import Usuario from "./Usuario";
 import Genero from "../enums/Genero";
 
+@Entity("tb_usuario")
 export default class Cliente extends Usuario {
+  @Column({ type: "enum", enum: Genero })
   genero!: Genero;
+
+  @Column({ type: "date" })
   dtNascimento!: Date;
+
+  @Column({ type: "varchar" })
   cpf!: string;
+
+  @OneToMany(
+      () => Telefone,
+      (telefone: Telefone) => telefone.cliente,
+      { cascade: true, eager: true }
+  )
   telefones: Telefone[] = [];
+
+  @OneToMany(
+      () => Cartao,
+      (cartao: Cartao) => cartao.cliente,
+      { cascade: true, eager: true }
+  )
   cartoes: Cartao[] = [];
+
+  @OneToMany(
+      () => Endereco,
+      (endereco: Endereco) => endereco.cliente,
+      { cascade: true, eager: true }
+  )
   enderecos: Endereco[] = [];
+
+  @Column({ type: "int" })
   ranking!: number;
 
   constructor(
@@ -18,20 +45,20 @@ export default class Cliente extends Usuario {
     nome: string,
     dtNascimento: Date,
     cpf: string,
-    telefone: Telefone,
-    cartao: Cartao,
-    endereco: Endereco,
+    telefones: Telefone[],
+    cartoes: Cartao[],
+    enderecos: Endereco[],
     email: string,
     senha: string
   ) {
     super(email, senha, nome);
     this.genero = genero;
     this.nome = nome;
-    this.dtNascimento = new Date(dtNascimento);
+    this.dtNascimento = dtNascimento;
     this.cpf = cpf;
-    this.telefones.push(telefone);
-    this.cartoes.push(cartao);
-    this.enderecos.push(endereco);
+    this.telefones = telefones;
+    this.cartoes = cartoes;
+    this.enderecos = enderecos;
   }
 
   validarDadosObrigatorios(): void {

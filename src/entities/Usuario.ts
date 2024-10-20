@@ -1,25 +1,32 @@
+import { Entity, TableInheritance, Column } from "typeorm";
 import Entidade from "./Entidade";
 import { genSaltSync, hashSync } from "bcrypt";
 
-export default class Usuario extends Entidade {
+@Entity("tb_usuario")
+@TableInheritance({ column: { type: "varchar", name: "tipo_usuario" } })
+export default abstract class Usuario extends Entidade {
+  @Column({ type: "varchar" })
   email!: string;
+
+  @Column({ type: "varchar" })
   senha!: string;
+
+  @Column({ type: "varchar" })
   nome!: string;
 
-  constructor(email: string, senha: string, nome: string) {
+  protected constructor(email: string, senha: string, nome: string) {
     super();
     this.email = email;
-    this.senha = this.criptografarSenha(senha);
+    if(senha) {
+      this.senha = this.criptografarSenha(senha);
+    }
     this.nome = nome;
   }
 
   private criptografarSenha(senha: string): string {
     this.validarSenha(senha);
-
     const salt = genSaltSync(10);
-    const senhaCriptografada = hashSync(senha, salt);
-
-    return senhaCriptografada;
+    return  hashSync(senha, salt);
   }
 
   private validarSenha(senha: string): void {
