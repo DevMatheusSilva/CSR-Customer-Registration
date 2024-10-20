@@ -1,5 +1,3 @@
-import "reflect-metadata";
-import "dotenv/config";
 import express from "express";
 import roteador from "./roteador/roteador";
 import arquivosEstaticos from "./middlewares/arquivosEstaticos";

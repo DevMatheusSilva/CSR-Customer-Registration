@@ -1,7 +1,8 @@
+import "reflect-metadata";
 import app from "./app";
 import { initializeDatabase } from "./config/database/dataSource";
 
-const PORTA = process.env.PORTA;
+const PORTA = 3000;
 
 async function startServer() {
   await initializeDatabase();
@@ -11,4 +12,6 @@ async function startServer() {
   });
 }
 
-startServer();
+startServer().then(() => {
+    console.log("Aplicação inicializada com sucesso!");
+});
