@@ -1,10 +1,9 @@
-import { Entity, TableInheritance, Column } from "typeorm";
+import { Entity, Column } from "typeorm";
 import Entidade from "./Entidade";
 import { genSaltSync, hashSync } from "bcrypt";
 
 @Entity("tb_usuario")
-@TableInheritance({ column: { type: "varchar", name: "tipo_usuario" } })
-export default abstract class Usuario extends Entidade {
+export default class Usuario extends Entidade {
   @Column({ type: "varchar" })
   email!: string;
 
@@ -14,7 +13,7 @@ export default abstract class Usuario extends Entidade {
   @Column({ type: "varchar" })
   nome!: string;
 
-  protected constructor(email: string, senha: string, nome: string) {
+  constructor(email: string, senha: string, nome: string) {
     super();
     this.email = email;
     if(senha) {
