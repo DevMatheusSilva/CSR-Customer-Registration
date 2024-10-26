@@ -12,7 +12,10 @@ export default class ClienteDAOPostgres implements IDAO<Cliente> {
     }
 
     private async validarExistenciaPorCpf(cpf: string): Promise<boolean> {
-        const jaExiste = await this.repository.findOneBy({cpf});
+        const jaExiste = await this.repository.findOneBy({
+            usuario: {cpf}
+        });
+
         return Boolean(jaExiste);
     }
 
@@ -26,7 +29,7 @@ export default class ClienteDAOPostgres implements IDAO<Cliente> {
 
     async salvar(cliente: Cliente): Promise<Cliente> {
         const clienteExiste = await (
-            this.validarExistenciaPorCpf(cliente.cpf) || this.validarExistenciaPorEmail(cliente.usuario.email)
+            this.validarExistenciaPorCpf(cliente.usuario.cpf) || this.validarExistenciaPorEmail(cliente.usuario.email)
         );
 
         if (clienteExiste) {

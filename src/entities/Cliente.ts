@@ -14,15 +14,9 @@ export default class Cliente extends Entidade {
     @Column({type: "date"})
     dtNascimento!: Date;
 
-    @Column({type: "varchar"})
-    cpf!: string;
-    
-    @OneToMany(
-        () => Telefone,
-        (telefone: Telefone) => telefone.cliente,
-        {cascade: true, eager: true}
-    )
-    telefones!: Telefone[];
+    @OneToOne(() => Telefone, {cascade: true})
+    @JoinColumn()
+    telefone!: Telefone;
 
     @OneToMany(
         () => Cartao,
@@ -48,8 +42,7 @@ export default class Cliente extends Entidade {
     constructor(
         genero: Genero,
         dtNascimento: Date,
-        cpf: string,
-        telefones: Telefone[],
+        telefone: Telefone,
         cartoes: Cartao[],
         enderecos: Endereco[],
         usuario: Usuario
@@ -57,33 +50,9 @@ export default class Cliente extends Entidade {
         super();
         this.genero = genero;
         this.dtNascimento = dtNascimento;
-        this.cpf = cpf;
-        this.telefones = telefones;
+        this.telefone = telefone;
         this.cartoes = cartoes;
         this.enderecos = enderecos;
         this.usuario = usuario;
-    }
-
-    validarDadosObrigatorios(): void {
-        this.validarCpf();
-
-        for (const telefone of this.telefones) {
-            telefone.validarDadosTelefone();
-        }
-
-        for (const cartao of this.cartoes) {
-            cartao.validarDadosCartao();
-        }
-
-        for (const endereco of this.enderecos) {
-            endereco.validarDadosEndereco();
-        }
-    }
-
-    private validarCpf(): void {
-        const cpfRegex: RegExp = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/
-        if (!cpfRegex.test(this.cpf)) {
-            throw new Error(`CPF inválido: ${this.cpf}`);
-        }
     }
 }
