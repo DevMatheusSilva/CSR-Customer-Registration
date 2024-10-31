@@ -74,24 +74,4 @@ export default class Endereco extends Entidade {
         this.pais = pais;
         this.tipo = tipo;
     }
-
-    validarDadosEndereco(): void {
-        this.validarCep();
-        this.validarNumero();
-        this.pais.validarDadosPais();
-    }
-
-    private validarCep(): void {
-        const cepRegex: RegExp = /\d{5}-\d{3}/;
-        if (!cepRegex.test(this.cep)) {
-            throw new Error(`CEP inválido: ${this.cep}`);
-        }
-    }
-
-    private validarNumero(): void {
-        const numeroRegex: RegExp = /^\d{1,4}$/
-        if (!numeroRegex.test(this.numero)) {
-            throw new Error(`Número inválido: ${this.numero}`);
-        }
-    }
 }

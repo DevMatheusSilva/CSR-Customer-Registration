@@ -1,4 +1,4 @@
-import { DataSource } from "typeorm";
+import {DataSource} from "typeorm";
 
 export const postgresDataSource: DataSource = new DataSource({
     type: "postgres",
@@ -9,5 +9,6 @@ export const postgresDataSource: DataSource = new DataSource({
     database: "postgres",
     entities: ['src/entities/*.ts'],
     migrations: ['src/config/database/migrations/*.ts'],
-    synchronize: true
+    synchronize: true,
+    logging: true
 });

@@ -1,184 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/index.css" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="styles/index.css"/>
     <title>CSR - Cadastrar Cliente</title>
-  </head>
-  <body>
-    <form class="board" method="post" action="/clientes">
-      <div class="data-group">
+</head>
+<body>
+<form class="board" method="post" action="/clientes">
+    <div class="data-group">
         <h2 class="title">Dados do Cliente</h2>
 
         <div class="input-group-line">
-          <label for="genero">Selecione seu Gênero<span class="required">*</span></label>
-          <select class="input-group-element" name="genero" id="genero" required>
-            <option value="MASCULINO">Masculino</option>
-            <option value="FEMININO">Feminino</option>
-            <option value="OUTRO">Outro</option>
-          </select>
+            <label for="genero">Selecione seu Gênero<span class="required">*</span></label>
+            <select class="input-group-element" name="genero" id="genero" required>
+                <option value="MASCULINO">Masculino</option>
+                <option value="FEMININO">Feminino</option>
+                <option value="OUTRO">Outro</option>
+            </select>
         </div>
 
         <div class="input-group-line">
-          <label for="nome">Digite seu Nome<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="nome" id="nome" placeholder="Ex. João da Silva" required/>
+            <label for="nome">Digite seu Nome<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="nome" id="nome" placeholder="Ex. João da Silva"
+                   required/>
         </div>
 
         <div class="input-group-line">
-          <label for="dataNascimento">Digite sua Data de Nascimento<span class="required">*</span></label>
-          <input class="input-group-element" type="date" name="dataNascimento" id="dataNascimento" required/>
+            <label for="dataNascimento">Digite sua Data de Nascimento<span class="required">*</span></label>
+            <input class="input-group-element" type="date" name="dataNascimento" id="dataNascimento" required/>
         </div>
 
         <div class="input-group-line">
-          <label for="cpf">Digite seu CPF<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="cpf" id="cpf" placeholder="Ex. 123.456.789-00" required/>
+            <label for="cpf">Digite seu CPF<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="cpf" id="cpf" placeholder="Ex. 123.456.789-00"
+                   required/>
         </div>
 
         <div class="input-group-line">
-          <label for="phoneNumber">Digite seu Telefone<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="ddd" placeholder="DDD" id="ddd" required>
-          <input class="input-group-element" type="tel" name="numeroTelefone" placeholder="ex. 12345-6789" id="numeroTelefone" required/>
+            <label for="phoneNumber">Digite seu Telefone<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="ddd" placeholder="DDD" id="ddd" required>
+            <input class="input-group-element" type="tel" name="numeroTelefone" placeholder="ex. 12345-6789"
+                   id="numeroTelefone" required/>
         </div>
 
         <div class="input-group-line">
-          <label for="tipoTelefone">Selecione o tipo de telefone<span class="required">*</span></label>
-          <select class="input-group-element" name="tipoTelefone" id="tipoTelefone">
-            <option value="MÓVEL">Móvel</option>
-            <option value="FIXO">Fixo</option>
-          </select>
+            <label for="tipoTelefone">Selecione o tipo de telefone<span class="required">*</span></label>
+            <select class="input-group-element" name="tipoTelefone" id="tipoTelefone">
+                <option value="MÓVEL">Móvel</option>
+                <option value="FIXO">Fixo</option>
+            </select>
         </div>
 
         <div class="input-group-line">
-          <label for="email">Digite seu Email<span class="required">*</span></label>
-          <input class="input-group-element" type="email" name="email" placeholder="Ex. joao@dasilva.com" id="email" required/>
+            <label for="email">Digite seu Email<span class="required">*</span></label>
+            <input class="input-group-element" type="email" name="email" placeholder="Ex. joao@dasilva.com" id="email"
+                   required/>
         </div>
 
         <div class="input-group-line">
-          <label for="primeiraSenha">Digite sua Senha<span class="required">*</span></label>
-          <input class="input-group-element" type="password" name="primeiraSenha" id="primeiraSenha" required/>
+            <label for="primeiraSenha">Digite sua Senha<span class="required">*</span></label>
+            <input class="input-group-element" type="password" name="primeiraSenha" id="primeiraSenha" required/>
         </div>
 
         <div class="input-group-line">
-          <label for="segundaSenha">Digite sua Senha Novamente<span class="required">*</span></label>
-          <input class="input-group-element" type="password" name="segundaSenha" id="segundaSenha" required/>
+            <label for="segundaSenha">Digite sua Senha Novamente<span class="required">*</span></label>
+            <input class="input-group-element" type="password" name="segundaSenha" id="segundaSenha" required/>
         </div>
-      </div>
+    </div>
 
-      <div class="data-group">
+    <div class="data-group">
         <h2 class="title">Dados do Endereço</h2>
 
         <div class="input-group-line">
-          <label for="fraseCurta">Digite uma frase de identificação</label>
-          <input class="input-group-element" type="text" name="fraseCurta" id="fraseCurta">
+            <label for="fraseCurta">Digite uma frase de identificação</label>
+            <input class="input-group-element" type="text" name="fraseCurta" id="fraseCurta">
         </div>
 
         <div class="input-group-line">
-          <label for="cep">Digite seu CEP<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="cep" placeholder="Ex. 12345-678" id="cep" required/>
+            <label for="cep">Digite seu CEP<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="cep" placeholder="Ex. 12345-678" id="cep" required/>
         </div>
 
         <div class="input-group-line">
-          <label for="numero">Digite seu Número<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="numero" placeholder="Ex. 123A ou 123" id="numero" required/>
+            <label for="numero">Digite seu Número<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="numero" placeholder="Ex. 1234, 123, 12" id="numero"
+                   required/>
         </div>
 
         <div class="input-group-line">
-          <label for="complemento">Digite seu Complemento<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="complemento" placeholder="Ex. Casa, Apartamento, Bloco" id="complemento" required/>
+            <label for="complemento">Digite seu Complemento<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="complemento" placeholder="Ex. Casa, Apartamento, Bloco"
+                   id="complemento" required/>
         </div>
 
         <div class="input-group-line">
-          <label for="logradouro">Digite seu Logradouro<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="logradouro" placeholder="Ex. Rua XXX" id="logradouro" required/>
+            <label for="logradouro">Digite seu Logradouro<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="logradouro" placeholder="Ex. Rua XXX" id="logradouro"
+                   required/>
         </div>
 
         <div class="input-group-line">
-          <label for="tipoLogradouro">Digite o Tipo de Logradouro<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="tipoLogradouro" placeholder="Ex. Rua, Avenida, Estrada" id="tipoLogradouro" required/>
+            <label for="tipoLogradouro">Digite o Tipo de Logradouro<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="tipoLogradouro" placeholder="Ex. Rua, Avenida, Estrada"
+                   id="tipoLogradouro" required/>
         </div>
 
         <div class="input-group-line">
-          <label for="bairro">Digite seu Bairro<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="bairro" placeholder="Ex. Centro, Jardim" id="bairro" required/>
+            <label for="bairro">Digite seu Bairro<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="bairro" placeholder="Ex. Centro, Jardim" id="bairro"
+                   required/>
         </div>
 
         <div class="input-group-line">
-          <label for="cidade">Digite sua Cidade<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="cidade" placeholder="Ex. São Paulo, Rio de Janeiro" id="cidade" required/>
+            <label for="cidade">Digite sua Cidade<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="cidade" placeholder="Ex. São Paulo, Rio de Janeiro"
+                   id="cidade" required/>
         </div>
 
         <div class="input-group-line">
-          <label for="estado">Digite seu Estado<span class="required">*</span></label>
-          <select class="input-group-element" type="text" name="estado" placeholder="Ex. SP, RJ" id="estado" required>
-            <% estados.forEach(element => { %>
-              <option value="<%= element.abbr %>"><%= element.name %> - <%= element.abbr %></option>
-            <% }) %> 
-          </select>
+            <label for="estado">Digite seu Estado<span class="required">*</span></label>
+            <select class="input-group-element" type="text" name="estado" placeholder="Ex. SP, RJ" id="estado" required>
+                <% estados.forEach(element => { %>
+                    <option value="<%= element.abbr %>"><%= element.name %> - <%= element.abbr %></option>
+                <% }) %>
+            </select>
         </div>
 
         <div class="input-group-line">
-          <label for="nomePais">Digite o Nome do País<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="nomePais" placeholder="Ex. Brasil, Argentina" id="nomePais" required/>
+            <label for="nomePais">Digite o Nome do País<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="nomePais" placeholder="Ex. Brasil, Argentina"
+                   id="nomePais" required/>
         </div>
 
         <div class="input-group-line">
-          <label for="sigla">Digite a Sigla do País</label>
-          <input class="input-group-element" type="text" name="sigla" placeholder="Ex. BR, AR" id="sigla"/>
+            <label for="sigla">Digite a Sigla do País</label>
+            <input class="input-group-element" type="text" name="sigla" placeholder="Ex. BR, AR" id="sigla"/>
         </div>
 
         <div class="input-group-line">
-          <label for="tipoEndereco">Selecione o tipo de endereço</label>
-          <select class="input-group-element" name="tipoEndereco" id="tipoEndereco">
-            <option value="ENTREGA">Entrega</option>
-            <option value="COBRANÇA">Cobrança</option>
-            <option value="ENTREGA_E_COBRANCA">Entrega e Cobrança</option>
-          </select>
+            <label for="tipoEndereco">Selecione o tipo de endereço</label>
+            <select class="input-group-element" name="tipoEndereco" id="tipoEndereco">
+                <option value="ENTREGA">Entrega</option>
+                <option value="COBRANÇA">Cobrança</option>
+                <option value="ENTREGA_E_COBRANCA">Entrega e Cobrança</option>
+            </select>
         </div>
 
         <div class="input-group-line">
-          <label for="observacoes">Digite suas Observações</label>
-          <input class="input-group-element" type="text" name="observacoes" id="observacoes">
+            <label for="observacoes">Digite suas Observações</label>
+            <input class="input-group-element" type="text" name="observacoes" id="observacoes">
         </div>
-      </div>
+    </div>
 
-      <div class="data-group">
+    <div class="data-group">
         <h2 class="title">Dados de Cartão</h2>
 
         <div class="input-group-line">
-          <label for="numeroCartao">Digite o Número do Cartão<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="numeroCartao" placeholder="Ex. 1234 5678 1234 5678" id="numeroCartao" required/>
+            <label for="numeroCartao">Digite o Número do Cartão<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="numeroCartao" placeholder="Ex. 1234 5678 1234 5678"
+                   id="numeroCartao" required/>
         </div>
 
         <div class="input-group-line">
-          <label for="nomeImpresso">Digite o Nome Impresso no Cartão<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="nomeImpresso" placeholder="Ex. JOAO DA SILVA" id="nomeImpresso" required/>
+            <label for="nomeImpresso">Digite o Nome Impresso no Cartão<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="nomeImpresso" placeholder="Ex. JOAO DA SILVA"
+                   id="nomeImpresso" required/>
         </div>
 
         <div class="input-group-line">
-          <label for="cvv">Digite o Número de Verificação (CVV)<span class="required">*</span></label>
-          <input class="input-group-element" type="text" name="cvv" placeholder="Ex. 123" id="cvv" required/>
+            <label for="cvv">Digite o Número de Verificação (CVV)<span class="required">*</span></label>
+            <input class="input-group-element" type="text" name="cvv" placeholder="Ex. 123" id="cvv" required/>
         </div>
 
         <div class="input-group-line">
-          <label for="ePreferencial">Este Cartão é Preferencial?</label>
-          <select class="input-group-element" name="ePreferencial" id="ePreferencial">
-            <option value="true">Sim</option>
-            <option value="false">Não</option>
-          </select> 
+            <label for="ePreferencial">Este Cartão é Preferencial?</label>
+            <select class="input-group-element" name="ePreferencial" id="ePreferencial">
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+            </select>
         </div>
-        
-        <div class="input-group-line">
-          <label for="bandeira">Digite a Bandeira do Cartão<span class="required">*</span></label>
-          <select class="input-group-element" type="text" name="bandeira" id="bandeira" required>
-            <% bandeiras.forEach(element => { %>
-            <option value="<%= element.code %>"><%= element.name %></option>
-            <% }) %> 
-          </select>
-        </div>
-      </div>
 
-      <button class="start-registration-btn" type="submit">Enviar</button>
-    </form>
-  </body>
+        <div class="input-group-line">
+            <label for="bandeira">Digite a Bandeira do Cartão<span class="required">*</span></label>
+            <select class="input-group-element" type="text" name="bandeira" id="bandeira" required>
+                <% bandeiras.forEach(element => { %>
+                    <option value="<%= element.code %>"><%= element.name %></option>
+                <% }) %>
+            </select>
+        </div>
+    </div>
+
+    <button class="start-registration-btn" type="submit">Enviar</button>
+</form>
+</body>
 </html>

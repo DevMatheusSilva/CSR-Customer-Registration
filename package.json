@@ -4,6 +4,7 @@
   "main": "server.js",
   "scripts": {
     "start": "tsx watch src/server.ts",
+    "up:db": "docker compose up -d",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --watch",
     "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --watch --coverage"

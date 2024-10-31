@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import express from "express";
+import Usuario from "../entities/Usuario";
 import Cliente from "../entities/Cliente";
 import Pais from "../entities/Pais";
 import Endereco from "../entities/Endereco";
@@ -10,15 +11,14 @@ import Telefone from "../entities/Telefone";
 import Genero from "../enums/Genero";
 import TipoEndereco from "../enums/TipoEndereco";
 import TipoTelefone from "../enums/TipoTelefone";
-import Log from "../entities/Log";
-import ClienteDAOPostgres from "../daos/impls/postgres/ClienteDAOPostgres";
-import LogDAOPostgres from "../daos/impls/postgres/LogDAOPostgres";
-import {postgresDataSource} from "../config/database/dataSources/postgresDataSource";
-import Usuario from "../entities/Usuario";
+import ClienteFachada from "../facades/ClienteFachada";
 
 export default class ClienteController {
-    private clienteDAO: ClienteDAOPostgres = new ClienteDAOPostgres(postgresDataSource);
-    private logDAO: LogDAOPostgres = new LogDAOPostgres(postgresDataSource);
+    private clienteFachada: ClienteFachada;
+
+    constructor(clienteFachada: ClienteFachada) {
+        this.clienteFachada = clienteFachada;
+    }
 
     public renderizarPaginaPrincipal(_: express.Request, res: express.Response): void {
         res.status(200).render("principal");
@@ -27,20 +27,14 @@ export default class ClienteController {
     public renderizarFormularioClientes(_: express.Request, res: express.Response): void {
         const bandeiras = this.jsonParaObjeto("../../src/json/bandeiras.json");
         const estados = this.jsonParaObjeto("../../src/json/estados.json");
-
         res.status(200).render("clientes", {bandeiras, estados});
     }
 
     public async criarCliente(req: express.Request, res: express.Response): Promise<void> {
         try {
             const clienteDefinido: Cliente = await this.definirCliente(req);
-            clienteDefinido.validarDadosObrigatorios();
-            const cliente = await this.clienteDAO.salvar(clienteDefinido);
-            const log = await this.logDAO.salvar(new Log(cliente.usuario));
-            res.status(201).json({
-                log: log.gerarLog(),
-                cliente
-            });
+            const clienteSalvo = await this.clienteFachada.salvar(clienteDefinido);
+            res.status(201).json(clienteSalvo);
         } catch (error) {
             const err = error as Error;
             res.status(400).json({message: err.message});
@@ -60,7 +54,7 @@ export default class ClienteController {
             throw new Error("As senhas não correspondem");
         }
 
-        const usuario = new Usuario(email, primeiraSenha, nome);
+        const usuario = new Usuario(email, primeiraSenha, nome, cpf);
 
         const nomePais = req.body.nomePais;
         const sigla = req.body.sigla;
@@ -114,19 +108,12 @@ export default class ClienteController {
         const ddd = req.body.ddd;
         const numeroTelefone = req.body.numeroTelefone;
         const tipoTelefone = req.body.tipoTelefone as TipoTelefone;
-        const telefones: Telefone[] = [
-            new Telefone(
-                ddd,
-                numeroTelefone,
-                tipoTelefone
-            )
-        ];
+        const telefone: Telefone = new Telefone(ddd, numeroTelefone, tipoTelefone);
 
         return new Cliente(
             genero,
             dtNascimento,
-            cpf,
-            telefones,
+            telefone,
             cartoes,
             enderecos,
             usuario,
