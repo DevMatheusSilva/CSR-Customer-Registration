@@ -27,7 +27,7 @@ export default class ClienteDAOPostgres implements IDAO<Cliente> {
         return Boolean(jaExiste);
     }
 
-    async salvar(cliente: Cliente): Promise<Cliente> {
+    public async salvar(cliente: Cliente): Promise<Cliente> {
         const clienteExiste = await (
             this.validarExistenciaPorCpf(cliente.usuario.cpf) || this.validarExistenciaPorEmail(cliente.usuario.email)
         );
@@ -36,5 +36,9 @@ export default class ClienteDAOPostgres implements IDAO<Cliente> {
             throw new Error(`O cliente ${cliente.usuario.nome} já existe`);
         }
         return await this.repository.save(cliente);
+    }
+
+    public async buscarTodos(): Promise<Cliente[]> {
+        return await this.repository.find();
     }
 }
