@@ -1,6 +1,6 @@
 import express from "express";
 import ClienteController from "../controllers/ClienteController";
-import ClienteFachada from "../facades/ClienteFachada";
+import ClienteFachada from "../fachadas/ClienteFachada";
 import ClienteDAOPostgres from "../daos/impls/postgres/ClienteDAOPostgres";
 import LogDAOPostgres from "../daos/impls/postgres/LogDAOPostgres";
 import {postgresDataSource} from "../config/database/dataSources/postgresDataSource";
