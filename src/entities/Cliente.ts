@@ -14,7 +14,7 @@ export default class Cliente extends Entidade {
     @Column({type: "date"})
     dtNascimento!: Date;
 
-    @OneToOne(() => Telefone, {cascade: true})
+    @OneToOne(() => Telefone, {cascade: true, eager: true})
     @JoinColumn()
     telefone!: Telefone;
 
@@ -32,7 +32,7 @@ export default class Cliente extends Entidade {
     )
     enderecos!: Endereco[];
 
-    @OneToOne(() => Usuario, {cascade: true})
+    @OneToOne(() => Usuario, {cascade: true, eager: true})
     @JoinColumn()
     usuario!: Usuario;
 
