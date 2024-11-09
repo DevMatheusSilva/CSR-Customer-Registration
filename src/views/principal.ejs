@@ -1,15 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles/index.css">
-  <title>CSR</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <title>CSR - Seja bem vindo</title>
 </head>
-<body>
-  <div class="board">
-    <h1 class="title">Welcome to CSR</h1>
-    <a href="http://localhost:3000/clientes" class="start-registration-btn">Start registration</a>
-  </div>
+<body class="flex justify-center bg-dark-default">
+
+<%- include('components/navbar') %>
+
+<% if (clientes.length === 0) { %>
+    <div class="container mx-auto flex w-full justify-center items-center h-screen">
+        <h1 class="text-3xl text-gray-200">Não há clientes registrados ainda</h1>
+    </div>
+<% } else { %>
+    <div class="mt-36 w-10/12 shadow-lg rounded-md">
+        <h2 class="text-2xl text-font-default font-bold">Clientes cadastrados</h2>
+        <div class="mt-6">
+            <table class="w-full divide-y divide-dark-default">
+                <thead class="text-font-default bg-light-default">
+                <tr>
+                    <th class="py-1 text-lg font-medium">Nome</th>
+                    <th class="py-1 text-lg font-medium">CPF</th>
+                    <th class="py-1 text-lg font-medium">Telefone</th>
+                    <th class="py-1 text-lg font-medium">Data de Nascimento</th>
+                    <th class="py-1 text-lg font-medium">Opçoes</th>
+                </tr>
+                </thead>
+                <tbody class="bg-[#3f4b4b]">
+                <% clientes.forEach(cliente => { %>
+                    <tr class="border-b-2 border-b-light-default">
+                        <td class="border-x-2 border-x-light-default px-3 py-2 text-center text-white">
+                            <%= cliente.usuario.nome %>
+                        </td>
+                        <td class="border-x-2 border-x-light-default px-3 py-2 text-center text-white">
+                            <%= cliente.usuario.cpf %>
+                        </td>
+                        <td class="border-x-2 border-x-light-default px-3 py-2 text-center text-white">
+                            (<%= cliente.telefone.ddd %>)
+                            <%= cliente.telefone.numero %>
+                        </td>
+                        <td class="border-x-2 border-x-light-default px-3 py-2 text-center text-white">
+                            <%= cliente.dtNascimento %>
+                        </td>
+                        <td class="text-center text-white">
+                            <a href="http://localhost:3000/">
+                                <i class="fa-solid fa-user-pen text-blue-400"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa-solid fa-x text-red-400 ml-2"></i>
+                            </a>
+                        </td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<% } %>
 </body>
 </html>

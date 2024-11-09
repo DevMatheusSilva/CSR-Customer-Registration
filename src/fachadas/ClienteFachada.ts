@@ -49,4 +49,9 @@ export default class ClienteFachada implements IFachada {
 
         return clienteSalvo;
     }
+
+    public async buscarTodos(): Promise<Cliente[]> {
+        const clientes = await this.clienteDAO.buscarTodos();
+        return clientes.length === 0 ? [] : clientes;
+    }
 }

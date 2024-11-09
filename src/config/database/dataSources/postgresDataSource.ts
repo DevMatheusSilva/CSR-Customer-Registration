@@ -9,6 +9,5 @@ export const postgresDataSource: DataSource = new DataSource({
     database: "postgres",
     entities: ['src/entities/*.ts'],
     migrations: ['src/config/database/migrations/*.ts'],
-    synchronize: true,
-    logging: true
+    synchronize: true
 });
