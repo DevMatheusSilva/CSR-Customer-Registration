@@ -11,7 +11,7 @@ import Telefone from "../entities/Telefone";
 import Genero from "../enums/Genero";
 import TipoEndereco from "../enums/TipoEndereco";
 import TipoTelefone from "../enums/TipoTelefone";
-import ClienteFachada from "../facades/ClienteFachada";
+import ClienteFachada from "../fachadas/ClienteFachada";
 
 export default class ClienteController {
     private clienteFachada: ClienteFachada;
@@ -20,8 +20,9 @@ export default class ClienteController {
         this.clienteFachada = clienteFachada;
     }
 
-    public renderizarPaginaPrincipal(_: express.Request, res: express.Response): void {
-        res.status(200).render("principal");
+    public async renderizarPaginaPrincipal(_: express.Request, res: express.Response): Promise<void> {
+        const clientes = await this.clienteFachada.buscarTodos();
+        res.status(200).render("principal", {clientes})
     }
 
     public renderizarFormularioClientes(_: express.Request, res: express.Response): void {
@@ -34,7 +35,7 @@ export default class ClienteController {
         try {
             const clienteDefinido: Cliente = await this.definirCliente(req);
             const clienteSalvo = await this.clienteFachada.salvar(clienteDefinido);
-            res.status(201).json(clienteSalvo);
+            res.status(201).redirect("http://localhost:3000/");
         } catch (error) {
             const err = error as Error;
             res.status(400).json({message: err.message});
