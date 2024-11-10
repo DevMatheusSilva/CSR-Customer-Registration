@@ -3,40 +3,60 @@ const cidadeInput = document.querySelector("#cidade");
 const estadoInput = document.querySelector("#estado");
 const paisInput = document.querySelector("#nomePais");
 const siglaInput = document.querySelector("#sigla");
-const logradouro = document.querySelector("#logradouro");
-const tipoLogradouro = document.querySelector("#tipoLogradouro");
-const bairro = document.querySelector("#bairro");
+const logradouroInput = document.querySelector("#logradouro");
+const tipoLogradouroInput = document.querySelector("#tipoLogradouro");
+const bairroInput = document.querySelector("#bairro");
 
-function limpaFormulario() {
+function verificarDropdowns(options, valor) {
+    for (const option of options) {
+        if (option.value.toUpperCase().includes(valor.toUpperCase())) {
+            option.selected = true;
+            break;
+        }
+    }
+}
+
+function limparCampos() {
     cidadeInput.value = "";
     estadoInput.value = "";
     paisInput.value = "";
     siglaInput.value = "";
+    logradouroInput.value = "";
+    tipoLogradouroInput.value = "";
+    bairroInput.value = "";
 }
 
 function atualizarCampos(conteudo) {
+    const PAIS_DEFAULT = "Brasil";
+    const SIGLA_DEFAULT = "BR";
+
     if (!("erro" in conteudo)) {
         cidadeInput.value = conteudo.localidade;
-        for (const option of estadoInput.options) {
-            if (option.value === conteudo.uf) {
-                option.selected = true;
-                break;
-            }
-        }
+        verificarDropdowns(estadoInput.options, conteudo.uf);
+
         if (conteudo.logradouro) {
-            logradouro.value = conteudo.logradouro;
-            for (const option of tipoLogradouro.options) {
-                if (conteudo.logradouro.split(" ")[0].toUpperCase() === option.value) {
-                    option.selected = true;
-                    break;
-                }
-            }
+            logradouroInput.value = conteudo.logradouro;
+            verificarDropdowns(tipoLogradouroInput.options, conteudo.logradouro.split(" ")[0]);
         }
+
         if (conteudo.bairro) {
-            bairro.value = conteudo.bairro;
+            bairroInput.value = conteudo.bairro;
         }
-        paisInput.value = "Brasil";
-        siglaInput.value = "BR";
+
+        paisInput.value = PAIS_DEFAULT;
+        siglaInput.value = SIGLA_DEFAULT;
+    } else {
+        limparCampos();
+        Swal.fire({
+            title: "CEP não encontrado",
+            text: "Por favor, digite um CEP válido",
+            icon: "error",
+            color: "#03A696",
+            background: "#3f4b4b",
+            backdrop: "rgba(35,41,41,0.8)",
+            confirmButtonColor: "#253659",
+            confirmButtonText: "Fechar",
+        });
     }
 }
 

@@ -6,7 +6,9 @@ document.querySelectorAll('#deletar-cliente').forEach(button => {
         const confirmacaoDelecao = await Swal.fire({
             title: 'Confirmação de Exclusão',
             text: `Deseja realmente inativar ${nomeCliente}?`,
-            color: '#6DE6B9',
+            color: '#03A696',
+            confirmButtonColor: "#253659",
+            cancelButtonColor: "#BF665E",
             background: '#3f4b4b',
             backdrop: 'rgba(35,41,41,0.8)',
             icon: 'warning',

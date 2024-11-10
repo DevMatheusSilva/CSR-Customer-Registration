@@ -569,11 +569,11 @@ video {
 .table {
   display: table;
 }
-.h-screen {
-  height: 100vh;
-}
 .h-16 {
   height: 4rem;
+}
+.h-screen {
+  height: 100vh;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -783,11 +783,11 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(109 230 185 / var(--tw-bg-opacity));
 }
-.hover\:text-lighter-default:hover {
-  --tw-text-opacity: 1;
-  color: rgb(63 75 75 / var(--tw-text-opacity));
-}
 .hover\:text-gray-200:hover {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+.hover\:text-lighter-default:hover {
+  --tw-text-opacity: 1;
+  color: rgb(63 75 75 / var(--tw-text-opacity));
 }
