@@ -16,6 +16,7 @@ const roteador = (app: express.Application): void => {
     app.get("/", (_, res) => clienteController.renderizarPaginaPrincipal(_, res));
     app.get("/clientes", (_, res) => clienteController.renderizarFormularioClientes(_, res));
     app.post("/clientes", (req, res) => clienteController.criarCliente(req, res));
+    app.delete("/clientes/:id", (req, res) => clienteController.inativarCliente(req, res));
 }
 
 export default roteador;

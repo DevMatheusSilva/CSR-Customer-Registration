@@ -22,7 +22,7 @@ export default class ClienteController {
 
     public async renderizarPaginaPrincipal(_: express.Request, res: express.Response): Promise<void> {
         const clientes = await this.clienteFachada.buscarTodos();
-        res.status(200).render("principal", {clientes})
+        res.status(200).render("principal", {clientes});
     }
 
     public renderizarFormularioClientes(_: express.Request, res: express.Response): void {
@@ -34,10 +34,22 @@ export default class ClienteController {
     public async criarCliente(req: express.Request, res: express.Response): Promise<void> {
         try {
             const clienteDefinido: Cliente = await this.definirCliente(req);
-            const clienteSalvo = await this.clienteFachada.salvar(clienteDefinido);
+            await this.clienteFachada.salvar(clienteDefinido);
             res.status(201).redirect("http://localhost:3000/");
         } catch (error) {
             const err = error as Error;
+            res.status(400).json({message: err.message});
+        }
+    }
+
+    public async inativarCliente(req: express.Request, res: express.Response): Promise<void> {
+        try {
+            const id = req.params.id;
+            await this.clienteFachada.inativarCliente(id);
+            res.status(204).send();
+        } catch (error) {
+            const err = error as Error;
+            console.log(error)
             res.status(400).json({message: err.message});
         }
     }

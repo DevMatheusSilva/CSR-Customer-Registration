@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>CSR - Seja bem vindo</title>
 </head>
 <body class="flex justify-center bg-dark-default">
 
 <%- include('components/navbar') %>
 
-<% if (clientes.length === 0) { %>
+<% const clientesAtivos = clientes.filter(cliente => cliente.estaAtivo) %>
+
+<% if (clientesAtivos.length === 0) { %>
     <div class="container mx-auto flex w-full justify-center items-center h-screen">
-        <h1 class="text-3xl text-gray-200">Não há clientes registrados ainda</h1>
+        <h1 class="text-3xl text-gray-200">Não há clientes ativos no momento</h1>
     </div>
 <% } else { %>
     <div class="mt-36 w-10/12 shadow-lg rounded-md">
@@ -32,8 +35,9 @@
                 </tr>
                 </thead>
                 <tbody class="bg-[#3f4b4b]">
-                <% clientes.forEach(cliente => { %>
-                    <tr class="border-b-2 border-b-light-default">
+                <% clientesAtivos.forEach(cliente => { %>
+                    <tr class="border-b-2 border-b-light-default" id="<%= cliente.id %>"
+                        data-nome="<%= cliente.usuario.nome %>">
                         <td class="border-x-2 border-x-light-default px-3 py-2 text-center text-white">
                             <%= cliente.usuario.nome %>
                         </td>
@@ -48,12 +52,13 @@
                             <%= cliente.dtNascimento %>
                         </td>
                         <td class="text-center text-white">
-                            <a href="http://localhost:3000/">
+                            <button id="editar-cliente">
                                 <i class="fa-solid fa-user-pen text-blue-400"></i>
-                            </a>
-                            <a href="">
-                                <i class="fa-solid fa-x text-red-400 ml-2"></i>
-                            </a>
+                            </button>
+                            <button id="deletar-cliente">
+                                <i class="fa-solid fa-x text-red-400 ml-2"
+                                   title="Inativar o cliente <%= cliente.usuario.nome %>"></i>
+                            </button>
                         </td>
                     </tr>
                 <% }); %>
@@ -62,5 +67,6 @@
         </div>
     </div>
 <% } %>
+<script src="/js/inativarCliente.js" type="module"></script>
 </body>
 </html>

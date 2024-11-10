@@ -11,6 +11,7 @@ import ValidarCpf from "../strategies/impls/ClienteImpls/ValidarCpf";
 import CriptografarSenha from "../strategies/impls/UsuarioImpls/CriptografarSenha";
 import LogDAOPostgres from "../daos/impls/postgres/LogDAOPostgres";
 import GerarLog from "../strategies/impls/LogImpls/GerarLog";
+import Inativar from "../strategies/impls/ClienteImpls/Inativar";
 
 export default class ClienteFachada implements IFachada {
     private clienteDAO: ClienteDAOPostgres;
@@ -53,5 +54,14 @@ export default class ClienteFachada implements IFachada {
     public async buscarTodos(): Promise<Cliente[]> {
         const clientes = await this.clienteDAO.buscarTodos();
         return clientes.length === 0 ? [] : clientes;
+    }
+
+    public async inativarCliente(id: string): Promise<void> {
+        const clienteAInativar = await this.clienteDAO.buscarPorId(id);
+        if (!clienteAInativar) {
+            throw new Error(`Cliente com id ${id} não encontrado`);
+        }
+        new Inativar().processar(clienteAInativar);
+        await this.clienteDAO.atualizarRegistro(clienteAInativar);
     }
 }
