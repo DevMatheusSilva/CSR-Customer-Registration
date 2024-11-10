@@ -11,7 +11,16 @@
 </head>
 <body class="flex justify-center bg-dark-default">
 
-<%- include('components/navbar') %>
+<nav class="fixed top-0 left-0 w-full h-16 bg-light-default text-font-default p-5 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="http://localhost:3000/">
+            <div class="text-lg font-bold">CSR - Customer Registration</div>
+        </a>
+        <ul class="flex space-x-4">
+            <li><a href="http://localhost:3000/clientes" class="hover:text-gray-200">Registrar Cliente</a></li>
+        </ul>
+    </div>
+</nav>
 
 <div class="container flex w-2/3 justify-center items-center min-h-screen pt-24">
     <form class="flex flex-col justify-center items-center w-full gap-[30px]" method="post" action="/clientes">
@@ -97,7 +106,7 @@
                 Endereço</h2>
 
             <div class="py-3 text-lg text-white font-light">
-                <label for="fraseCurta">Digite uma frase de identificação</label>
+                <label for="fraseCurta">Digite uma frase de identificação para o endereço</label>
                 <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="fraseCurta"
                        id="fraseCurta">
             </div>
@@ -106,43 +115,6 @@
                 <label for="cep">Digite seu CEP<i class="text-red-500 px-3">*</i></label>
                 <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="cep"
                        placeholder="Ex. 12345-678" id="cep"
-                       required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="numero">Digite seu Número<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="numero"
-                       placeholder="Ex. 1234, 123, 12" id="numero"
-                       required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="complemento">Digite seu Complemento<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="complemento"
-                       placeholder="Ex. Casa, Apartamento, Bloco"
-                       id="complemento" required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="logradouro">Digite seu Logradouro<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="logradouro"
-                       placeholder="Ex. Rua XXX"
-                       id="logradouro"
-                       required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="tipoLogradouro">Digite o Tipo de Logradouro<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="tipoLogradouro"
-                       placeholder="Ex. Rua, Avenida, Estrada"
-                       id="tipoLogradouro" required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="bairro">Digite seu Bairro<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="bairro"
-                       placeholder="Ex. Centro, Jardim"
-                       id="bairro"
                        required/>
             </div>
 
@@ -175,6 +147,60 @@
                 <label for="sigla">Digite a Sigla do País</label>
                 <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="sigla"
                        placeholder="Ex. BR, AR" id="sigla"/>
+            </div>
+
+            <div class="py-3 text-lg text-white font-light">
+                <label for="numero">Digite seu Número<i class="text-red-500 px-3">*</i></label>
+                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="numero"
+                       placeholder="Ex. 1234, 123, 12" id="numero"
+                       required/>
+            </div>
+
+            <div class="py-3 text-lg text-white font-light">
+                <label for="logradouro">Digite seu Logradouro<i class="text-red-500 px-3">*</i></label>
+                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="logradouro"
+                       placeholder="Ex. Rua XXX"
+                       id="logradouro"
+                       required/>
+            </div>
+
+            <div class="py-3 text-lg text-white font-light">
+                <label for="tipoLogradouro">Digite o Tipo de Logradouro<i class="text-red-500 px-3">*</i></label>
+                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="tipoLogradouro"
+                        id="tipoLogradouro" required>
+                    <option value="RUA">Rua</option>
+                    <option value="RODOVIA">Rodovia</option>
+                    <option value="AVENIDA">Avenida</option>
+                    <option value="TRAVESSA">Travessa</option>
+                    <option value="ALAMEDA">Alameda</option>
+                    <option value="ESTRADA">Estrada</option>
+                    <option value="RODOVIA">Rodovia</option>
+                    <option value="QUADRA">Quadra</option>
+                    <option value="QUINTA">Quinta</option>
+                    <option value="VILA">Vila</option>
+                    <option value="BECO">Beco</option>
+                    <option value="PARQUE">Parque</option>
+                    <option value="JARDIM">Jardim</option>
+                    <option value="CAMPO">Campo</option>
+                    <option value="CHÁCARA">Chácara</option>
+                    <option value="FAZENDA">Fazenda</option>
+                    <option value="SÍTIO">Sítio</option>
+                </select>
+            </div>
+
+            <div class="py-3 text-lg text-white font-light">
+                <label for="bairro">Digite seu Bairro<i class="text-red-500 px-3">*</i></label>
+                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="bairro"
+                       placeholder="Ex. Centro, Jardim"
+                       id="bairro"
+                       required/>
+            </div>
+
+            <div class="py-3 text-lg text-white font-light">
+                <label for="complemento">Digite seu Complemento<i class="text-red-500 px-3">*</i></label>
+                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="complemento"
+                       placeholder="Ex. Casa, Apartamento, Bloco"
+                       id="complemento" required/>
             </div>
 
             <div class="py-3 text-lg text-white font-light">
@@ -258,5 +284,6 @@
         </div>
     </form>
 </div>
+<script src="/js/preenchimentoViaCep.js" type="module"></script>
 </body>
 </html>
