@@ -29,9 +29,8 @@
 </nav>
 
 <div class="container flex w-2/3 justify-center items-center min-h-screen pt-24">
-    <form class="flex flex-col justify-center items-center w-full gap-[30px]" method="post"
-          action="/clientes/registrar">
-        <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md">
+    <form class="flex flex-col justify-center items-center w-full gap-[30px]">
+        <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md clienteContainer">
             <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-person mr-5"></i>Dados
                 do Cliente</h2>
 
@@ -103,118 +102,6 @@
                 <label for="segundaSenha">Digite sua Senha Novamente<i class="text-red-500 px-3">*</i></label>
                 <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="password" name="segundaSenha"
                        id="segundaSenha" required/>
-            </div>
-        </div>
-
-        <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md enderecoContainer">
-            <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-house mr-5"></i>Dados
-                do
-                Endereço <span class="indiceEndereco">1</span></h2>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="fraseCurta">Digite uma frase de identificação para o endereço</label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][fraseCurta]"
-                       id="fraseCurta">
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="cep">Digite seu CEP<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][cep]"
-                       placeholder="Ex. 12345-678" id="cep"
-                       required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="cidade">Digite sua Cidade<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][cidade]"
-                       placeholder="Ex. São Paulo, Rio de Janeiro"
-                       id="cidade" required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="estado">Selecione seu Estado<i class="text-red-500 px-3">*</i></label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                        name="enderecos[0][estado]"
-                        id="estado"
-                        required>
-                    <% ESTADOS.forEach(element => { %>
-                        <option value="<%= element.abbr %>"><%= element.name %> - <%= element.abbr %></option>
-                    <% }) %>
-                </select>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="nomePais">Digite o Nome do País<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][nomePais]"
-                       placeholder="Ex. Brasil, Argentina"
-                       id="nomePais" required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="sigla">Digite a Sigla do País</label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][sigla]"
-                       placeholder="Ex. BR, AR" id="sigla"/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="numero">Digite seu Número<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][numero]"
-                       placeholder="Ex. 1234, 123, 12" id="numero"
-                       required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="logradouro">Digite seu Logradouro<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][logradouro]"
-                       placeholder="Ex. Rua XXX"
-                       id="logradouro"
-                       required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="tipoLogradouro">Digite o Tipo de Logradouro<i
-                            class="text-red-500 px-3">*</i></label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                        name="enderecos[0][tipoLogradouro]"
-                        id="tipoLogradouro" required>
-                    <% LOGRADOUROS.forEach(element => { %>
-                        <option value="<%= element.value %>"><%= element.name %></option>
-                    <% }) %>
-                </select>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="bairro">Digite seu Bairro<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][bairro]"
-                       placeholder="Ex. Centro, Jardim"
-                       id="bairro"
-                       required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="complemento">Digite seu Complemento<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][complemento]"
-                       placeholder="Ex. Casa, Apartamento, Bloco"
-                       id="complemento" required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="tipoEndereco">Selecione o tipo de endereço</label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" name="enderecos[0][tipoEndereco]"
-                        id="tipoEndereco">
-                    <option value="ENTREGA">Entrega</option>
-                    <option value="COBRANÇA">Cobrança</option>
-                    <option value="ENTREGA_E_COBRANCA">Entrega e Cobrança</option>
-                </select>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="observacoes">Digite suas Observações</label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][observacoes]"
-                       id="observacoes">
-            </div>
-            <div class="flex justify-center items-center">
-                <button type="button"
-                        class="addEnderecoButton bg-lighter-default text-font-default p-2 rounded-2xl shadow w-32 mt-5">
-                    <i class="fa fa-add"></i>
-                </button>
             </div>
         </div>
 
@@ -291,8 +178,5 @@
         </div>
     </form>
 </div>
-<script src="/js/scripts/preenchimentoViaCep.js" type="module"></script>
-<script src="/js/adicionarCamposEndereco.js" type="module"></script>
 <script src="/js/adicionarCamposCartao.js" type="module"></script>
 </body>
-</html>

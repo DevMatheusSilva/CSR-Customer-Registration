@@ -47,7 +47,7 @@ export default class ClienteController {
         const id = req.params.id;
         try {
             const cliente = await this.clienteFachada.buscarPorId(id);
-            res.status(200).render("formularioEdicaoDadosCliente", {
+            res.status(200).render("formularioEdicaoCliente", {
                 cliente,
                 BANDEIRAS,
                 ESTADOS,

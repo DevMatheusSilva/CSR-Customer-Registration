@@ -16,4 +16,8 @@ export default class EnderecoFachada /*implements IFachada*/ {
         }
         return enderecosEncontrados;
     }
+
+    public async atualizarEndereco() {
+        // TODO: WIP
+    }
 }

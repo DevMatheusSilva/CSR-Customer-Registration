@@ -16,7 +16,7 @@ export default class EnderecoController {
         const idCliente = req.params.id;
         try {
             const enderecos = await this.fachada.buscarPorIdCliente(idCliente);
-            res.status(200).render("formularioEdicaoDadosEndereco", {
+            res.status(200).render("formularioEdicaoEndereco", {
                 enderecos,
                 ESTADOS,
                 LOGRADOUROS
@@ -25,6 +25,10 @@ export default class EnderecoController {
             const err = error as Error;
             res.status(400).json({message: err.message});
         }
+    }
+
+    public async atualizarEndereco(req: Request, res: Response) {
+        // TODO: WIP
     }
 
     public definirEndereco(req: Request): Endereco[] {

@@ -1,5 +1,5 @@
 import inativarCliente from './scripts/inativarCliente.js';
-import {adicionarHref, tornarParagrafoEditavel} from "./scripts/editarDados.js";
+import {adicionarHref} from './scripts/adicionarHref.js';
 
 document.querySelectorAll('#deletar-cliente').forEach(button => {
     button.addEventListener('click', async (event) => {
@@ -16,12 +16,5 @@ document.querySelectorAll("#editar-cliente").forEach(button => {
 document.querySelectorAll("#editar-endereco").forEach(button => {
     button.addEventListener('click', (event) => {
         adicionarHref(event, '/enderecos');
-    });
-});
-
-document.querySelectorAll("#editar-campo").forEach(button => {
-    button.addEventListener('click', (event) => {
-        event.preventDefault();
-        tornarParagrafoEditavel(event);
     });
 });

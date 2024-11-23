@@ -29,83 +29,7 @@
 </nav>
 
 <div class="container flex w-2/3 justify-center items-center min-h-screen pt-24">
-    <form class="flex flex-col justify-center items-center w-full gap-[30px]" method="post"
-          action="/clientes/registrar">
-        <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md">
-            <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-person mr-5"></i>Dados
-                do Cliente</h2>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="genero">Selecione seu Gênero<i class="text-red-500 px-3">*</i></label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default"
-                        name="genero"
-                        id="genero"
-                        required>
-                    <option value="MASCULINO">Masculino</option>
-                    <option value="FEMININO">Feminino</option>
-                    <option value="OUTRO">Outro</option>
-                </select>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="nome">Digite seu Nome<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" value="" name="nome" id="nome"
-                       placeholder="Ex. João da Silva"
-                       required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="dataNascimento">Digite sua Data de Nascimento<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="date" name="dataNascimento"
-                       id="dataNascimento" required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="cpf">Digite seu CPF<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="cpf" id="cpf"
-                       placeholder="Ex. 123.456.789-00"
-                       required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="phoneNumber">Digite seu Telefone<i class="text-red-500 px-3">*</i></label>
-                <div class="flex mt-2">
-                    <input class="p-2 rounded-2xl bg-lighter-default w-20" type="text" name="ddd" placeholder="DDD"
-                           id="ddd" required>
-                    <input class="p-2 rounded-2xl bg-lighter-default flex-grow ml-2" type="tel" name="numeroTelefone"
-                           placeholder="ex. 12345-6789" id="numeroTelefone" required/>
-                </div>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="tipoTelefone">Selecione o tipo de telefone<i class="text-red-500 px-3">*</i></label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" name="tipoTelefone" id="tipoTelefone">
-                    <option value="MÓVEL">Móvel</option>
-                    <option value="FIXO">Fixo</option>
-                </select>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="email">Digite seu Email<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="email" name="email"
-                       placeholder="Ex. joao@dasilva.com"
-                       id="email"
-                       required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="primeiraSenha">Digite sua Senha<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="password" name="primeiraSenha"
-                       id="primeiraSenha" required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="segundaSenha">Digite sua Senha Novamente<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="password" name="segundaSenha"
-                       id="segundaSenha" required/>
-            </div>
-        </div>
-
+    <form class="flex flex-col justify-center items-center w-full gap-[30px]">
         <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md enderecoContainer">
             <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-house mr-5"></i>Dados
                 do
@@ -218,56 +142,6 @@
             </div>
         </div>
 
-        <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md cartaoContainer">
-            <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-id-card mr-5"></i>Dados
-                do Cartão <span class="indiceCartao">1</span></h2>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="numeroCartao">Digite o Número do Cartão<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="cartoes[0][numeroCartao]"
-                       placeholder="Ex. 1234 5678 1234 5678"
-                       id="numeroCartao" required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="nomeImpresso">Digite o Nome Impresso no Cartão<i
-                            class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="cartoes[0][nomeImpresso]"
-                       placeholder="Ex. JOAO DA SILVA"
-                       id="nomeImpresso" required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="cvv">Digite o Número de Verificação (CVV)<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="cartoes[0][cvv]"
-                       placeholder="Ex. 123" id="cvv" required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="ePreferencial">Este Cartão é Preferencial?</label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default"
-                        name="cartoes[0][ePreferencial]" id="ePreferencial">
-                    <option value="true">Sim</option>
-                    <option value="false">Não</option>
-                </select>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="bandeira">Digite a Bandeira do Cartão<i class="text-red-500 px-3">*</i></label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                        name="cartoes[0][bandeira]" id="bandeira"
-                        required>
-                    <% BANDEIRAS.forEach(element => { %>
-                        <option value="<%= element.code %>"><%= element.name %></option>
-                    <% }) %>
-                </select>
-            </div>
-            <div class="flex justify-center items-center">
-                <button type="button"
-                        class="addCartaoButton bg-lighter-default text-font-default p-2 rounded-2xl shadow w-32 mt-5">
-                    <i class="fa fa-add"></i>
-                </button>
-            </div>
-        </div>
-
         <div class="flex flex-center p-5">
             <button
                     class="bg-lighter-default
@@ -291,8 +165,6 @@
         </div>
     </form>
 </div>
-<script src="/js/scripts/preenchimentoViaCep.js" type="module"></script>
+<script src="/js/scripts/preenchimentoViaCep.js" type="module" defer></script>
 <script src="/js/adicionarCamposEndereco.js" type="module"></script>
-<script src="/js/adicionarCamposCartao.js" type="module"></script>
 </body>
-</html>

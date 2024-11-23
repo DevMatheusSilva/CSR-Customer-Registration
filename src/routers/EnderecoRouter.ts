@@ -13,5 +13,6 @@ const enderecoController = new EnderecoController(
 const enderecoRouter = express.Router();
 
 enderecoRouter.get("/enderecos/:id", (req: Request, res: Response) => enderecoController.renderizarFormularioEdicao(req, res));
+enderecoRouter.put("/enderecos/:id", (req: Request, res: Response) => enderecoController.atualizarEndereco(req, res));
 
 export default enderecoRouter;
