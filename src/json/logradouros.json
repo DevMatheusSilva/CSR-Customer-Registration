@@ -1,0 +1,70 @@
+[
+  {
+    "name": "Rua",
+    "value": "RUA"
+  },
+  {
+    "name": "Rodovia",
+    "value": "RODOVIA"
+  },
+  {
+    "name": "Avenida",
+    "value": "AVENIDA"
+  },
+  {
+    "name": "Beco",
+    "value": "BECO"
+  },
+  {
+    "name": "Escadaria",
+    "value": "ESCADARIA"
+  },
+  {
+    "name": "Travessa",
+    "value": "TRAVESSA"
+  },
+  {
+    "name": "Alameda",
+    "value": "ALAMEDA"
+  },
+  {
+    "name": "Estrada",
+    "value": "ESTRADA"
+  },
+  {
+    "name": "Quadra",
+    "value": "QUADRA"
+  },
+  {
+    "name": "Quinta",
+    "value": "QUINTA"
+  },
+  {
+    "name": "Vila",
+    "value": "VILA"
+  },
+  {
+    "name": "Parque",
+    "value": "PARQUE"
+  },
+  {
+    "name": "Jardim",
+    "value": "JARDIM"
+  },
+  {
+    "name": "Campo",
+    "value": "CAMPO"
+  },
+  {
+    "name": "Chácara",
+    "value": "CHÁCARA"
+  },
+  {
+    "name": "Fazenda",
+    "value": "FAZENDA"
+  },
+  {
+    "name": "Sítio",
+    "value": "SÍTIO"
+  }
+]

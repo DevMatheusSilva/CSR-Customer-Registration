@@ -9,6 +9,10 @@ export default class ValidarSenha implements IStrategy {
             if (!senhaRegex.test(entidade.senha)) {
                 throw new Error('Senha inválida');
             }
+
+            if (entidade.senha !== entidade.confirmacaoSenha) {
+                throw new Error('As senhas não coincidem');
+            }
         }
     }
 }

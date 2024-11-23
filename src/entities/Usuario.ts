@@ -8,6 +8,7 @@ export default class Usuario extends Entidade {
 
     @Column({type: "varchar"})
     senha!: string;
+    confirmacaoSenha!: string;
 
     @Column({type: "varchar"})
     nome!: string;
@@ -15,10 +16,11 @@ export default class Usuario extends Entidade {
     @Column({type: "varchar", nullable: true})
     cpf!: string;
 
-    constructor(email: string, senha: string, nome: string, cpf: string) {
+    constructor(email: string, senha: string, confirmacaoSenha: string, nome: string, cpf: string) {
         super();
         this.email = email;
         this.senha = senha;
+        this.confirmacaoSenha = confirmacaoSenha;
         this.nome = nome;
         this.cpf = cpf;
     }

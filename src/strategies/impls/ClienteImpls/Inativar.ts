@@ -6,9 +6,11 @@ export default class Inativar implements IStrategy {
     public processar(entidade: Entidade) {
         if (entidade instanceof Cliente) {
             entidade.estaAtivo = false;
+            entidade.usuario.estaAtivo = false;
 
             for (const endereco of entidade.enderecos) {
                 endereco.estaAtivo = false;
+                endereco.pais.estaAtivo = false;
             }
 
             for (const cartao of entidade.cartoes) {

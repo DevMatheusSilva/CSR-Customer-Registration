@@ -1,8 +1,8 @@
-import IDAO from "../../IDAO";
+import IDAO from "../IDAO";
 import {DataSource, Repository} from "typeorm";
-import Cliente from "../../../entities/Cliente";
+import Cliente from "../../entities/Cliente";
 
-export default class ClienteDAOPostgres implements IDAO<Cliente> {
+export default class ClienteDAO implements IDAO<Cliente> {
     private dataSource: DataSource;
     private repository: Repository<Cliente>;
 
@@ -28,8 +28,8 @@ export default class ClienteDAOPostgres implements IDAO<Cliente> {
     }
 
     public async buscarPorId(id: string): Promise<Cliente | null> {
-        const clienteAchado = await this.repository.findOneBy({id});
-        return clienteAchado ? clienteAchado : null;
+        const clienteSalvo = await this.repository.findOneBy({id});
+        return clienteSalvo ? clienteSalvo : null;
     }
 
     public async atualizarRegistro(clienteAtualizado: Cliente): Promise<void> {

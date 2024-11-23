@@ -1,16 +1,15 @@
 import express from "express";
-import roteador from "./roteador/roteador";
-import arquivosEstaticos from "./middlewares/arquivosEstaticos";
+import routes from "./routers/Router";
 import configuracaoForm from "./config/configuracaoForm";
 import configuracaoViews from "./config/configuracaoViews";
+import configArquivosEstaticos from "./config/configArquivosEstaticos";
 
 const app = express();
 
-app.use(express.json());
-app.use(arquivosEstaticos);
-
+configArquivosEstaticos(app);
 configuracaoViews(app);
 configuracaoForm(app);
-roteador(app);
+
+routes(app);
 
 export default app;

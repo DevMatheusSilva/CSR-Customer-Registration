@@ -14,11 +14,12 @@
 
 <nav class="fixed top-0 left-0 w-full h-16 bg-light-default text-font-default p-5 shadow-lg">
     <div class="container mx-auto flex justify-between items-center">
-        <a href="http://localhost:3000/">
+        <a href="http://localhost:3000/clientes">
             <div class="text-lg font-bold">CSR - Customer Registration</div>
         </a>
         <ul class="flex space-x-4">
-            <li><a href="http://localhost:3000/clientes" class="hover:text-gray-200">Registrar Cliente</a></li>
+            <li><a href="http://localhost:3000/clientes/registrar" class="hover:text-gray-200">Registrar Cliente</a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -61,8 +62,13 @@
                             <%= cliente.dtNascimento %>
                         </td>
                         <td class="text-center text-white">
+                            <button id="editar-endereco">
+                                <i class="fa-solid fa-house mr-2 text-green-500"
+                                   title="Editar os endereços de <%= cliente.usuario.nome %>"></i>
+                            </button>
                             <button id="editar-cliente">
-                                <i class="fa-solid fa-user-pen text-blue-400"></i>
+                                <i class="fa-solid fa-user-pen text-blue-400"
+                                   title="Editar os dados de <%= cliente.usuario.nome %>"></i>
                             </button>
                             <button id="deletar-cliente">
                                 <i class="fa-solid fa-x text-red-400 ml-2"
@@ -76,6 +82,6 @@
         </div>
     </div>
 <% } %>
-<script src="/js/inativarCliente.js" type="module"></script>
+<script src="/js/adicionarListenersBotoes.js" type="module"></script>
 </body>
 </html>

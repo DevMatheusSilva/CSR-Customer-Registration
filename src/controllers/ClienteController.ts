@@ -1,60 +1,88 @@
-import * as fs from "fs";
-import * as path from "path";
-import express from "express";
+import {Request, Response} from "express";
 import Usuario from "../entities/Usuario";
 import Cliente from "../entities/Cliente";
-import Pais from "../entities/Pais";
-import Endereco from "../entities/Endereco";
 import Cartao from "../entities/Cartao";
-import Bandeira from "../entities/Bandeira";
 import Telefone from "../entities/Telefone";
 import Genero from "../enums/Genero";
-import TipoEndereco from "../enums/TipoEndereco";
 import TipoTelefone from "../enums/TipoTelefone";
-import ClienteFachada from "../fachadas/ClienteFachada";
+import ClienteFachada from "../fachadas/impls/ClienteFachada";
+import {BANDEIRAS, ESTADOS, LOGRADOUROS} from "../utils/constantes";
+import EnderecoController from "./EnderecoController";
+import EnderecoFachada from "../fachadas/impls/EnderecoFachada";
 
 export default class ClienteController {
-    private clienteFachada: ClienteFachada;
+    private clienteFachada: ClienteFachada
+    private enderecoFachada: EnderecoFachada;
 
-    constructor(clienteFachada: ClienteFachada) {
+    constructor(clienteFachada: ClienteFachada, enderecoFachada: EnderecoFachada) {
         this.clienteFachada = clienteFachada;
+        this.enderecoFachada = enderecoFachada;
     }
 
-    public async renderizarPaginaPrincipal(_: express.Request, res: express.Response): Promise<void> {
+    public renderizarFormularioRegistro(_: Request, res: Response): void {
+        res.status(200).render("formularioRegistro", {
+            BANDEIRAS,
+            ESTADOS,
+            LOGRADOUROS
+        });
+    }
+
+    public async criarCliente(req: Request, res: Response): Promise<void> {
+        try {
+            const clienteDefinido: Cliente = this.definirCliente(req);
+            await this.clienteFachada.salvar(clienteDefinido);
+            res.status(201).redirect("http://localhost:3000/clientes");
+        } catch (error) {
+            const err = error as Error;
+            res.status(400).json({message: err.message});
+        }
+    }
+
+    public async buscarTodos(_: Request, res: Response): Promise<void> {
         const clientes = await this.clienteFachada.buscarTodos();
         res.status(200).render("principal", {clientes});
     }
 
-    public renderizarFormularioClientes(_: express.Request, res: express.Response): void {
-        const bandeiras = this.jsonParaObjeto("../../src/json/bandeiras.json");
-        const estados = this.jsonParaObjeto("../../src/json/estados.json");
-        res.status(200).render("clientes", {bandeiras, estados});
-    }
-
-    public async criarCliente(req: express.Request, res: express.Response): Promise<void> {
+    public async buscarPorId(req: Request, res: Response) {
+        const id = req.params.id;
         try {
-            const clienteDefinido: Cliente = await this.definirCliente(req);
-            await this.clienteFachada.salvar(clienteDefinido);
-            res.status(201).redirect("http://localhost:3000/");
+            const cliente = await this.clienteFachada.buscarPorId(id);
+            res.status(200).render("formularioEdicaoDadosCliente", {
+                cliente,
+                BANDEIRAS,
+                ESTADOS,
+                LOGRADOUROS
+            });
         } catch (error) {
             const err = error as Error;
             res.status(400).json({message: err.message});
         }
     }
 
-    public async inativarCliente(req: express.Request, res: express.Response): Promise<void> {
+    public async atualizarCliente(req: Request, res: Response): Promise<void> {
+        const id = req.params.id;
+        const clienteAtualizado = this.definirCliente(req);
+        try {
+            await this.clienteFachada.atualizar(id, clienteAtualizado);
+            res.status(204).json({"message": "Cliente atualizado com sucesso"});
+        } catch (error) {
+            const err = error as Error;
+            res.status(400).json({message: err.message});
+        }
+    }
+
+    public async inativarCliente(req: Request, res: Response): Promise<void> {
         try {
             const id = req.params.id;
-            await this.clienteFachada.inativarCliente(id);
+            await this.clienteFachada.inativar(id);
             res.status(204).send();
         } catch (error) {
             const err = error as Error;
-            console.log(error)
             res.status(400).json({message: err.message});
         }
     }
 
-    private async definirCliente(req: express.Request): Promise<Cliente> {
+    public definirCliente(req: Request): Cliente {
         const primeiraSenha: string = req.body.primeiraSenha;
         const segundaSenha: string = req.body.segundaSenha;
         const email: string = req.body.email;
@@ -63,60 +91,31 @@ export default class ClienteController {
         const nome = req.body.nome;
         const dtNascimento = req.body.dataNascimento;
 
-        if (primeiraSenha !== segundaSenha) {
-            throw new Error("As senhas não correspondem");
-        }
+        const usuario = new Usuario(
+            email,
+            primeiraSenha,
+            segundaSenha,
+            nome,
+            cpf
+        );
 
-        const usuario = new Usuario(email, primeiraSenha, nome, cpf);
+        const enderecos = new EnderecoController(this.enderecoFachada).definirEndereco(req);
 
-        const nomePais = req.body.nomePais;
-        const sigla = req.body.sigla;
-        const pais = new Pais(nomePais, sigla);
-
-        const cep = req.body.cep;
-        const numero = req.body.numero;
-        const complemento = req.body.complemento;
-        const logradouro = req.body.logradouro;
-        const tipoLogradouro = req.body.tipoLogradouro;
-        const bairro = req.body.bairro;
-        const fraseCurta = req.body.fraseCurta;
-        const observacao = req.body.observacoes;
-        const cidade = req.body.cidade;
-        const estado = req.body.estado;
-        const tipoEndereco = req.body.tipoEndereco as TipoEndereco;
-        const enderecos: Endereco[] = [
-            new Endereco(
-                cep,
-                numero,
-                complemento,
-                logradouro,
-                tipoLogradouro,
-                bairro,
-                fraseCurta,
-                observacao,
-                cidade,
-                estado,
-                pais,
-                tipoEndereco
-            )
-        ];
-
-        const descricao = req.body.bandeira;
-        const bandeira: Bandeira = new Bandeira(descricao);
-
-        const numeroCartao = req.body.numeroCartao;
-        const nomeImpresso = req.body.nomeImpresso;
-        const cvv = req.body.cvv;
-        const isPreferencial = req.body.ePreferencial === "true";
-        const cartoes: Cartao[] = [
-            new Cartao(
+        const cartoesData = req.body.cartoes;
+        const cartoes = cartoesData.map((cartao: any) => {
+            const bandeiraCode = cartao.bandeira;
+            const numeroCartao = cartao.numeroCartao;
+            const nomeImpresso = cartao.nomeImpresso;
+            const cvv = cartao.cvv;
+            const isPreferencial = cartao.ePreferencial === "true";
+            return new Cartao(
                 numeroCartao,
                 nomeImpresso,
-                bandeira,
+                bandeiraCode,
                 cvv,
                 isPreferencial
             )
-        ];
+        });
 
         const ddd = req.body.ddd;
         const numeroTelefone = req.body.numeroTelefone;
@@ -131,10 +130,5 @@ export default class ClienteController {
             enderecos,
             usuario,
         );
-    }
-
-    private jsonParaObjeto(caminho: string): any {
-        const caminhoArquivo = path.resolve(__dirname, caminho);
-        return JSON.parse(fs.readFileSync(caminhoArquivo, "utf-8"));
     }
 }

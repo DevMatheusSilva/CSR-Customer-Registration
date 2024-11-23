@@ -1,8 +1,8 @@
-import IDAO from "../../IDAO";
-import { DataSource, Repository } from "typeorm";
-import Log from "../../../entities/Log";
+import IDAO from "../IDAO";
+import {DataSource, Repository} from "typeorm";
+import Log from "../../entities/Log";
 
-export default class LogDAOPostgres implements IDAO<Log> {
+export default class LogDAO implements IDAO<Log> {
     private dataSource: DataSource;
     private repository: Repository<Log>;
 
@@ -13,5 +13,9 @@ export default class LogDAOPostgres implements IDAO<Log> {
 
     async salvar(log: Log): Promise<Log> {
         return await this.repository.save(log);
+    }
+
+    async buscarTodos(): Promise<Log[] | null> {
+        return await this.repository.find();
     }
 }

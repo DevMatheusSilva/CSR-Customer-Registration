@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../styles/styles.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>CSR - Editar Cliente</title>
+</head>
+
+<body class="flex justify-center bg-dark-default">
+<nav class="fixed top-0 left-0 w-full h-16 bg-light-default text-font-default p-5 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="http://localhost:3000/clientes">
+            <div class="text-lg font-bold">CSR - Customer Registration</div>
+        </a>
+        <ul class="flex space-x-4">
+            <li>
+                <a href="http://localhost:3000/clientes/registrar"
+                   class="hover:text-gray-200">Registrar
+                    Cliente
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<form class="container flex flex-col w-2/3 justify-center items-center min-h-screen mt-24 gap-4">
+    <% enderecos.forEach((endereco, index) => { %>
+        <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md">
+            <div class="flex flex-row items-center">
+                <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-home mr-5"></i>Endereco
+                    nº
+                    <%= index + 1 %>
+                </h2>
+                <span class="ml-3 p-2 rounded-2xl bg-blue-200 text-sm text-blue-600 font-bold" id="tipo-endereco">
+                    <%= endereco.tipo %>
+                </span>
+            </div>
+
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Cep:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p id="normal-field" data-content="cep"><%= endereco.cep %></p>
+                    <button><i class="fa fa-pen" id="editar-campo"></i></button>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Numero:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p id="normal-field" data-content="numero"><%= endereco.numero %></p>
+                    <button><i class="fa fa-pen" id="editar-campo"></i></button>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Complemento:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p id="normal-field" data-content="complemento"><%= endereco.complemento %></p>
+                    <button><i class="fa fa-pen" id="editar-campo"></i></button>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Logradouro:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p id="normal-field" data-content="logradouro"><%= endereco.logradouro %></p>
+                    <button><i class="fa fa-pen" id="editar-campo"></i></button>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <label id="fieldLabel" for="tipo-logradouro" class="font-bold text-font-default">Tipo de
+                    logradouro:</label>
+                <select class="p-2 rounded-md w-full mt-2 bg-lighter-default mr-10" id="dropdown-field"
+                        data-content="tipo-logradouro">
+                    <% LOGRADOUROS.forEach(logradouro => { %>
+                        <option <%= endereco.tipoLogradouro === logradouro.value ? "selected" : "" %>
+                                value="<%= logradouro.value %>"><%= logradouro.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Bairro:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p id="normal-field" data-content="bairro"><%= endereco.bairro %></p>
+                    <button><i class="fa fa-pen" id="editar-campo"></i></button>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Frase curta:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p id="normal-field" data-content="fraseCurta"><%= endereco.fraseCurta %></p>
+                    <button><i class="fa fa-pen" id="editar-campo"></i></button>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Observacao:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p id="normal-field" data-content="observacao"><%= endereco.fraseCurta %></p>
+                    <button><i class="fa fa-pen" id="editar-campo"></i></button>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Cidade:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p id="normal-field" data-content="cidade"><%= endereco.cidade %></p>
+                    <button><i class="fa fa-pen" id="editar-campo"></i></button>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Estado:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p id="normal-field" data-content="estado"><%= endereco.estado %></p>
+                    <button><i class="fa fa-pen" id="editar-campo"></i></button>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Nome pais:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p id="normal-field" data-content="nomePais"><%= endereco.pais.nome %></p>
+                    <button><i class="fa fa-pen" id="editar-campo"></i></button>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+
+    <div class="flex flex-center p-5">
+        <button
+                class="bg-lighter-default
+                    text-font-default
+                    p-3
+                    w-40
+                    rounded-2xl
+                    shadow-md
+                    font-bold
+                    text-lg
+                    border-2
+                    border-transparent
+                    transition-colors
+                    duration-300
+                    hover:bg-font-default
+                    hover:text-lighter-default
+                    hover:border-font-default"
+                type="submit"
+        >Enviar<i class="fa-solid fa-arrow-right ml-3"></i>
+        </button>
+    </div>
+</form>
+<script src="/js/adicionarListenersBotoes.js" type="module"></script>
+<script src="/js/envioDadosFormulario.js" type="module"></script>
+</body>
