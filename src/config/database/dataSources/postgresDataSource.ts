@@ -7,7 +7,9 @@ export const postgresDataSource: DataSource = new DataSource({
     username: "postgres",
     password: "postgres",
     database: "postgres",
-    entities: ['src/entities/*.ts'],
+    entities: ['src/entities/*.ts', 'src/entities/Entidade.ts'],
     migrations: ['src/config/database/migrations/*.ts'],
+    migrationsRun: false,
+    logging: false,
     synchronize: true
 });

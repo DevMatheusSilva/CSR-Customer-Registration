@@ -4,7 +4,8 @@
   "main": "server.js",
   "scripts": {
     "start": "tsx watch src/server.ts",
-    "db": "docker compose up -d",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down --volumes",
     "tailwind:css": "postcss public/styles/tailwind.css -o public/styles/styles.css -w",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --watch",

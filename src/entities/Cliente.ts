@@ -21,7 +21,7 @@ export default class Cliente extends Entidade {
     @OneToMany(
         () => Cartao,
         (cartao: Cartao) => cartao.cliente,
-        {cascade: true, eager: true}
+        {eager: true}
     )
     cartoes!: Cartao[];
 
@@ -36,14 +36,12 @@ export default class Cliente extends Entidade {
     @JoinColumn()
     usuario!: Usuario;
 
-    @Column({type: "int", nullable: true})
-    ranking?: number;
+    novosDados!: Cliente;
 
     constructor(
         genero: Genero,
         dtNascimento: Date,
         telefone: Telefone,
-        cartoes: Cartao[],
         enderecos: Endereco[],
         usuario: Usuario
     ) {
@@ -51,7 +49,6 @@ export default class Cliente extends Entidade {
         this.genero = genero;
         this.dtNascimento = dtNascimento;
         this.telefone = telefone;
-        this.cartoes = cartoes;
         this.enderecos = enderecos;
         this.usuario = usuario;
     }

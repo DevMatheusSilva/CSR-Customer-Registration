@@ -1,4 +1,4 @@
-import {Entity, Column, OneToOne, ManyToOne, JoinColumn} from "typeorm";
+import {Entity, Column, ManyToOne, JoinColumn} from "typeorm";
 import Bandeira from "./Bandeira";
 import Cliente from "./Cliente";
 import Entidade from "./Entidade";
@@ -17,9 +17,11 @@ export default class Cartao extends Entidade {
     @Column({type: "boolean", default: false})
     isPreferencial!: boolean;
 
-    @OneToOne(() => Bandeira, {cascade: true})
+    @ManyToOne(() => Bandeira, {eager: true})
     @JoinColumn()
     bandeira!: Bandeira;
+
+    bandeiraCode: string;
 
     @ManyToOne(() => Cliente, (cliente: Cliente) => cliente.cartoes)
     cliente!: Cliente;
@@ -27,14 +29,14 @@ export default class Cartao extends Entidade {
     constructor(
         numero: string,
         nomeImpresso: string,
-        bandeira: Bandeira,
+        bandeiraCode: string,
         cvv: string,
         isPreferencial: boolean
     ) {
         super();
         this.numero = numero;
         this.nomeImpresso = nomeImpresso;
-        this.bandeira = bandeira;
+        this.bandeiraCode = bandeiraCode;
         this.cvv = cvv;
         this.isPreferencial = isPreferencial;
     }

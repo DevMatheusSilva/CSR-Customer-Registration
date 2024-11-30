@@ -36,7 +36,7 @@ export default class Endereco extends Entidade {
     @Column({type: "varchar"})
     estado!: string;
 
-    @OneToOne(() => Pais, {cascade: true})
+    @OneToOne(() => Pais, {cascade: true, eager: true})
     @JoinColumn()
     pais!: Pais;
 
@@ -45,6 +45,8 @@ export default class Endereco extends Entidade {
 
     @ManyToOne(() => Cliente, (cliente: Cliente) => cliente.enderecos)
     cliente!: Cliente;
+
+    novosDados!: Endereco;
 
     constructor(
         cep: string,

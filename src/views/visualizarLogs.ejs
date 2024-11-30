@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../../styles/styles.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>CSR - Editar Cliente</title>
+</head>
+
+<body class="flex justify-center bg-dark-default">
+<nav class="fixed top-0 left-0 w-full h-16 bg-light-default text-font-default p-5 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="http://localhost:3000/clientes">
+            <div class="text-lg font-bold">CSR - Customer Registration</div>
+        </a>
+        <ul class="flex space-x-4">
+            <li>
+                <a href="http://localhost:3000/clientes/registrar"
+                   class="hover:text-gray-200">Registrar
+                    Cliente
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:3000/transacoes" class="hover:text-gray-200">Visualizar transacoes
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container flex flex-col w-2/3 justify-center items-center min-h-screen mt-24 mb-12 gap-4">
+    <div class="flex justify-self-start">
+        <a class="mr-10 mt-3" href="/clientes/registrar">
+            <i class="fa fa-arrow-left text-font-default"></i>
+        </a>
+        <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-gear mr-5"></i> Transações
+            do usuário ativo
+        </h2>
+    </div>
+    <% logs.forEach(log => { %>
+        <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md">
+            <div class="py-3 text-lg text-white font-light">
+                <div class="flex flex-row justify-start py-3 rounded-lg mt-2">
+                    <span class="font-bold text-font-default">Data de criação:</span>
+                    <p class="ml-10"><%= log.dataEHora %></p>
+                </div>
+
+                <div class="flex flex-row justify-start py-3 rounded-lg mt-2">
+                    <span class="font-bold text-font-default">Tipo de operação:</span>
+                    <p class="ml-10"><%= log.descricao %></p>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+</div>
+</body>
