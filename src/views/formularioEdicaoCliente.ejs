@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="../styles/styles.css"/>
+    <link rel="stylesheet" href="../../styles/styles.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -24,159 +24,98 @@
                     Cliente
                 </a>
             </li>
+            <li>
+                <a href="http://localhost:3000/transacoes" class="hover:text-gray-200">Visualizar transacoes
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
 
 <div class="container flex w-2/3 justify-center items-center min-h-screen pt-24">
-    <form class="flex flex-col justify-center items-center w-full gap-[30px]">
+    <form class="flex flex-col justify-center items-center w-full gap-[30px]"
+          action="/clientes/<%= cliente.id %>/editar" data-clienteId="<%= cliente.id %>">
         <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md clienteContainer">
             <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-person mr-5"></i>Dados
                 do Cliente</h2>
 
             <div class="py-3 text-lg text-white font-light">
                 <label for="genero">Selecione seu Gênero<i class="text-red-500 px-3">*</i></label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default"
-                        name="genero"
-                        id="genero"
-                        required>
-                    <option value="MASCULINO">Masculino</option>
-                    <option value="FEMININO">Feminino</option>
-                    <option value="OUTRO">Outro</option>
+                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" name="genero" id="genero" required>
+                    <option value="MASCULINO" <%= cliente.genero === "MASCULINO" ? "selected" : "" %>>Masculino</option>
+                    <option value="FEMININO" <%= cliente.genero === "FEMININO" ? "selected" : "" %>>Feminino</option>
+                    <option value="OUTRO" <%= cliente.genero === "OUTRO" ? "selected" : "" %>>Outro</option>
                 </select>
             </div>
 
             <div class="py-3 text-lg text-white font-light">
                 <label for="nome">Digite seu Nome<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" value="" name="nome" id="nome"
-                       placeholder="Ex. João da Silva"
-                       required/>
+                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="nome" id="nome"
+                       placeholder="Ex. João da Silva" value="<%= cliente.usuario.nome %>" required/>
             </div>
 
             <div class="py-3 text-lg text-white font-light">
                 <label for="dataNascimento">Digite sua Data de Nascimento<i class="text-red-500 px-3">*</i></label>
                 <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="date" name="dataNascimento"
-                       id="dataNascimento" required/>
+                       id="dataNascimento"
+                       value="<%= cliente.dtNascimento %>" required/>
             </div>
 
             <div class="py-3 text-lg text-white font-light">
                 <label for="cpf">Digite seu CPF<i class="text-red-500 px-3">*</i></label>
                 <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="cpf" id="cpf"
-                       placeholder="Ex. 123.456.789-00"
-                       required/>
+                       placeholder="Ex. 123.456.789-00" value="<%= cliente.usuario.cpf %>" required/>
             </div>
 
             <div class="py-3 text-lg text-white font-light">
                 <label for="phoneNumber">Digite seu Telefone<i class="text-red-500 px-3">*</i></label>
                 <div class="flex mt-2">
-                    <input class="p-2 rounded-2xl bg-lighter-default w-20" type="text" name="ddd" placeholder="DDD"
-                           id="ddd" required>
+                    <input class="p-2 rounded-2xl bg-lighter-default w-20" type="text" name="ddd" id="ddd"
+                           placeholder="DDD" value="<%= cliente.telefone.ddd %>" required/>
                     <input class="p-2 rounded-2xl bg-lighter-default flex-grow ml-2" type="tel" name="numeroTelefone"
-                           placeholder="ex. 12345-6789" id="numeroTelefone" required/>
+                           id="numeroTelefone" placeholder="ex. 12345-6789" value="<%= cliente.telefone.numero %>"
+                           required/>
                 </div>
             </div>
 
             <div class="py-3 text-lg text-white font-light">
                 <label for="tipoTelefone">Selecione o tipo de telefone<i class="text-red-500 px-3">*</i></label>
                 <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" name="tipoTelefone" id="tipoTelefone">
-                    <option value="MÓVEL">Móvel</option>
-                    <option value="FIXO">Fixo</option>
+                    <option value="MÓVEL" <%= String(cliente.telefone.tipo) === "MÓVEL" ? "selected" : "" %>>Móvel
+                    </option>
+                    <option value="FIXO" <%= String(cliente.telefone.tipo) === "FIXO" ? "selected" : "" %>>Fixo</option>
                 </select>
             </div>
 
             <div class="py-3 text-lg text-white font-light">
                 <label for="email">Digite seu Email<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="email" name="email"
-                       placeholder="Ex. joao@dasilva.com"
-                       id="email"
-                       required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="primeiraSenha">Digite sua Senha<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="password" name="primeiraSenha"
-                       id="primeiraSenha" required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="segundaSenha">Digite sua Senha Novamente<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="password" name="segundaSenha"
-                       id="segundaSenha" required/>
-            </div>
-        </div>
-
-        <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md cartaoContainer">
-            <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-id-card mr-5"></i>Dados
-                do Cartão <span class="indiceCartao">1</span></h2>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="numeroCartao">Digite o Número do Cartão<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="cartoes[0][numeroCartao]"
-                       placeholder="Ex. 1234 5678 1234 5678"
-                       id="numeroCartao" required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="nomeImpresso">Digite o Nome Impresso no Cartão<i
-                            class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="cartoes[0][nomeImpresso]"
-                       placeholder="Ex. JOAO DA SILVA"
-                       id="nomeImpresso" required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="cvv">Digite o Número de Verificação (CVV)<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="cartoes[0][cvv]"
-                       placeholder="Ex. 123" id="cvv" required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="ePreferencial">Este Cartão é Preferencial?</label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default"
-                        name="cartoes[0][ePreferencial]" id="ePreferencial">
-                    <option value="true">Sim</option>
-                    <option value="false">Não</option>
-                </select>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="bandeira">Digite a Bandeira do Cartão<i class="text-red-500 px-3">*</i></label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                        name="cartoes[0][bandeira]" id="bandeira"
-                        required>
-                    <% BANDEIRAS.forEach(element => { %>
-                        <option value="<%= element.code %>"><%= element.name %></option>
-                    <% }) %>
-                </select>
-            </div>
-            <div class="flex justify-center items-center">
-                <button type="button"
-                        class="addCartaoButton bg-lighter-default text-font-default p-2 rounded-2xl shadow w-32 mt-5">
-                    <i class="fa fa-add"></i>
-                </button>
+                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="email" name="email" id="email"
+                       placeholder="Ex. joao@dasilva.com" value="<%= cliente.usuario.email %>" required/>
             </div>
         </div>
 
         <div class="flex flex-center p-5">
             <button
                     class="bg-lighter-default
-                    text-font-default
-                    p-3
-                    w-40
-                    rounded-2xl
-                    shadow-md
-                    font-bold
-                    text-lg
-                    border-2
-                    border-transparent
-                    transition-colors
-                    duration-300
-                    hover:bg-font-default
-                    hover:text-lighter-default
-                    hover:border-font-default"
+                        text-font-default
+                        p-3
+                        w-40
+                        rounded-2xl
+                        shadow-md
+                        font-bold
+                        text-lg
+                        border-2
+                        border-transparent
+                        transition-colors
+                        duration-300
+                        hover:bg-font-default
+                        hover:text-lighter-default
+                        hover:border-font-default"
                     type="submit"
             >Enviar<i class="fa-solid fa-arrow-right ml-3"></i>
             </button>
         </div>
     </form>
 </div>
-<script src="/js/adicionarCamposCartao.js" type="module"></script>
+<script src="/js/enviarDadosCompletos.js" type="module"></script>
 </body>

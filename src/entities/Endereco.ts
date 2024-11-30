@@ -46,6 +46,8 @@ export default class Endereco extends Entidade {
     @ManyToOne(() => Cliente, (cliente: Cliente) => cliente.enderecos)
     cliente!: Cliente;
 
+    novosDados!: Endereco;
+
     constructor(
         cep: string,
         numero: string,

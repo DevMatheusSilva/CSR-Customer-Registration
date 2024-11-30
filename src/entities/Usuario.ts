@@ -8,6 +8,7 @@ export default class Usuario extends Entidade {
 
     @Column({type: "varchar"})
     senha!: string;
+
     confirmacaoSenha!: string;
 
     @Column({type: "varchar"})

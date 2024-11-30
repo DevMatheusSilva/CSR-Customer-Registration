@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../../../styles/styles.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>CSR - Cadastrar Cliente</title>
+</head>
+<body class="flex justify-center bg-dark-default">
+
+<nav class="fixed top-0 left-0 w-full h-16 bg-light-default text-font-default p-5 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="http://localhost:3000/clientes">
+            <div class="text-lg font-bold">CSR - Customer Registration</div>
+        </a>
+        <ul class="flex space-x-4">
+            <li>
+                <a href="http://localhost:3000/clientes/registrar"
+                   class="hover:text-gray-200">Registrar
+                    Cliente
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:3000/transacoes" class="hover:text-gray-200">Visualizar transacoes
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container flex w-2/3 justify-center items-center min-h-screen pt-24">
+    <form class="flex flex-col justify-center items-center w-full gap-[30px]" method="post"
+          action="/clientes/<%= idCliente %>/usuarios/alterarSenha">
+        <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md">
+            <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-person mr-5"></i>Dados
+                do Cliente</h2>
+
+            <div class="py-3 text-lg text-white font-light">
+                <label for="primeiraSenha">Digite sua Senha<i class="text-red-500 px-3">*</i></label>
+                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="password" name="primeiraSenha"
+                       id="primeiraSenha" required/>
+            </div>
+
+            <div class="py-3 text-lg text-white font-light">
+                <label for="confirmacaoSenha">Confirme a senha<i class="text-red-500 px-3">*</i></label>
+                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="password" name="confirmacaoSenha"
+                       id="confirmacaoSenha" required/>
+            </div>
+        </div>
+
+        <div class="flex flex-center p-5">
+            <button
+                    class="bg-lighter-default
+                    text-font-default
+                    p-3
+                    w-40
+                    rounded-2xl
+                    shadow-md
+                    font-bold
+                    text-lg
+                    border-2
+                    border-transparent
+                    transition-colors
+                    duration-300
+                    hover:bg-font-default
+                    hover:text-lighter-default
+                    hover:border-font-default"
+                    type="submit"
+            >Enviar<i class="fa-solid fa-arrow-right ml-3"></i>
+            </button>
+        </div>
+    </form>
+</div>

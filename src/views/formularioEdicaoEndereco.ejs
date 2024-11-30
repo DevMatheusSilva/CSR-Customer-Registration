@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="../styles/styles.css"/>
+    <link rel="stylesheet" href="../../../styles/styles.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -24,147 +24,181 @@
                     Cliente
                 </a>
             </li>
+            <li>
+                <a href="http://localhost:3000/transacoes" class="hover:text-gray-200">Visualizar transacoes
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
 
 <div class="container flex w-2/3 justify-center items-center min-h-screen pt-24">
-    <form class="flex flex-col justify-center items-center w-full gap-[30px]">
-        <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md enderecoContainer">
-            <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-house mr-5"></i>Dados
-                do
-                Endereço <span class="indiceEndereco">1</span></h2>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="fraseCurta">Digite uma frase de identificação para o endereço</label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][fraseCurta]"
-                       id="fraseCurta">
+    <form class="flex flex-col justify-center items-center w-full gap-[30px]"
+          action="/clientes/<%= idCliente %>/enderecos/editar" method="post">
+        <% if (enderecos.length === 0) { %>
+            <div class="container mx-auto flex w-full justify-center items-center">
+                <h1 class="text-3xl text-gray-200">Não há endereços registrados para esse cliente no momento</h1>
             </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="cep">Digite seu CEP<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][cep]"
-                       placeholder="Ex. 12345-678" id="cep"
-                       required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="cidade">Digite sua Cidade<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][cidade]"
-                       placeholder="Ex. São Paulo, Rio de Janeiro"
-                       id="cidade" required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="estado">Selecione seu Estado<i class="text-red-500 px-3">*</i></label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                        name="enderecos[0][estado]"
-                        id="estado"
-                        required>
-                    <% ESTADOS.forEach(element => { %>
-                        <option value="<%= element.abbr %>"><%= element.name %> - <%= element.abbr %></option>
-                    <% }) %>
-                </select>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="nomePais">Digite o Nome do País<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][nomePais]"
-                       placeholder="Ex. Brasil, Argentina"
-                       id="nomePais" required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="sigla">Digite a Sigla do País</label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][sigla]"
-                       placeholder="Ex. BR, AR" id="sigla"/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="numero">Digite seu Número<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][numero]"
-                       placeholder="Ex. 1234, 123, 12" id="numero"
-                       required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="logradouro">Digite seu Logradouro<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][logradouro]"
-                       placeholder="Ex. Rua XXX"
-                       id="logradouro"
-                       required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="tipoLogradouro">Digite o Tipo de Logradouro<i
-                            class="text-red-500 px-3">*</i></label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                        name="enderecos[0][tipoLogradouro]"
-                        id="tipoLogradouro" required>
-                    <% LOGRADOUROS.forEach(element => { %>
-                        <option value="<%= element.value %>"><%= element.name %></option>
-                    <% }) %>
-                </select>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="bairro">Digite seu Bairro<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][bairro]"
-                       placeholder="Ex. Centro, Jardim"
-                       id="bairro"
-                       required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="complemento">Digite seu Complemento<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][complemento]"
-                       placeholder="Ex. Casa, Apartamento, Bloco"
-                       id="complemento" required/>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="tipoEndereco">Selecione o tipo de endereço</label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" name="enderecos[0][tipoEndereco]"
-                        id="tipoEndereco">
-                    <option value="ENTREGA">Entrega</option>
-                    <option value="COBRANÇA">Cobrança</option>
-                    <option value="ENTREGA_E_COBRANCA">Entrega e Cobrança</option>
-                </select>
-            </div>
-            <div class="py-3 text-lg text-white font-light">
-                <label for="observacoes">Digite suas Observações</label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
-                       name="enderecos[0][observacoes]"
-                       id="observacoes">
-            </div>
-            <div class="flex justify-center items-center">
-                <button type="button"
-                        class="addEnderecoButton bg-lighter-default text-font-default p-2 rounded-2xl shadow w-32 mt-5">
-                    <i class="fa fa-add"></i>
+        <% } else { %>
+            <% enderecos.forEach((endereco, index) => { %>
+                <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md enderecoContainer">
+                    <h2 class="text-2xl font-bold text-font-default text-left p-2"><i
+                                class="fa-solid fa-house mr-5"></i>Dados
+                        do
+                        Endereço <span class="indiceEndereco"><%= index + 1 %></span></h2>
+                    <div class="py-3 text-lg text-white font-light">
+                        <label for="fraseCurta_<%= index %>">Digite uma frase de identificação para o endereço</label>
+                        <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
+                               name="enderecos[<%= index %>][fraseCurta]"
+                               id="fraseCurta_<%= index %>"
+                               value="<%= endereco.fraseCurta %>">
+                    </div>
+                    <div class="py-3 text-lg text-white font-light">
+                        <label for="cep_<%= index %>">Digite seu CEP<i class="text-red-500 px-3">*</i></label>
+                        <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
+                               name="enderecos[<%= index %>][cep]"
+                               placeholder="Ex. 12345-678" id="cep_<%= index %>"
+                               value="<%= endereco.cep %>" required/>
+                    </div>
+                    <div class="py-3 text-lg text-white font-light">
+                        <label for="cidade_<%= index %>">Digite sua Cidade<i class="text-red-500 px-3">*</i></label>
+                        <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
+                               name="enderecos[<%= index %>][cidade]"
+                               placeholder="Ex. São Paulo, Rio de Janeiro"
+                               id="cidade_<%= index %>"
+                               value="<%= endereco.cidade %>"
+                               required/>
+                    </div>
+                    <div class="py-3 text-lg text-white font-light">
+                        <label for="estado_<%= index %>">Selecione seu Estado<i class="text-red-500 px-3">*</i></label>
+                        <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
+                                name="enderecos[<%= index %>][estado]"
+                                id="estado_<%= index %>"
+                                required>
+                            <% ESTADOS.forEach(element => { %>
+                                <option value="<%= element.abbr %>" <%= element.abbr === endereco.estado ? 'selected' : '' %>>
+                                    <%= element.name %> - <%= element.abbr %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="py-3 text-lg text-white font-light">
+                        <label for="nomePais_<%= index %>">Digite o Nome do País<i
+                                    class="text-red-500 px-3">*</i></label>
+                        <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
+                               name="enderecos[<%= index %>][nomePais]"
+                               placeholder="Ex. Brasil, Argentina"
+                               id="nomePais_<%= index %>"
+                               value="<%= endereco.pais.nome %>"
+                               required/>
+                    </div>
+                    <div class="py-3 text-lg text-white font-light">
+                        <label for="sigla_<%= index %>">Digite a Sigla do País</label>
+                        <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
+                               name="enderecos[<%= index %>][sigla]"
+                               placeholder="Ex. BR, AR"
+                               id="sigla_<%= index %>"
+                               value="<%= endereco.pais.sigla %>"/>
+                    </div>
+                    <div class="py-3 text-lg text-white font-light">
+                        <label for="numero_<%= index %>">Digite seu Número<i class="text-red-500 px-3">*</i></label>
+                        <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
+                               name="enderecos[<%= index %>][numero]"
+                               placeholder="Ex. 1234, 123, 12"
+                               id="numero_<%= index %>"
+                               value="<%= endereco.numero %>"
+                               required/>
+                    </div>
+                    <div class="py-3 text-lg text-white font-light">
+                        <label for="logradouro_<%= index %>">Digite seu Logradouro<i
+                                    class="text-red-500 px-3">*</i></label>
+                        <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
+                               name="enderecos[<%= index %>][logradouro]"
+                               placeholder="Ex. Rua XXX"
+                               id="logradouro_<%= index %>"
+                               value="<%= endereco.logradouro %>"
+                               required/>
+                    </div>
+                    <div class="py-3 text-lg text-white font-light">
+                        <label for="tipoLogradouro_<%= index %>">Digite o Tipo de Logradouro<i
+                                    class="text-red-500 px-3">*</i></label>
+                        <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
+                                name="enderecos[<%= index %>][tipoLogradouro]"
+                                id="tipoLogradouro_<%= index %>"
+                                required>
+                            <% LOGRADOUROS.forEach(element => { %>
+                                <option value="<%= element.value %>" <%= element.value === endereco.tipoLogradouro ? 'selected' : '' %>>
+                                    <%= element.name %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="py-3 text-lg text-white font-light">
+                        <label for="bairro_<%= index %>">Digite seu Bairro<i class="text-red-500 px-3">*</i></label>
+                        <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
+                               name="enderecos[<%= index %>][bairro]"
+                               placeholder="Ex. Centro, Jardim"
+                               id="bairro_<%= index %>"
+                               value="<%= endereco.bairro %>"
+                               required/>
+                    </div>
+                    <div class="py-3 text-lg text-white font-light">
+                        <label for="complemento_<%= index %>">Digite seu Complemento<i
+                                    class="text-red-500 px-3">*</i></label>
+                        <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
+                               name="enderecos[<%= index %>][complemento]"
+                               placeholder="Ex. Casa, Apartamento, Bloco"
+                               id="complemento_<%= index %>"
+                               value="<%= endereco.complemento %>"
+                               required/>
+                    </div>
+                    <div class="py-3 text-lg text-white font-light">
+                        <label for="tipoEndereco_<%= index %>">Selecione o tipo de endereço</label>
+                        <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default"
+                                name="enderecos[<%= index %>][tipoEndereco]"
+                                id="tipoEndereco_<%= index %>">
+                            <option <%= endereco.tipo === "ENTREGA" ? 'selected' : '' %> value="ENTREGA">Entrega
+                            </option>
+                            <option <%= endereco.tipo === "COBRANÇA" ? 'selected' : '' %> value="COBRANÇA">Cobrança
+                            </option>
+                            <option <%= endereco.tipo === "ENTREGA_E_COBRANCA" ? 'selected' : '' %>
+                                    value="ENTREGA_E_COBRANCA">
+                                Entrega e Cobrança
+                            </option>
+                        </select>
+                    </div>
+                    <div class="py-3 text-lg text-white font-light">
+                        <label for="observacoes_<%= index %>">Digite suas Observações</label>
+                        <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text"
+                               name="enderecos[<%= index %>][observacoes]"
+                               id="observacoes_<%= index %>"
+                               value="<%= endereco.observacao %>">
+                    </div>
+                </div>
+            <% }) %>
+
+            <div class="flex flex-center p-5">
+                <button
+                        class="bg-lighter-default
+                        text-font-default
+                        p-3
+                        w-40
+                        rounded-2xl
+                        shadow-md
+                        font-bold
+                        text-lg
+                        border-2
+                        border-transparent
+                        transition-colors
+                        duration-300
+                        hover:bg-font-default
+                        hover:text-lighter-default
+                        hover:border-font-default"
+                        type="submit"
+                >Enviar<i class="fa-solid fa-arrow-right ml-3"></i>
                 </button>
             </div>
-        </div>
-
-        <div class="flex flex-center p-5">
-            <button
-                    class="bg-lighter-default
-                    text-font-default
-                    p-3
-                    w-40
-                    rounded-2xl
-                    shadow-md
-                    font-bold
-                    text-lg
-                    border-2
-                    border-transparent
-                    transition-colors
-                    duration-300
-                    hover:bg-font-default
-                    hover:text-lighter-default
-                    hover:border-font-default"
-                    type="submit"
-            >Enviar<i class="fa-solid fa-arrow-right ml-3"></i>
-            </button>
-        </div>
+        <% } %>
     </form>
 </div>
-<script src="/js/scripts/preenchimentoViaCep.js" type="module" defer></script>
-<script src="/js/adicionarCamposEndereco.js" type="module"></script>
 </body>

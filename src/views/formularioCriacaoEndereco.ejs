@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="../styles/styles.css"/>
+    <link rel="stylesheet" href="../../../styles/styles.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -19,7 +19,10 @@
         </a>
         <ul class="flex space-x-4">
             <li>
-                <a href="http://localhost:3000/clientes/registrar" class="hover:text-gray-200">Registrar Cliente</a>
+                <a href="http://localhost:3000/clientes/registrar"
+                   class="hover:text-gray-200">Registrar
+                    Cliente
+                </a>
             </li>
             <li>
                 <a href="http://localhost:3000/transacoes" class="hover:text-gray-200">Visualizar transacoes
@@ -30,83 +33,8 @@
 </nav>
 
 <div class="container flex w-2/3 justify-center items-center min-h-screen pt-24">
-    <form class="flex flex-col justify-center items-center w-full gap-[30px]" method="post"
-          action="/clientes/registrar">
-        <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md">
-            <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-person mr-5"></i>Dados
-                do Cliente</h2>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="genero">Selecione seu Gênero<i class="text-red-500 px-3">*</i></label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default"
-                        name="genero"
-                        id="genero"
-                        required>
-                    <option value="MASCULINO">Masculino</option>
-                    <option value="FEMININO">Feminino</option>
-                    <option value="OUTRO">Outro</option>
-                </select>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="nome">Digite seu Nome<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="nome" id="nome"
-                       placeholder="Ex. João da Silva"
-                       required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="dataNascimento">Digite sua Data de Nascimento<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="date" name="dataNascimento"
-                       id="dataNascimento" required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="cpf">Digite seu CPF<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="text" name="cpf" id="cpf"
-                       placeholder="Ex. 123.456.789-00"
-                       required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="phoneNumber">Digite seu Telefone<i class="text-red-500 px-3">*</i></label>
-                <div class="flex mt-2">
-                    <input class="p-2 rounded-2xl bg-lighter-default w-20" type="text" name="ddd" placeholder="DDD"
-                           id="ddd" required>
-                    <input class="p-2 rounded-2xl bg-lighter-default flex-grow ml-2" type="tel" name="numeroTelefone"
-                           placeholder="ex. 12345-6789" id="numeroTelefone" required/>
-                </div>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="tipoTelefone">Selecione o tipo de telefone<i class="text-red-500 px-3">*</i></label>
-                <select class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" name="tipoTelefone" id="tipoTelefone">
-                    <option value="MÓVEL">Móvel</option>
-                    <option value="FIXO">Fixo</option>
-                </select>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="email">Digite seu Email<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="email" name="email"
-                       placeholder="Ex. joao@dasilva.com"
-                       id="email"
-                       required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="primeiraSenha">Digite sua Senha<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="password" name="primeiraSenha"
-                       id="primeiraSenha" required/>
-            </div>
-
-            <div class="py-3 text-lg text-white font-light">
-                <label for="confirmacaoSenha">Digite sua Senha Novamente<i class="text-red-500 px-3">*</i></label>
-                <input class="p-2 rounded-2xl w-full mt-2 bg-lighter-default" type="password" name="confirmacaoSenha"
-                       id="confirmacaoSenha" required/>
-            </div>
-        </div>
-
+    <form class="flex flex-col justify-center items-center w-full gap-[30px]"
+          action="/clientes/<%= idCliente %>/enderecos/registrar" method="post">
         <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md enderecoContainer">
             <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-house mr-5"></i>Dados
                 do
@@ -244,4 +172,3 @@
 </div>
 <script src="/js/adicionarCamposEndereco.js" type="module"></script>
 </body>
-</html>

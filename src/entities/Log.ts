@@ -1,6 +1,5 @@
-import {Entity, CreateDateColumn, OneToOne, JoinColumn, Column} from "typeorm";
+import {Entity, CreateDateColumn, Column} from "typeorm";
 import Entidade from "./Entidade";
-import Usuario from "./Usuario";
 import TipoLog from "../enums/TipoLog";
 
 @Entity("tb_log")
@@ -8,16 +7,19 @@ export default class Log extends Entidade {
     @CreateDateColumn()
     dataEHora!: Date;
 
-    @OneToOne(() => Usuario)
-    @JoinColumn()
-    usuario!: Usuario;
+    @Column({type: "uuid", nullable: true})
+    entidadeId!: string;
+
+    @Column({type: "varchar", nullable: true})
+    entidadeTipo!: string;
 
     @Column({type: "varchar"})
     descricao!: TipoLog;
 
-    constructor(usuario: Usuario, descricao: TipoLog) {
+    constructor(entidadeId: string, entidadeTipo: string, descricao: TipoLog) {
         super();
-        this.usuario = usuario;
+        this.entidadeId = entidadeId;
+        this.entidadeTipo = entidadeTipo;
         this.descricao = descricao;
     }
 }

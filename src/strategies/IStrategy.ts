@@ -1,5 +1,5 @@
 import Entidade from "../entities/Entidade";
 
 export default interface IStrategy {
-    processar(entidade: Entidade): void;
+    processar(entidade: Entidade | Entidade[]): void;
 }

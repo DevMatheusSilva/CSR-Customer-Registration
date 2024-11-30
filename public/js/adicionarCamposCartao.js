@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    let cartaoCount = 1; // Contador para cartões
+    // Define o contador com base no número de cartões já carregados
+    let cartaoCount = document.querySelectorAll('.cartaoContainer').length;
 
     // Função para adicionar nova div de cartão
     const addCartaoHandler = (event) => {
@@ -30,7 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = input.getAttribute('name');
             const id = input.getAttribute('id');
             if (name) input.setAttribute('name', name.replace(/\[\d+\]/, `[${count - 1}]`));
-            if (id) input.setAttribute('id', id.replace(/\d+$/, count - 1));
+            if (id) input.setAttribute('id', id.replace(/_\d+$/, `_${count - 1}`));
+            // Limpa os valores dos campos para o novo cartão
+            if (input.tagName === 'INPUT') input.value = '';
         });
 
         // Remove o botão "Adicionar" da div clonada

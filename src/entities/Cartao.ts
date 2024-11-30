@@ -1,4 +1,4 @@
-import {Entity, Column, OneToOne, ManyToOne, JoinColumn} from "typeorm";
+import {Entity, Column, ManyToOne, JoinColumn} from "typeorm";
 import Bandeira from "./Bandeira";
 import Cliente from "./Cliente";
 import Entidade from "./Entidade";
