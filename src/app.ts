@@ -1,16 +1,15 @@
 import express from "express";
-import routes from "./controllers/routes/router";
-import expressStaticSetUp from "./controllers/middlewares/expressStaticSetup";
-import configureExpressForm from "./controllers/middlewares/expressFormSetup";
-import viewConfig from "./controllers/middlewares/expressViewsSetup";
+import routes from "./routers/Router";
+import configuracaoForm from "./config/configuracaoForm";
+import configuracaoViews from "./config/configuracaoViews";
+import configArquivosEstaticos from "./config/configArquivosEstaticos";
 
 const app = express();
 
-app.use(express.json());
-app.use(expressStaticSetUp);
+configArquivosEstaticos(app);
+configuracaoViews(app);
+configuracaoForm(app);
 
-viewConfig(app);
-configureExpressForm(app);
 routes(app);
 
 export default app;

@@ -1,6 +1,18 @@
+import "reflect-metadata";
 import app from "./app";
-const PORT = 3000;
+import ConexaoTypeORM from "./config/database/ConexaoTypeORM";
+import { postgresDataSource } from "./config/database/dataSources/postgresDataSource";
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-})
+const PORTA = 3000;
+
+async function startServer() {
+  await ConexaoTypeORM.conectar(postgresDataSource);
+
+  app.listen(PORTA, () => {
+    console.log(`Servidor rodando na porta http://localhost:${PORTA}`);
+  });
+}
+
+startServer().then(() => {
+    console.log("Aplicação inicializada com sucesso!");
+});

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../../styles/styles.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>CSR - Editar Cliente</title>
+</head>
+
+<body class="flex justify-center bg-dark-default">
+<nav class="fixed top-0 left-0 w-full h-16 bg-light-default text-font-default p-5 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="http://localhost:3000/clientes">
+            <div class="text-lg font-bold">CSR - Customer Registration</div>
+        </a>
+        <ul class="flex space-x-4">
+            <li>
+                <a href="http://localhost:3000/clientes/registrar"
+                   class="hover:text-gray-200">Registrar
+                    Cliente
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:3000/transacoes" class="hover:text-gray-200">Visualizar transacoes
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container flex flex-col w-2/3 justify-center items-center min-h-screen mt-24 mb-12 gap-4"
+     data-cliente-id="<%= cliente.id %>">
+    <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md">
+        <h2 class="text-2xl font-bold text-font-default text-left p-2">
+            <% if (cliente.genero === "FEMININO") { %>
+                <i class="fa-solid fa-person-dress mr-5"></i>
+            <% } else { %>
+                <i class="fa-solid fa-person mr-5"></i>
+            <% } %>
+            <%= cliente.usuario.nome %>
+        </h2>
+
+        <div class="py-3 text-lg text-white font-light">
+            <span class="font-bold text-font-default">Nome:</span>
+            <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                <p><%= cliente.usuario.nome %></p>
+            </div>
+        </div>
+
+        <div class="py-3 text-lg text-white font-light">
+            <span id="fieldLabel" class="font-bold text-font-default">CPF:</span>
+            <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                <p><%= cliente.usuario.cpf %></p>
+            </div>
+        </div>
+
+        <div class="py-3 text-lg text-white font-light">
+            <span id="fieldLabel" class="font-bold text-font-default">E-mail:</span>
+            <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                <p><%= cliente.usuario.email %></p>
+            </div>
+        </div>
+
+        <div class="py-3 text-lg text-white font-light">
+            <label id="fieldLabel" for="genero" class="font-bold text-font-default">Genero:</label>
+            <p><%= cliente.genero %></p>
+        </div>
+
+        <div class="py-3 text-lg text-white font-light">
+            <label id="fieldLabel" for="date-field" class="font-bold text-font-default">Data de nascimento:</label>
+            <p><%= cliente.dtNascimento %></p>
+        </div>
+
+        <div class="py-3 text-lg text-white font-light">
+            <span id="fieldLabel" class="font-bold text-font-default">Telefone:</span>
+            <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                <p>(<%= cliente.telefone.ddd %>) <%= cliente.telefone.numero %></p>
+            </div>
+        </div>
+
+        <div class="py-3 text-lg text-white font-light">
+            <label id="fieldLabel" for="tipoTelefone" class="font-bold text-font-default">Tipo telefone:</label>
+            <p><%= cliente.telefone.tipo %></p>
+        </div>
+    </div>
+
+    <% cliente.cartoes.forEach((cartao, index) => { %>
+        <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md" id="cartao-container">
+            <div class="flex flex-row items-center">
+                <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-id-card mr-5"></i>Cartão
+                    nº
+                    <%= index + 1 %>
+                </h2>
+                <% if (cartao.isPreferencial) { %>
+                    <span class="ml-3 p-2 rounded-2xl bg-blue-200 text-sm text-blue-600 font-bold" id="is-preferencial">Preferencial</span>
+                <% } %>
+            </div>
+
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Numero:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p><%= cartao.numero %></p>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Nome Impresso:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p><%= cartao.nomeImpresso %></p>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Cvv:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p><%= cartao.cvv %></p>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <label id="fieldLabel" for="bandeira" class="font-bold text-font-default">Bandeira:</label>
+                <p><%= cartao.bandeira.descricao %></p>
+            </div>
+        </div>
+    <% }) %>
+
+    <% cliente.enderecos.forEach((endereco, index) => { %>
+        <div class="flex flex-col p-10 bg-light-default w-10/12 rounded-[10px] shadow-md">
+            <div class="flex flex-row items-center">
+                <h2 class="text-2xl font-bold text-font-default text-left p-2"><i class="fa-solid fa-home mr-5"></i>Endereco
+                    nº
+                    <%= index + 1 %>
+                </h2>
+                <span class="ml-3 p-2 rounded-2xl bg-blue-200 text-sm text-blue-600 font-bold" id="tipo-endereco">
+                    <%= endereco.tipo %>
+                </span>
+            </div>
+
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Cep:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p><%= endereco.cep %></p>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Numero:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p><%= endereco.numero %></p>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Complemento:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p><%= endereco.complemento %></p>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Logradouro:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p><%= endereco.logradouro %></p>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <label id="fieldLabel" for="tipo-logradouro" class="font-bold text-font-default">Tipo de
+                    logradouro:</label>
+                <p><%= endereco.tipoLogradouro %></p>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Bairro:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p><%= endereco.bairro %></p>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Frase curta:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p><%= endereco.fraseCurta %></p>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Observacao:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p>
+                        <% if (endereco.observacao) { %> <%= endereco.observacao %>
+                        <% } else { %> -
+                        <% } %>
+                    </p>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Cidade:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p><%= endereco.cidade %></p>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Estado:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p><%= endereco.estado %></p>
+                </div>
+            </div>
+            <div class="py-3 text-lg text-white font-light">
+                <span id="fieldLabel" class="font-bold text-font-default">Nome pais:</span>
+                <div class="flex flex-row justify-between py-3 rounded-lg mt-2">
+                    <p><%= endereco.pais.nome %></p>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+</div>
+</body>

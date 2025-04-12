@@ -4,6 +4,9 @@
   "main": "server.js",
   "scripts": {
     "start": "tsx watch src/server.ts",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down --volumes",
+    "tailwind:css": "postcss public/styles/tailwind.css -o public/styles/styles.css -w",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --watch",
     "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --watch --coverage"
@@ -13,9 +16,17 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "autoprefixer": "^10.4.20",
     "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "pg": "^8.13.0",
+    "postcss": "^8.4.47",
+    "postcss-cli": "^11.0.0",
+    "reflect-metadata": "^0.2.2",
+    "tailwindcss": "^3.4.14",
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
